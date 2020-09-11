@@ -1,3 +1,5 @@
+#ifndef __QUADRATIC_EQUATION_SOLVER_HEADER
+#define __QUADRATIC_EQUATION_SOLVER_HEADER
 
 constexpr int INF_ROOTS = -1;
 constexpr double EPS = 1e-5;
@@ -33,3 +35,5 @@ int solve_quadratic_equation(double a, double b, double c, double &x1, double &x
 ///-------------------------------------------------------------------------------------
 
 bool is_zero(double num);
+
+#endif
