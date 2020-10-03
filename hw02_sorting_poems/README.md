@@ -4,9 +4,9 @@
 
 Sort the lines of the poem from the input file three times:
 
-* In ascending order, ignoring not alpha and not digit symbols, considering uppercase and lowercase symbols equal;
+* In ascending order, ignoring not English alpha and not digit symbols, considering uppercase and lowercase symbols equal;
 
-* In ascending order from the backward (as the lines were reversed), ignoring not alpha and not digit symbols, considering uppercase and lowercase symbols equal;
+* In ascending order from the backward (as the lines were reversed), ignoring not English alpha and not digit symbols, considering uppercase and lowercase symbols equal;
 
 * To put lines back to the original order.
 
