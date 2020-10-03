@@ -5,6 +5,7 @@
 #include<iostream>
 #include<csetjmp>
 #include<csignal>
+#include<cmath>
 #include<cstdlib>
 
 extern jmp_buf env;
@@ -45,7 +46,10 @@ void on_sigabrt(int signum);
     std::cerr << std::endl;                                            \
 }
 
-#define $unit_test_inside(code, expected_result, expected_sigabort, eps, equ_simb)                                                             \
+#define $equal_equ(first, second) (first == second)
+#define $equal_eps(first, second) (first - second < eps && second - first < eps)
+
+#define $unit_test_inside(code, expected_result, expected_sigabort, equal, equ_simb)                                                             \
 {                                                                                                                                              \
     unsigned oldAttrs = {};                                                                                                                    \
                                                                                                                                                \
@@ -63,13 +67,13 @@ void on_sigabrt(int signum);
             all_tests_passed = false;                                                                                                          \
             std::cerr << "[FAILED] " << __FILE_LINE__ << "did not get SIGABRT running " << #code;                                              \
         } else {                                                                                                                               \
-            if (_result - _expected >= -eps && _result - _expected <= eps) {                                                                   \
+            if (equal(_result, _expected)) {                                                                                                   \
                 $set_passed_color();                                                                                                           \
                 std::cerr << "[PASSED] " << __FILE_LINE__ << #code << " == " << _result << equ_simb << _expected << " == " << #expected_result;\
             } else {                                                                                                                           \
                 $set_failed_color();                                                                                                           \
                 all_tests_passed = false;                                                                                                      \
-                std::cerr << "[FAILED] " << __FILE_LINE__ << #code << " == " << _result << equ_simb << _expected << " == " << #expected_result;\
+                std::cerr << "[FAILED] " << __FILE_LINE__ << #code << " == " << _result << " != " << _expected << " == " << #expected_result;  \
             }                                                                                                                                  \
         }                                                                                                                                      \
     } else {                                                                                                                                   \
@@ -93,12 +97,12 @@ void on_sigabrt(int signum);
 
 
 //!  Prints result of unit testing @c code with expected result @c expected
-#define $unit_test(code, expected) $unit_test_inside(code, expected, false, 0, " == ")
+#define $unit_test(code, expected) $unit_test_inside(code, expected, false, $equal_equ, " == ")
 
 
 //! Prints result of unit testing @c code with expected result @c expected. Test is considered passed if the difference between the two values is less than @c eps
 
-#define $f_unit_test(code, expected, eps) $unit_test_inside(code, expected, false, eps, " ~= ")
+#define $f_unit_test(code, expected, eps) $unit_test_inside(code, expected, false, $equal_eps, " ~= ")
 
 
 //! Prints result of unit testing @c code which is expected to raise SIGABRT
