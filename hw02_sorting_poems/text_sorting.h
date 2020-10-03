@@ -19,7 +19,7 @@
 void sort_text(const char *file_in_path, const char *file_out_path);
 
 ///-------------------------------------------------------------------------------------
-//! Compares two strings ignoring not alpha and not digit symbols and considering uppercase and lowercase symbols equal.
+//! Compares two strings ignoring not English alpha and not digit symbols and considering uppercase and lowercase symbols equal.
 //!
 //! @param [in] str1  First string
 //! @param [in] str2  Second string
@@ -30,7 +30,7 @@ void sort_text(const char *file_in_path, const char *file_out_path);
 int compare_en_strings(const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2);
 
 ///-------------------------------------------------------------------------------------
-//! Compares two strings from the backward (as they were reversed) ignoring not alpha and not digit symbols and considering uppercase and lowercase symbols equal.
+//! Compares two strings from the backward (as they were reversed) ignoring not English alpha and not digit symbols and considering uppercase and lowercase symbols equal.
 //!
 //! @param [in] str1  First string
 //! @param [in] str2  Second string
