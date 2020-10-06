@@ -46,10 +46,10 @@ void on_sigabrt(int signum);
     std::cerr << std::endl;                                            \
 }
 
-#define $equal_equ(first, second) (first == second)
-#define $equal_eps(first, second) (first - second < eps && second - first < eps)
+#define $equal_equ(first, second, eps) (first == second)
+#define $equal_eps(first, second, eps) (first - second < eps && second - first < eps)
 
-#define $unit_test_inside(code, expected_result, expected_sigabort, equal, equ_simb)                                                             \
+#define $unit_test_inside(code, expected_result, expected_sigabort, equal, eps, equ_simb)                                                             \
 {                                                                                                                                              \
     unsigned oldAttrs = {};                                                                                                                    \
                                                                                                                                                \
@@ -67,7 +67,7 @@ void on_sigabrt(int signum);
             all_tests_passed = false;                                                                                                          \
             std::cerr << "[FAILED] " << __FILE_LINE__ << "did not get SIGABRT running " << #code;                                              \
         } else {                                                                                                                               \
-            if (equal(_result, _expected)) {                                                                                                   \
+            if (equal(_result, _expected, eps)) {                                                                                                   \
                 $set_passed_color();                                                                                                           \
                 std::cerr << "[PASSED] " << __FILE_LINE__ << #code << " == " << _result << equ_simb << _expected << " == " << #expected_result;\
             } else {                                                                                                                           \
@@ -97,16 +97,16 @@ void on_sigabrt(int signum);
 
 
 //!  Prints result of unit testing @c code with expected result @c expected
-#define $unit_test(code, expected) $unit_test_inside(code, expected, false, $equal_equ, " == ")
+#define $unit_test(code, expected) $unit_test_inside(code, expected, false, $equal_equ, 0, " == ")
 
 
 //! Prints result of unit testing @c code with expected result @c expected. Test is considered passed if the difference between the two values is less than @c eps
 
-#define $f_unit_test(code, expected, eps) $unit_test_inside(code, expected, false, $equal_eps, " ~= ")
+#define $f_unit_test(code, expected, eps) $unit_test_inside(code, expected, false, $equal_eps, eps, " ~= ")
 
 
 //! Prints result of unit testing @c code which is expected to raise SIGABRT
 
-#define $unit_test_sigabrt(code) $unit_test_inside(code, 0, true, 0, "")
+#define $unit_test_sigabrt(code) $unit_test_inside(code, 0, true, $equal_eps, 0, "")
 
 #endif
