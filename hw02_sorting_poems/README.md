@@ -10,11 +10,11 @@ Sort the lines of the poem from the input file three times:
 
 * To put lines back to the original order.
 
-These three versions of the poem write to the output file.
+These three versions of the poem write to the output files.
 
 Sort the files with QuickSort.
 
-My program works with UTF-16 encoded files. With other files it could behave in unexpected way.
+My program works only with UTF-16 encoded files with byte order mask in the beginning of the file and the same endianness as the program is.
 
 ## Getting Started
 

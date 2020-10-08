@@ -6,6 +6,7 @@
 #include <vector>
 #include <algorithm>
 #include <string_view>
+#include <cstdlib>
 
 
 #define $test_qsort(vec, cmp)                    \
@@ -59,7 +60,7 @@ int main() {
     std::cout << "Testing mini_qsort" << std::endl;
     std::vector<int> mini_vec = {};
 
-    $test_qsort(mini_vec, int_cmp);
+    //$test_qsort(mini_vec, int_cmp);
     for (int a1 = 0; a1 < 5; a1++) {
         mini_vec.push_back(a1);
         $test_qsort(mini_vec, int_cmp);
@@ -106,6 +107,13 @@ int main() {
     $test_qsort(big_vec, int_cmp);
 
     big_vec = { 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 4, 2, 24 };
+    $test_qsort(big_vec, int_cmp);
+
+    const size_t n = 100;
+    big_vec.resize(n);
+    for (size_t i = 0; i < n; i++) {
+        big_vec[i] = rand();
+    }
     $test_qsort(big_vec, int_cmp);
 
     std::cout << "Testing comparators" << std::endl;

@@ -7,7 +7,6 @@
 #include <stdexcept>
 
 
-
 template<typename T>
 using comparator = bool(*)(const T&, const T&);
 
@@ -242,6 +241,12 @@ namespace qsort_details
             std::swap(arr_begin[0], *(arr_end - 1));
             little_elements_end--;
             big_elements_rend--;
+        } else if (little_elements_end == big_elements_rend) {
+            if (cmp(*little_elements_end, arr_begin[0])) {
+                little_elements_end++;
+            } else {
+                big_elements_rend--;
+            }
         }
         T* big_elements_begin = big_elements_rend + 1;
         choose_sort(arr_begin, little_elements_end, cmp);
