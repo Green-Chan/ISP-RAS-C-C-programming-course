@@ -1,7 +1,15 @@
 CC = g++
-CFLAGS = -O2 -std=c++17 -Wall -Wextra -Wfloat-equal
+
+DEBUG = 0
+ifeq ($(DEBUG),0)
+	CFLAGS = -O2 -std=c++17 -Wall -Wextra
+else
+	CFLAGS = -g -O0 -std=c++17 -Wall -Wextra
+endif
+
 UTDIR = ..\unit_tests
 
+all: run_tests run_sorting
 
 run_tests: run_tests.o $(UTDIR)\windows_unit_tests.o text_sorting.o
 	$(CC) -o run_tests run_tests.o $(UTDIR)\windows_unit_tests.o text_sorting.o

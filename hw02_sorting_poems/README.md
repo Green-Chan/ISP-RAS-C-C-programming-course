@@ -4,17 +4,19 @@
 
 Sort the lines of the poem from the input file three times:
 
-* In ascending order, ignoring not English alpha and not digit symbols, considering uppercase and lowercase symbols equal;
+* In ascending order, ignoring not English (Russian) alpha and not digit symbols, considering uppercase and lowercase symbols equal;
 
-* In ascending order from the backward (as the lines were reversed), ignoring not English alpha and not digit symbols, considering uppercase and lowercase symbols equal;
+* In ascending order from the backward (as the lines were reversed), ignoring not English (Russian) alpha and not digit symbols, considering uppercase and lowercase symbols equal;
 
 * To put lines back to the original order.
 
 These three versions of the poem write to the output files.
 
+"English (Russian)" means that you should chose the language of the text. If you chose English, Russian letters are ignored as well as other not English letters, and vice versa.
+
 Sort the files with QuickSort.
 
-My program works only with UTF-16 encoded files with byte order mask in the beginning of the file and the same endianness as the program is.
+My function works only with UTF-16 encoded files with byte order mask in the beginning of the file and the same endianness as the program is.
 
 ## Getting Started
 
@@ -34,7 +36,7 @@ My program works only with UTF-16 encoded files with byte order mask in the begi
 
 * Open CMD
 
-* Get to the hw02_sorting_strings directory 
+* Get to the hw02_sorting_strings directory
 ```
 > cd path\to\the\directory\hw02_sorting_poems
 ```
@@ -46,18 +48,35 @@ My program works only with UTF-16 encoded files with byte order mask in the begi
 ```
 > **Note:** you may need to learn how to add MinGW\bin to the PATH (the Environment Settings section in http://www.mingw.org/wiki/Getting_Started/).
 
-### Running tests 
+### Running tests
 
 * Run mingw32-make with argument test
 ```
 > mingw32-make test
 ```
 
-### Running example program that sorts Romeo and Juliet
+### Running example program that sorts "Romeo and Juliet" and "Eugene Onegin"
 
 * Run mingw32-make with argument run
 ```
 > mingw32-make run
+```
+
+### Debugging
+
+To debug the program using GDB:
+* Rebuild the program with DEBUG=1
+```
+> mingw32-make clean
+> mingw32-make DEBUG=1
+```
+* Run program (run_tests or run_sorting) using GDB
+```
+> gdb run_tests.exe
+```
+or
+```
+> gdb run_sorting.exe
 ```
 
 ## Documentation

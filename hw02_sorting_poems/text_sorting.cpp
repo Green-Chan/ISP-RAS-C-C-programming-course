@@ -70,7 +70,9 @@ std::vector< std::basic_string_view<char16_t> > data_to_strings(const char16_t *
     return string_vec;
 }
 
-bool is_en_char_dig(char16_t c) {
+//---------------------------------------------------------------------------------------------------
+
+inline bool is_en_char_dig(char16_t c) {
     return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9'));
 }
 
@@ -148,6 +150,136 @@ int compare_en_strings_r(const std::basic_string_view<char16_t> &str1, const std
     }
 }
 
+//---------------------------------------------------------------------------------------------------
+
+constexpr char16_t unicode_ru_big_a = 0x410;
+constexpr char16_t unicode_ru_big_ya = 0x42f;
+constexpr char16_t unicode_ru_big_little = 0x20;
+
+constexpr char16_t unicode_ru_big_yo = 0x401;
+constexpr char16_t unicode_ru_little_yo = 0x451;
+constexpr char16_t unicode_ru_little_ye = 0x435;
+
+/*
+If c is Russian letter returns lowercase of it,
+else if c is digit returns c,
+else returns 0
+*/
+inline char16_t is_ru_char_dig_tolower(char16_t c) {
+    // digit
+    if (c >= '0' && c <= '9') {
+        return c;
+    }
+    // yo
+    if (c == unicode_ru_big_yo || c == unicode_ru_little_yo) {
+        return unicode_ru_little_yo;
+    }
+    // big letters (not yo)
+    if (c >= unicode_ru_big_a && c <= unicode_ru_big_ya) {
+        return c + unicode_ru_big_little;
+    }
+    //little letters (not yo)
+    if (c >= unicode_ru_big_a  + unicode_ru_big_little &&
+        c <= unicode_ru_big_ya + unicode_ru_big_little) {
+        return c;
+    }
+    // not digit and not Russian letter
+    return 0;
+}
+
+inline int ru_char_cmp(char16_t c1, char16_t c2) {
+    //Each of c1 and c2 should be digit or lowercase of Russian letter
+    assert(c1 != 0 && c2 != 0 && is_ru_char_dig_tolower(c1) == c1 && is_ru_char_dig_tolower(c2) == c2);
+    if (c1 == c2) {
+        return 0;
+    }
+    if (c1 == unicode_ru_little_yo) {
+        assert(c2 != unicode_ru_little_yo);
+        return (c2 <= unicode_ru_little_ye ?  1 : -1);
+    }
+    if (c2 == unicode_ru_little_yo) {
+        assert(c1 != unicode_ru_little_yo);
+        return (c1 <= unicode_ru_little_ye ? -1 :  1);
+    }
+    return (c1 < c2 ? -1 : 1);
+}
+
+int compare_ru_strings(const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2) {
+    size_t i1 = 0, i2 = 0;
+    char16_t c1 = 0, c2 = 0;
+    while (i1 < str1.size() && i2 < str2.size()) {
+        while(i1 < str1.size() && (c1 = is_ru_char_dig_tolower(str1[i1])) == 0) {
+            i1++;
+        }
+        while(i2 < str2.size() && (c2 = is_ru_char_dig_tolower(str2[i2])) == 0) {
+            i2++;
+        }
+        if (i1 < str1.size() && i2 < str2.size()) {
+            int cmp_chars_res = ru_char_cmp(c1, c2);
+            if (cmp_chars_res == 0) {
+                i1++;
+                i2++;
+            } else {
+                return cmp_chars_res;
+            }
+        }
+    }
+    while(i1 < str1.size() && (c1 = is_ru_char_dig_tolower(str1[i1])) == 0) {
+        i1++;
+    }
+    while(i2 < str2.size() && (c2 = is_ru_char_dig_tolower(str2[i2])) == 0) {
+        i2++;
+    }
+    if (i1 == str1.size()) {
+        if (i2 == str2.size()) {
+            return 0;
+        } else {
+            return -1;
+        }
+    } else {
+        return 1;
+    }
+}
+
+int compare_ru_strings_r(const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2) {
+    ssize_t i1 = str1.size() - 1, i2 = str2.size() - 1;
+    char16_t c1 = 0, c2 = 0;
+    while (i1 >= 0 && i2 >= 0) {
+        while(i1 >= 0 && (c1 = is_ru_char_dig_tolower(str1[i1])) == 0) {
+            i1--;
+        }
+        while(i2 >= 0 && (c2 = is_ru_char_dig_tolower(str2[i2])) == 0) {
+            i2--;
+        }
+        if (i1 >= 0 && i2 >= 0) {
+            int cmp_chars_res = ru_char_cmp(c1, c2);
+            if (cmp_chars_res == 0) {
+                i1--;
+                i2--;
+            } else {
+                return cmp_chars_res;
+            }
+        }
+    }
+    while(i1 >= 0 && (c1 = is_ru_char_dig_tolower(str1[i1])) == 0) {
+        i1--;
+    }
+    while(i2 >= 0 && (c2 = is_ru_char_dig_tolower(str2[i2])) == 0) {
+        i2--;
+    }
+    if (i1 < 0) {
+        if (i2 < 0) {
+            return 0;
+        } else {
+            return -1;
+        }
+    } else {
+        return 1;
+    }
+}
+
+//---------------------------------------------------------------------------------------------------
+
 void print_to_file (FILE *file_out, std::vector< std::basic_string_view<char16_t> > &string_vec, const char *file_name) {
     char16_t endline[2] = {'\r', '\n' };
     if (string_vec.size() > 0) {
@@ -168,7 +300,7 @@ void print_to_file (FILE *file_out, std::vector< std::basic_string_view<char16_t
     }
 }
 
-void sort_text(const char *file_in_path, const char *file_out_sorted_path, const char *file_out_sorted_back_path, const char *file_out_origin_path)
+void sort_text(const char *file_in_path, const char *file_out_sorted_path, const char *file_out_sorted_back_path, const char *file_out_origin_path, language lang)
 {
     HANDLE file_in_handle = CreateFile(file_in_path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
     if (file_in_handle == INVALID_HANDLE_VALUE) {
@@ -189,6 +321,32 @@ void sort_text(const char *file_in_path, const char *file_out_sorted_path, const
 
     std::vector< std::basic_string_view<char16_t> > string_vec = data_to_strings(file_in_data, file_in_size);
 
+    comparator< std::basic_string_view<char16_t> > cmp_strings   = nullptr;
+    comparator< std::basic_string_view<char16_t> > cmp_strings_r = nullptr;
+    switch(lang) {
+    case ENGLISH:
+        cmp_strings =   [](const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2) -> bool
+                        {
+                            return compare_en_strings(str1, str2) <= 0;
+                        };
+        cmp_strings_r = [](const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2) -> bool
+                        {
+                            return compare_en_strings_r(str1, str2) <= 0;
+                        };
+        break;
+    case RUSSIAN:
+        cmp_strings =   [](const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2) -> bool
+                        {
+                            return compare_ru_strings(str1, str2) <= 0;
+                        };
+        cmp_strings_r = [](const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2) -> bool
+                        {
+                            return compare_ru_strings_r(str1, str2) <= 0;
+                        };
+        break;
+    default: throw std::invalid_argument("sort_text: unknown language");
+    }
+
     FILE *file_out = fopen(file_out_sorted_path, "wb");
     if (file_out == nullptr) {
         throw std::runtime_error((std::string)"sort_text: cannot open " + file_out_sorted_path);
@@ -198,11 +356,7 @@ void sort_text(const char *file_in_path, const char *file_out_sorted_path, const
         throw std::runtime_error((std::string)"sort_text: error occurred while writing in " + file_out_sorted_path);
     }
 
-    qsort< std::basic_string_view<char16_t> >(&(string_vec[0]), &(string_vec[0]) + string_vec.size(),
-          [](const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2) -> bool
-          {
-              return compare_en_strings(str1, str2) <= 0;
-          });
+    qsort< std::basic_string_view<char16_t> >(&(string_vec[0]), &(string_vec[0]) + string_vec.size(), cmp_strings);
     print_to_file(file_out, string_vec, file_out_sorted_path);
 
     if (fclose(file_out) != 0) {
@@ -218,11 +372,7 @@ void sort_text(const char *file_in_path, const char *file_out_sorted_path, const
         throw std::runtime_error((std::string)"sort_text: error occurred while writing in " + file_out_sorted_back_path);
     }
 
-    qsort< std::basic_string_view<char16_t> >(&(string_vec[0]), &(string_vec[0]) + string_vec.size(),
-          [](const std::basic_string_view<char16_t> &str1, const std::basic_string_view<char16_t> &str2) -> bool
-          {
-              return compare_en_strings_r(str1, str2) <= 0;
-          });
+    qsort< std::basic_string_view<char16_t> >(&(string_vec[0]), &(string_vec[0]) + string_vec.size(), cmp_strings_r);
     print_to_file(file_out, string_vec, file_out_sorted_back_path);
 
     if (fclose(file_out) != 0) {
