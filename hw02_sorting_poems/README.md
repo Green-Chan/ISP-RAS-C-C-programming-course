@@ -71,13 +71,13 @@ To debug the program using GDB:
 > mingw32-make DEBUG=1
 ```
 * Run program (run_tests or run_sorting) using GDB
-```
-> gdb run_tests.exe
-```
-or
-```
-> gdb run_sorting.exe
-```
+ ```
+ > gdb run_tests.exe
+ ```
+ or
+ ```
+ > gdb run_sorting.exe
+ ```
 
 ## Documentation
 

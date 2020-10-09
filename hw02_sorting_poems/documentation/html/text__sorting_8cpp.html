@@ -69,7 +69,8 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#func-members">Functions</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">D:/Documents/GitHub/ISP_RAS_programming_course/hw02_sorting_poems/text_sorting.cpp File Reference</div>  </div>
 </div><!--header-->
@@ -78,6 +79,7 @@ $(function() {
 <code>#include &lt;stdexcept&gt;</code><br />
 <code>#include &lt;cassert&gt;</code><br />
 <code>#include &lt;cctype&gt;</code><br />
+<code>#include &lt;string&gt;</code><br />
 <code>#include &lt;string_view&gt;</code><br />
 <code>#include &lt;windows.h&gt;</code><br />
 <code>#include &lt;vector&gt;</code><br />
@@ -97,10 +99,33 @@ Functions</h2></td></tr>
 <tr class="separator:a5b5a5eed5fccc47a243f6dece6d6ca78"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a175dd603a3efdabe7774548e7ba11c8f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a175dd603a3efdabe7774548e7ba11c8f">compare_en_strings_r</a> (const std::basic_string_view&lt; char16_t &gt; &amp;str1, const std::basic_string_view&lt; char16_t &gt; &amp;str2)</td></tr>
 <tr class="separator:a175dd603a3efdabe7774548e7ba11c8f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8e6b769c6c65205e64da3f42e687247c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a8e6b769c6c65205e64da3f42e687247c">print_to_file</a> (FILE *file_out, std::vector&lt; std::basic_string_view&lt; char16_t &gt; &gt; &amp;string_vec)</td></tr>
-<tr class="separator:a8e6b769c6c65205e64da3f42e687247c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a65caaf23bac8211d2bc05ccba3560afe"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a65caaf23bac8211d2bc05ccba3560afe">sort_text</a> (const char *file_in_path, const char *file_out_path)</td></tr>
-<tr class="separator:a65caaf23bac8211d2bc05ccba3560afe"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:adc0e941252e1228e7942c740db45ebd0"><td class="memItemLeft" align="right" valign="top">char16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#adc0e941252e1228e7942c740db45ebd0">is_ru_char_dig_tolower</a> (char16_t c)</td></tr>
+<tr class="separator:adc0e941252e1228e7942c740db45ebd0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2827b79cd45215cdbbf2a7dd92d03e6d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a2827b79cd45215cdbbf2a7dd92d03e6d">ru_char_cmp</a> (char16_t c1, char16_t c2)</td></tr>
+<tr class="separator:a2827b79cd45215cdbbf2a7dd92d03e6d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad3458819e09aac04dd30230e92de02d4"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#ad3458819e09aac04dd30230e92de02d4">compare_ru_strings</a> (const std::basic_string_view&lt; char16_t &gt; &amp;str1, const std::basic_string_view&lt; char16_t &gt; &amp;str2)</td></tr>
+<tr class="separator:ad3458819e09aac04dd30230e92de02d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a334f7b549b9e9c3a69106c1204588bfd"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a334f7b549b9e9c3a69106c1204588bfd">compare_ru_strings_r</a> (const std::basic_string_view&lt; char16_t &gt; &amp;str1, const std::basic_string_view&lt; char16_t &gt; &amp;str2)</td></tr>
+<tr class="separator:a334f7b549b9e9c3a69106c1204588bfd"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae3a0c8e9dd776d6cd27c259d9e8f53ae"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#ae3a0c8e9dd776d6cd27c259d9e8f53ae">print_to_file</a> (FILE *file_out, std::vector&lt; std::basic_string_view&lt; char16_t &gt; &gt; &amp;string_vec, const char *file_name)</td></tr>
+<tr class="separator:ae3a0c8e9dd776d6cd27c259d9e8f53ae"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a961c3d82aff9b7fc79aeda9a4e431d68"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a961c3d82aff9b7fc79aeda9a4e431d68">sort_text</a> (const char *file_in_path, const char *file_out_sorted_path, const char *file_out_sorted_back_path, const char *file_out_origin_path, <a class="el" href="text__sorting_8h.html#aa37aa8979934d47ac32fd96ecff32202">language</a> lang)</td></tr>
+<tr class="separator:a961c3d82aff9b7fc79aeda9a4e431d68"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a9896d459363240ffc028ade254f8f625"><td class="memItemLeft" align="right" valign="top">constexpr char16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a9896d459363240ffc028ade254f8f625">unicode_ru_big_a</a> = 0x410</td></tr>
+<tr class="separator:a9896d459363240ffc028ade254f8f625"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a5dc33e7532c475e219b1ef17eb32ae38"><td class="memItemLeft" align="right" valign="top">constexpr char16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a5dc33e7532c475e219b1ef17eb32ae38">unicode_ru_big_ya</a> = 0x42f</td></tr>
+<tr class="separator:a5dc33e7532c475e219b1ef17eb32ae38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a9697f9360759dfd02349a48ca2cc8185"><td class="memItemLeft" align="right" valign="top">constexpr char16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a9697f9360759dfd02349a48ca2cc8185">unicode_ru_big_little</a> = 0x20</td></tr>
+<tr class="separator:a9697f9360759dfd02349a48ca2cc8185"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97de4b3376da5d704ad2939d60f69768"><td class="memItemLeft" align="right" valign="top">constexpr char16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a97de4b3376da5d704ad2939d60f69768">unicode_ru_big_yo</a> = 0x401</td></tr>
+<tr class="separator:a97de4b3376da5d704ad2939d60f69768"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0ca73b17ba23ad0e524da6a2909ceaa2"><td class="memItemLeft" align="right" valign="top">constexpr char16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a0ca73b17ba23ad0e524da6a2909ceaa2">unicode_ru_little_yo</a> = 0x451</td></tr>
+<tr class="separator:a0ca73b17ba23ad0e524da6a2909ceaa2"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0a181b4e618d525365fee75f04a98615"><td class="memItemLeft" align="right" valign="top">constexpr char16_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="text__sorting_8cpp.html#a0a181b4e618d525365fee75f04a98615">unicode_ru_little_ye</a> = 0x435</td></tr>
+<tr class="separator:a0a181b4e618d525365fee75f04a98615"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Function Documentation</h2>
 <a id="a5b5a5eed5fccc47a243f6dece6d6ca78"></a>
@@ -129,7 +154,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <hr  />
-<p> Compares two strings ignoring not alpha and not digit symbols and considering uppercase and lowercase symbols equal.</p>
+<p> Compares two strings ignoring not English alpha and not digit symbols and considering uppercase and lowercase symbols equal.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">str1</td><td>First string </td></tr>
@@ -168,7 +193,85 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <hr  />
-<p> Compares two strings from the backward (as they were reversed) ignoring not alpha and not digit symbols and considering uppercase and lowercase symbols equal.</p>
+<p> Compares two strings from the backward (as they were reversed) ignoring not English alpha and not digit symbols and considering uppercase and lowercase symbols equal.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str1</td><td>First string </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">str2</td><td>Second string</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>-1 if str1 is less than str2. 1 if str1 is greater than str2. 0 if they are equal.</dd></dl>
+<hr  />
+ 
+</div>
+</div>
+<a id="ad3458819e09aac04dd30230e92de02d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad3458819e09aac04dd30230e92de02d4">&#9670;&nbsp;</a></span>compare_ru_strings()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int compare_ru_strings </td>
+          <td>(</td>
+          <td class="paramtype">const std::basic_string_view&lt; char16_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::basic_string_view&lt; char16_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<hr  />
+<p> Compares two strings ignoring not Russian alpha and not digit symbols and considering uppercase and lowercase symbols equal.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">str1</td><td>First string </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">str2</td><td>Second string</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>-1 if str1 is less than str2. 1 if str1 is greater than str2. 0 if they are equal.</dd></dl>
+<hr  />
+ 
+</div>
+</div>
+<a id="a334f7b549b9e9c3a69106c1204588bfd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a334f7b549b9e9c3a69106c1204588bfd">&#9670;&nbsp;</a></span>compare_ru_strings_r()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int compare_ru_strings_r </td>
+          <td>(</td>
+          <td class="paramtype">const std::basic_string_view&lt; char16_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::basic_string_view&lt; char16_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>str2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<hr  />
+<p> Compares two strings from the backward (as they were reversed) ignoring not Russian alpha and not digit symbols and considering uppercase and lowercase symbols equal.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">str1</td><td>First string </td></tr>
@@ -231,6 +334,9 @@ Functions</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">bool is_en_char_dig </td>
@@ -240,12 +346,43 @@ Functions</h2></td></tr>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 </div>
 </div>
-<a id="a8e6b769c6c65205e64da3f42e687247c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8e6b769c6c65205e64da3f42e687247c">&#9670;&nbsp;</a></span>print_to_file()</h2>
+<a id="adc0e941252e1228e7942c740db45ebd0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#adc0e941252e1228e7942c740db45ebd0">&#9670;&nbsp;</a></span>is_ru_char_dig_tolower()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">char16_t is_ru_char_dig_tolower </td>
+          <td>(</td>
+          <td class="paramtype">char16_t&#160;</td>
+          <td class="paramname"><em>c</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="ae3a0c8e9dd776d6cd27c259d9e8f53ae"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3a0c8e9dd776d6cd27c259d9e8f53ae">&#9670;&nbsp;</a></span>print_to_file()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -260,7 +397,13 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">std::vector&lt; std::basic_string_view&lt; char16_t &gt; &gt; &amp;&#160;</td>
-          <td class="paramname"><em>string_vec</em>&#160;</td>
+          <td class="paramname"><em>string_vec</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_name</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -272,8 +415,44 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a65caaf23bac8211d2bc05ccba3560afe"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a65caaf23bac8211d2bc05ccba3560afe">&#9670;&nbsp;</a></span>sort_text()</h2>
+<a id="a2827b79cd45215cdbbf2a7dd92d03e6d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2827b79cd45215cdbbf2a7dd92d03e6d">&#9670;&nbsp;</a></span>ru_char_cmp()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">int ru_char_cmp </td>
+          <td>(</td>
+          <td class="paramtype">char16_t&#160;</td>
+          <td class="paramname"><em>c1</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">char16_t&#160;</td>
+          <td class="paramname"><em>c2</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a961c3d82aff9b7fc79aeda9a4e431d68"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a961c3d82aff9b7fc79aeda9a4e431d68">&#9670;&nbsp;</a></span>sort_text()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -288,7 +467,25 @@ Functions</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>file_out_path</em>&#160;</td>
+          <td class="paramname"><em>file_out_sorted_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_out_sorted_back_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_out_origin_path</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="text__sorting_8h.html#aa37aa8979934d47ac32fd96ecff32202">language</a>&#160;</td>
+          <td class="paramname"><em>lang</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -302,16 +499,150 @@ Functions</h2></td></tr>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramdir">[in]</td><td class="paramname">file_in_path</td><td>Path to the file with text </td></tr>
-    <tr><td class="paramdir">[in]</td><td class="paramname">file_out_path</td><td>Path to the file where to write the resulting three versions</td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_out_sorted_path</td><td>Path to the file where to write the sorted version </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_out_sorted_back_path</td><td>Path to the file where to write the sorted from back version </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_out_origin_path</td><td>Path to the file where to write the origin version </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">lang</td><td>The language of the text</td></tr>
   </table>
   </dd>
 </dl>
 <dl class="section attention"><dt>Attention</dt><dd>If <code>file_out_path</code> exists, it will be overwritten</dd></dl>
-<dl class="section note"><dt>Note</dt><dd>While comparing lines not alpha and not digit symbols are ignored, uppercase and lowercase symbols are considered equal. </dd>
-<dd>
-The three resulting sections will be separated with lines, consisting from symbols '='.</dd></dl>
+<dl class="section note"><dt>Note</dt><dd>While comparing lines not alpha and not digit symbols are ignored, uppercase and lowercase symbols are considered equal. Only letters of the specified ( <code>lang</code> ) alphabet are not ignored.</dd></dl>
 <hr  />
  
+</div>
+</div>
+<h2 class="groupheader">Variable Documentation</h2>
+<a id="a9896d459363240ffc028ade254f8f625"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9896d459363240ffc028ade254f8f625">&#9670;&nbsp;</a></span>unicode_ru_big_a</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr char16_t unicode_ru_big_a = 0x410</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a9697f9360759dfd02349a48ca2cc8185"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9697f9360759dfd02349a48ca2cc8185">&#9670;&nbsp;</a></span>unicode_ru_big_little</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr char16_t unicode_ru_big_little = 0x20</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a5dc33e7532c475e219b1ef17eb32ae38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5dc33e7532c475e219b1ef17eb32ae38">&#9670;&nbsp;</a></span>unicode_ru_big_ya</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr char16_t unicode_ru_big_ya = 0x42f</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a97de4b3376da5d704ad2939d60f69768"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a97de4b3376da5d704ad2939d60f69768">&#9670;&nbsp;</a></span>unicode_ru_big_yo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr char16_t unicode_ru_big_yo = 0x401</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0a181b4e618d525365fee75f04a98615"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0a181b4e618d525365fee75f04a98615">&#9670;&nbsp;</a></span>unicode_ru_little_ye</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr char16_t unicode_ru_little_ye = 0x435</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="a0ca73b17ba23ad0e524da6a2909ceaa2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0ca73b17ba23ad0e524da6a2909ceaa2">&#9670;&nbsp;</a></span>unicode_ru_little_yo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">constexpr char16_t unicode_ru_little_yo = 0x451</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">constexpr</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
 </div>
 </div>
 </div><!-- contents -->

@@ -1,78 +1,920 @@
 var searchData=
 [
-  ['wagoner_1078',['wagoner',['../romeo__and__juliet_8txt.html#a1f80a4325e0c0186374c28d6a3a3b43a',1,'wagoner():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a1f80a4325e0c0186374c28d6a3a3b43a',1,'wagoner():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wail_1079',['wail',['../romeo__and__juliet_8txt.html#af2ab37bed656a705347100eddba846a4',1,'wail():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#af2ab37bed656a705347100eddba846a4',1,'wail():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wake_1080',['wake',['../romeo__and__juliet_8txt.html#a210b09e23f3f4095edf2c8c1bf8271dc',1,'wake():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a091c29ac83fc91cc0f4b7221da43876f',1,'wake():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wakes_1081',['wakes',['../romeo__and__juliet_8txt.html#a46f5780a80e7b98b09d60ab3651bb11a',1,'wakes():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a46f5780a80e7b98b09d60ab3651bb11a',1,'wakes():&#160;romeo_and_juliet_sorted.txt']]],
-  ['waking_1082',['waking',['../romeo__and__juliet_8txt.html#aaf529bb7ad65a8d04780876e604682ad',1,'waking():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aaf529bb7ad65a8d04780876e604682ad',1,'waking():&#160;romeo_and_juliet_sorted.txt']]],
-  ['walls_1083',['walls',['../romeo__and__juliet_8txt.html#a58c1180c9f691860f6aa6cf7ab8bb3f8',1,'walls():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a58c1180c9f691860f6aa6cf7ab8bb3f8',1,'walls():&#160;romeo_and_juliet_sorted.txt']]],
-  ['ware_1084',['ware',['../romeo__and__juliet_8txt.html#a33c1ffa3d778eecd5dd3660ae00d0e86',1,'ware():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a33c1ffa3d778eecd5dd3660ae00d0e86',1,'ware():&#160;romeo_and_juliet_sorted.txt']]],
-  ['warm_1085',['warm',['../romeo__and__juliet_8txt.html#a1f99d95b3d05f6418f428016a8b50bd3',1,'warm():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a1f99d95b3d05f6418f428016a8b50bd3',1,'warm():&#160;romeo_and_juliet_sorted.txt']]],
-  ['warmth_1086',['warmth',['../romeo__and__juliet_8txt.html#a0d589c0d2d37907bec2e3e4d1ba059aa',1,'warmth():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a0d589c0d2d37907bec2e3e4d1ba059aa',1,'warmth():&#160;romeo_and_juliet_sorted.txt']]],
-  ['warrant_1087',['warrant',['../romeo__and__juliet_8txt.html#a31eee64b998c707797b37ed6931de3d2',1,'warrant():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a31eee64b998c707797b37ed6931de3d2',1,'warrant():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wary_1088',['wary',['../romeo__and__juliet_8txt.html#a6c0e0aef7cdd47500c80f458570e0c62',1,'wary():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a6c0e0aef7cdd47500c80f458570e0c62',1,'wary():&#160;romeo_and_juliet_sorted.txt']]],
-  ['was_1089',['was',['../romeo__and__juliet_8txt.html#ab387345a8e2c91bbaeea2cee41989273',1,'was():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ab387345a8e2c91bbaeea2cee41989273',1,'was():&#160;romeo_and_juliet_sorted.txt']]],
-  ['waste_1090',['waste',['../romeo__and__juliet_8txt.html#a5fe4892b5661ce6bee2b621b886c028d',1,'waste():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a5fe4892b5661ce6bee2b621b886c028d',1,'waste():&#160;romeo_and_juliet_sorted.txt']]],
-  ['watchmen_1091',['WATCHMEN',['../romeo__and__juliet_8txt.html#a651e2bed85e5370e5ecd4a19a925fa3e',1,'WATCHMEN():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a651e2bed85e5370e5ecd4a19a925fa3e',1,'WATCHMEN():&#160;romeo_and_juliet_sorted.txt']]],
-  ['waverer_1092',['waverer',['../romeo__and__juliet_8txt.html#ad2f81fa631b2bd3a73b2c5fe16abc11f',1,'waverer():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ad2f81fa631b2bd3a73b2c5fe16abc11f',1,'waverer():&#160;romeo_and_juliet_sorted.txt']]],
-  ['way_1093',['way',['../romeo__and__juliet_8txt.html#a41672fd88201c8b0530488272ea599a4',1,'way():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a41672fd88201c8b0530488272ea599a4',1,'way():&#160;romeo_and_juliet_sorted.txt']]],
-  ['ways_1094',['ways',['../romeo__and__juliet_8txt.html#a278bf002679a98a2ed3c843b491302a1',1,'ways():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a278bf002679a98a2ed3c843b491302a1',1,'ways():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wearing_1095',['wearing',['../romeo__and__juliet_8txt.html#ae821734763eb1eb741adfc70b906931c',1,'wearing():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ae821734763eb1eb741adfc70b906931c',1,'wearing():&#160;romeo_and_juliet_sorted.txt']]],
-  ['web_1096',['web',['../romeo__and__juliet_8txt.html#a130673b6c885400d0f6a29aa38e0b2ab',1,'web():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a130673b6c885400d0f6a29aa38e0b2ab',1,'web():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wed_1097',['wed',['../romeo__and__juliet_8txt.html#a26f31882b1774f4f95bf2287e7a4aff5',1,'wed():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a26f31882b1774f4f95bf2287e7a4aff5',1,'wed():&#160;romeo_and_juliet_sorted.txt']]],
-  ['weeds_1098',['weeds',['../romeo__and__juliet_8txt.html#a4b576f099a4412e4065a8b013b1c592c',1,'weeds():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a33ed59215367eb3497994b5a9c79f80d',1,'weeds():&#160;romeo_and_juliet_sorted.txt']]],
-  ['week_1099',['week',['../romeo__and__juliet_8txt.html#a1f1c77c6aa258efe63983fb6e5d91255',1,'week():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ac3ab8382138035448ab5915c90b5362c',1,'week():&#160;romeo_and_juliet_sorted.txt']]],
-  ['weeping_1100',['weeping',['../romeo__and__juliet_8txt.html#ab2b702db3efb69a4f2cadde0e6e4fc78',1,'weeping():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ab2b702db3efb69a4f2cadde0e6e4fc78',1,'weeping():&#160;romeo_and_juliet_sorted.txt']]],
-  ['weeps_1101',['weeps',['../romeo__and__juliet_8txt.html#a504df171b782ae9e07d29aa507885d85',1,'weeps():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a5374c6f07c39d41c7404e542b0fb7352',1,'weeps():&#160;romeo_and_juliet_sorted.txt']]],
-  ['welcome_1102',['Welcome',['../romeo__and__juliet_8txt.html#a297bfca721d76bb664c5f7db7bff9c60',1,'Welcome():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ace7c1ff761186ffffa374879b9aa211b',1,'Welcome():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#a2422dadbb82290054584603f9b550f71',1,'welcome():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aaa17200d30efbd1773a583c12cb0e8fc',1,'welcome():&#160;romeo_and_juliet_sorted.txt']]],
-  ['well_1103',['well',['../romeo__and__juliet_8txt.html#ab8a65e0e2d39e4f432089ac8d31d47af',1,'well():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a5e91ba6e3f8b1af8702aefaa62797e05',1,'well():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#a6d97a1fd0c17976f1e35ebebaeb9e78f',1,'Well():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aacac82424fbd132a2432799bc72e4492',1,'Well():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wench_1104',['wench',['../romeo__and__juliet_8txt.html#ae45847c992d8a1628eb02cf89f618119',1,'wench():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ae45847c992d8a1628eb02cf89f618119',1,'wench():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#a636096ac11397926f38fde101439ce0d',1,'wench(marry, she had a better love to berhyme her):&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aa8f6777dcddd5b983b981207b2ecf063',1,'wench(marry, she had a any man &apos;s, yet his leg excels all men &apos;s;and for a hand and a art as well as by nature. For this drivelling love is like a For still thy eyes, which I may call the sea, My bounty is as boundless as the sea, Than empty tigers or the roaring sea. As that vast shore wash &apos;d with the farthest sea, mouse, a cat, to scratch a man to death! a braggart, a rogue, a Cap. Mass, and well said! A merry whoreson, ha. hath lain asleep in the sun. Didst thou not fall out with a My fair niece Rosaline and Livia;Nurse. An &apos;a speak anything against me, I &apos;ll take him down, an &apos;a Romeo. Pardon, good Mercutio. My business was great, and in such a Lucio and the lively Helena.&apos; ESCALUS, Prince of Verona. With all the admired beauties of Verona. Mer. That &apos;s as much as to say, such a case as yours constrains a world. A plague o&apos; both your houses! Zounds, a dog, a rat, a AN APOTHECARY, of Mantua. And then in post he came from Mantua Then weep no more. I &apos;ll send to one in Mantua, Whose sale is present death in Mantua, Shall Romeo bear thee hence to Mantua. But I will write again to Mantua, For then thou canst not pass to Mantua, And light thee on the way to Mantua. My lord and you were then at Mantua. SCENE - Verona;once in the fifth act, at Mantua. And sleeps again. This is that very Mab Her traces, of the smallest spider &apos;s web;Dove-feather &apos;d raven! wolvish-ravening lamb! The orchard walls are high and hard to climb, As one dead in the bottom of a tomb. Anon comes one with light to ope the tomb;But then a noise did scare me from the tomb, How if, when I am laid into the tomb, Romeo opens the tomb.[Lays him in the tomb.] The earth that &apos;s nature &apos;s mother is her tomb. Poor living corse, clos &apos;d in a dead man &apos;s tomb! What is her burying gave, that is her womb;Doth hurry from the fatal cannon &apos;s womb. That monthly changes in her circled orb, Made by the joiner squirrel or old grub, -Good faith! &apos;Tis day![Play music.] Let me be satisfied, is &apos;t good or bad? That ever I should live to see thee dead! I dreamt my lady came and found me dead Subtilly hath minist &apos;red to have me dead, But old folks, many feign as they were dead- That the life-weary taker mall fall dead, With Romeo till I behold him- dead- The noble Paris and true Romeo dead. Nurse. Ah, weraday! he &apos;s dead, he &apos;s dead, he &apos;s dead! Alack the day! he &apos;s gone, he &apos;s kill &apos;d, he &apos;s dead! Lady Cap. Alack the day, she &apos;s dead, she &apos;s dead, she &apos;s dead! Thy husband in thy bosom there lies dead;Dead art thou, dead! alack, my child is dead, Ben. O Romeo, Romeo, brave Mercutio &apos;s dead! Why followed not, when she said &apos;Tybalt &apos;s dead,&apos; Alas, alas! Help, help! My lady &apos;s dead! Is Romeo slaught &apos;red, and is Tybalt dead? To rouse thee from thy bed, there art thou dead. For whose dear sake thou wast but lately dead. And Juliet bleeding, warm, and newly dead, Young son, it argues a distempered head And death, not Romeo, take my maidenhead! What if her eyes were there, they in her head? The sun for sorrow will not show his head. But not another sin upon my head As glorious to this night, being o &apos;er my head, Unwieldy, slow, heavy and pale as lead. So shall no foot upon the churchyard tread Ser. God gi&apos; go-den. I pray, sir, can you read? With nimble soles;I have a soul of lead Nurse. O Tybalt, Tybalt, the best friend I had! Fie, how my bones ache! What a jaunce have I had! Torments him so that he will sure run mad. And usest none in that true use indeed That living mortals, hearing them, run mad- Ben. Why, Romeo, art thou mad? Lady Cap. Fie, fie! what, are you mad? Cap. What should it be, that they so shriek abroad? A troubled mind drave me to walk abroad;narrow to an ell broad! Why, lamb! why, lady! Fie, you slug-abed! Juliet. Now, good sweet nurse- O Lord, why look &apos;st thou sad? For &apos;twas your heaven she should be advanc &apos;d;And weep ye now, seeing she is advanc &apos;d My grave is like to be my wedding bed. The day is hot, the Capulets abroad. Come, cords;come, nurse. I &apos;ll to my wedding bed;Or if you do not, make the bridal bed Take thou this vial, being then in bed, And, on my life, hath stol &apos;n him home to bed. And bid her hasten all the house to bed, Go you to Juliet ere you go to bed;More torches here! - Come on then, let &apos;s to bed. Wife, go you to her ere you go to bed;Ay, let the County take you in your bed! The shady curtains from Aurora &apos;s bed, So soon to bid good morrow to thy bed. He made you for a highway to my bed;To have her match &apos;d;and having now provided 1 Mus. Ay, by my troth, the case may be amended. You are a saucy boy. Is &apos;t so, indeed? Rather than Paris. These are news indeed! Juliet. Three words, dear Romeo, and good night indeed. Shall be the label to another deed, cup draws him on the drawer, when indeed there is no need. Get thee to bed, and rest;for thou hast need. O, this same thought did but forerun my need, In this resolve. I &apos;ll send a friar with speed That &apos;banished,&apos; that one word &apos;banished,&apos; To mangle me with that word &apos;banished&apos;? Doting like me, and like me banished, Go get thee to thy love, as was decreed, But &apos;banished&apos; to kill me- &apos;banished&apos;? They are free men, but I am banished. &apos;Tybalt is dead, and Romeo- banished.&apos; Nurse. Tybalt is gone, and Romeo banished;Romeo that kill &apos;d him, he is banished. But Romeo may not- he is banished. All slain, all dead. &apos;Romeo is banished&apos;- To comfort thee, though thou art banished. Friar L. Hence from Verona art thou banished. A plague o&apos; both your houses! I am sped. Some shall be pardon &apos;d, and some punished;It is supposed the fair creature died- And vice sometime &apos;s by action dignified. Juliet. Indeed I never shall be satisfied As dearly as mine own, be satisfied. And then I hope thou wilt be satisfied. Speak but one rhyme, and I am satisfied! Romeo. O, wilt thou leave me so unsatisfied? Virtue itself turns vice, being misapplied, I &apos;ll know his grievance, or be much denied. Juliet. Go ask his name.- If he be married, How stands your disposition to be married? And with my child my joys are buried. Who here hath lain this two days buried. Of stout Mercutio, and then Tybalt fled;dared. An hour but married, Tybalt murdered, Your high displeasure. All this- uttered Which the dark night hath so discovered. Life and these lips have long been separated. Juliet. O God!- O nurse, how shall this be prevented? And hereabouts &apos;a dwells, which late I noted Enter BALTHASAR, Romeo &apos;s man, booted. moved. Samp. I strike quickly, being moved. But I, a maid, die maiden-widowed. thou fishified! Now is he for the numbers that Petrarch flowed I wonder at this haste, that I must wed Romeo. Sin from my lips? O trespass sweetly urg &apos;d! But in that crystal scales let there be weigh &apos;d Have lost a brace of kinsmen. All are punish &apos;d. Prick &apos;d from the lazy finger of a maid;And all the better is it for the maid. When King Cophetua lov &apos;d the beggar maid! Your lady &apos;s love against some other maid Noting this penury, to myself I said, She was too good for me. But, as I said, Nay, I do bear a brain. But, as I said, And bid me stand aloof, and so I did. Nurse. It did, it did! alas the day, it did! Of all my buried ancestors are pack &apos;d;Some five-and-twenty years, and then we mask &apos;d. And ere this hand, by thee to Romeo &apos;s seal &apos;d, Upon the sweetest flower of all the field. Romeo, good night. I &apos;ll to my truckle-bed; &apos;A was a merry man) took up the child. But one:&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet__sorted_8txt.html#a636096ac11397926f38fde101439ce0d',1,'wench(marry, she had a better love to berhyme her):&#160;romeo_and_juliet_sorted.txt']]],
-  ['were_1105',['were',['../romeo__and__juliet_8txt.html#a2f8c1901804a556aea121cce054b6639',1,'were():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a2f8c1901804a556aea121cce054b6639',1,'were():&#160;romeo_and_juliet_sorted.txt']]],
-  ['what_1106',['what',['../romeo__and__juliet_8txt.html#a37d0908e6e132df0647f3d15d9a16d67',1,'what():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a37d0908e6e132df0647f3d15d9a16d67',1,'what():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#a214d8eb0a183e1d0e2ba396a14dda796',1,'What():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a654c1729970109ae9febbdc550304bcd',1,'What():&#160;romeo_and_juliet_sorted.txt']]],
-  ['when_1107',['When',['../romeo__and__juliet_8txt.html#ab5c881e1fb89dd27a5c76ef9f1dd7285',1,'When():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ab5c881e1fb89dd27a5c76ef9f1dd7285',1,'When():&#160;romeo_and_juliet_sorted.txt']]],
-  ['where_1108',['where',['../romeo__and__juliet_8txt.html#abec638e4d4633ced78b776fdac2b6a4e',1,'where():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aec4a6f499c74a3d34d4dfe9930c9e115',1,'where():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#ac2c360842fb9ea4bac2386a55ebbe780',1,'Where():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a1a500c5769fd196be80dab41750b5fb3',1,'Where():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wherefore_1109',['wherefore',['../romeo__and__juliet_8txt.html#a39ba241f9976c687d5ea666a5ed75b54',1,'wherefore():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a39ba241f9976c687d5ea666a5ed75b54',1,'wherefore():&#160;romeo_and_juliet_sorted.txt']]],
-  ['which_1110',['which',['../romeo__and__juliet_8txt.html#af3740f5215e4dc33cc8121ec034f2e9c',1,'which():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#af3740f5215e4dc33cc8121ec034f2e9c',1,'which():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#acec892b2d15ee27a8c55dffc9b2b25e0',1,'Which():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#acec892b2d15ee27a8c55dffc9b2b25e0',1,'Which():&#160;romeo_and_juliet_sorted.txt']]],
-  ['while_1111',['while',['../romeo__and__juliet_8txt.html#ab3cf579126e9dd476da889e5f3c3d74e',1,'while():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aaf600a1ad51eb6340362075e23aeb180',1,'while():&#160;romeo_and_juliet_sorted.txt']]],
-  ['whip_1112',['whip',['../romeo__and__juliet_8txt.html#a5e31508cf0c304ee6b2a037e9d767787',1,'whip():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a5e31508cf0c304ee6b2a037e9d767787',1,'whip():&#160;romeo_and_juliet_sorted.txt']]],
-  ['who_1113',['Who',['../romeo__and__juliet_8txt.html#aa44be0e92fb3cfe1653abf13aa2fce4c',1,'Who():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aa44be0e92fb3cfe1653abf13aa2fce4c',1,'Who():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#af09ef3670fc9d13c95153686879ca5c6',1,'who():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#af09ef3670fc9d13c95153686879ca5c6',1,'who():&#160;romeo_and_juliet_sorted.txt']]],
-  ['whom_1114',['whom',['../romeo__and__juliet_8txt.html#ac5f48d5e0573eadc2787355ab21a8191',1,'whom():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ac5f48d5e0573eadc2787355ab21a8191',1,'whom():&#160;romeo_and_juliet_sorted.txt']]],
-  ['whoreson_1115',['whoreson',['../romeo__and__juliet_8txt.html#a118cec6b1f41ce4162cd6f5c80c78a5b',1,'whoreson():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a118cec6b1f41ce4162cd6f5c80c78a5b',1,'whoreson():&#160;romeo_and_juliet_sorted.txt']]],
-  ['why_1116',['Why',['../romeo__and__juliet_8txt.html#a44c5173e4828dd8149c291072f29562e',1,'Why():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a489d0460abe7f55a5e1926048092ace0',1,'Why():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#ae676be6a4f1000dbf02de7fb27e32191',1,'why():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ae676be6a4f1000dbf02de7fb27e32191',1,'why():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wife_1117',['wife',['../romeo__and__juliet_8txt.html#a3d0bb3671ff3b36f2a6fca3f9fc61b6c',1,'wife():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a3d0bb3671ff3b36f2a6fca3f9fc61b6c',1,'wife():&#160;romeo_and_juliet_sorted.txt'],['../romeo__and__juliet_8txt.html#aa280994d268418f4a52e263b9b79d6fa',1,'Wife():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aa280994d268418f4a52e263b9b79d6fa',1,'Wife():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wild_1118',['wild',['../romeo__and__juliet_8txt.html#a47488415824feac4f33b92cb13ad4e11',1,'wild():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a09de7125faaf96e6edbbde0a74f6a879',1,'wild():&#160;romeo_and_juliet_sorted.txt']]],
-  ['will_1119',['will',['../romeo__and__juliet_8txt.html#a9b4e0a8daadbac2dbb7c23165791a24b',1,'will():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a104ed459e6fa20adcd75193d2a323e40',1,'will():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wilt_1120',['wilt',['../romeo__and__juliet_8txt.html#af47700e795a08750428172264ea02527',1,'wilt():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#af47700e795a08750428172264ea02527',1,'wilt():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wind_1121',['wind',['../romeo__and__juliet_8txt.html#ac41f6fdee02a75e68894dc99238c62d3',1,'wind():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ac41f6fdee02a75e68894dc99238c62d3',1,'wind():&#160;romeo_and_juliet_sorted.txt']]],
-  ['window_1122',['window',['../romeo__and__juliet_8txt.html#a9c19b578448afd0166168a6677a53799',1,'window():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a9c19b578448afd0166168a6677a53799',1,'window():&#160;romeo_and_juliet_sorted.txt']]],
-  ['windows_1123',['windows',['../romeo__and__juliet_8txt.html#a8056e864433b71570525ff41191d6b23',1,'windows():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a8056e864433b71570525ff41191d6b23',1,'windows():&#160;romeo_and_juliet_sorted.txt']]],
-  ['winds_1124',['winds',['../romeo__and__juliet_8txt.html#af176eecd3eaaa160de65542882844a71',1,'winds():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#af176eecd3eaaa160de65542882844a71',1,'winds():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wink_1125',['wink',['../romeo__and__juliet_8txt.html#a9b79bff68ed746a7d30ae7e5cc37900f',1,'wink():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a9b79bff68ed746a7d30ae7e5cc37900f',1,'wink():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wise_1126',['wise',['../romeo__and__juliet_8txt.html#a18e1a46855c5bcf1ac6a1d5e638b2f03',1,'wise():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a07fdc8c943870bfd6f9d1ac9313471a3',1,'wise():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wisely_1127',['Wisely',['../romeo__and__juliet_8txt.html#acad909778bc299bdd02b56614e82faa2',1,'Wisely():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a81d9aa1b9feb2c57cd5cd1bc78cc0649',1,'Wisely():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wit_1128',['wit',['../romeo__and__juliet_8txt.html#a2f44fcc2e8706731ac8e7f77103b6c9e',1,'wit():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a538f49a9077459cb7a5b6109d2fa1176',1,'wit():&#160;romeo_and_juliet_sorted.txt']]],
-  ['withal_1129',['withal',['../romeo__and__juliet_8txt.html#a27b34b85bf4cc5d6ee8b2e028c124170',1,'withal():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a6874108b20a82e05d5e061a25f4400e0',1,'withal():&#160;romeo_and_juliet_sorted.txt']]],
-  ['withdraw_1130',['withdraw',['../romeo__and__juliet_8txt.html#af0071379089d5bb72b7b637765e19bf0',1,'withdraw():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#af0071379089d5bb72b7b637765e19bf0',1,'withdraw():&#160;romeo_and_juliet_sorted.txt']]],
-  ['within_1131',['within',['../romeo__and__juliet_8txt.html#aa7db21e655a5ac6163928a35e16abb90',1,'within():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aa7db21e655a5ac6163928a35e16abb90',1,'within():&#160;romeo_and_juliet_sorted.txt']]],
-  ['woe_1132',['woe',['../romeo__and__juliet_8txt.html#a560f1161775e502c7b29a0f3ddf7cb22',1,'woe():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a2690f22b795ee10a4496de3ac3d8915d',1,'woe():&#160;romeo_and_juliet_sorted.txt']]],
-  ['woes_1133',['woes',['../romeo__and__juliet_8txt.html#ab79b5f7b850dd8e912a286f724f9246d',1,'woes():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ab79b5f7b850dd8e912a286f724f9246d',1,'woes():&#160;romeo_and_juliet_sorted.txt']]],
-  ['woful_1134',['woful',['../romeo__and__juliet_8txt.html#a41b0583b3f40b2b455c3f7008713bf81',1,'woful():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a41b0583b3f40b2b455c3f7008713bf81',1,'woful():&#160;romeo_and_juliet_sorted.txt']]],
-  ['womanish_1135',['womanish',['../romeo__and__juliet_8txt.html#afa51f52f1726c86a8a5a92c0a611355a',1,'womanish():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#afa51f52f1726c86a8a5a92c0a611355a',1,'womanish():&#160;romeo_and_juliet_sorted.txt']]],
-  ['womb_1136',['womb',['../romeo__and__juliet_8txt.html#a847d59df8a8394317f595012de75f050',1,'womb():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a847d59df8a8394317f595012de75f050',1,'womb():&#160;romeo_and_juliet_sorted.txt']]],
-  ['women_1137',['women',['../romeo__and__juliet_8txt.html#a533c2782540ebc6eab56137740a5dd6d',1,'women():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a533c2782540ebc6eab56137740a5dd6d',1,'women():&#160;romeo_and_juliet_sorted.txt']]],
-  ['won_1138',['won',['../romeo__and__juliet_8txt.html#aa41cfd1c178ee377a3cf326dda679466',1,'won():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#aa41cfd1c178ee377a3cf326dda679466',1,'won():&#160;romeo_and_juliet_sorted.txt']]],
-  ['woo_1139',['woo',['../romeo__and__juliet_8txt.html#ac2f2ffe2ccb5fc51a198720d374c60de',1,'woo():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#ac2f2ffe2ccb5fc51a198720d374c60de',1,'woo():&#160;romeo_and_juliet_sorted.txt']]],
-  ['word_1140',['word',['../romeo__and__juliet_8txt.html#abc7f60ddbb342cb03e488b7cccf04c23',1,'word():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#abc7f60ddbb342cb03e488b7cccf04c23',1,'word():&#160;romeo_and_juliet_sorted.txt']]],
-  ['words_1141',['words',['../romeo__and__juliet_8txt.html#a9a577538ca541d9fdf96b6955a97915d',1,'words():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a9a577538ca541d9fdf96b6955a97915d',1,'words():&#160;romeo_and_juliet_sorted.txt']]],
-  ['work_1142',['work',['../romeo__and__juliet_8txt.html#abeabafe12d97cb8a12da5f66899cc705',1,'work():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#abeabafe12d97cb8a12da5f66899cc705',1,'work():&#160;romeo_and_juliet_sorted.txt']]],
-  ['world_1143',['world',['../romeo__and__juliet_8txt.html#af16930162cc00ef08c167bf45e6fa46b',1,'world():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#af16930162cc00ef08c167bf45e6fa46b',1,'world():&#160;romeo_and_juliet_sorted.txt']]],
-  ['worn_1144',['worn',['../romeo__and__juliet_8txt.html#a31761e5fcd9ea726f6a955d4612b076c',1,'worn():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a31761e5fcd9ea726f6a955d4612b076c',1,'worn():&#160;romeo_and_juliet_sorted.txt']]],
-  ['worse_1145',['worse',['../romeo__and__juliet_8txt.html#abf17b34ef7c0ffb8c2fc579b5d33ff8c',1,'worse():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a6ea2964dff13d8a33b63279929bd89ea',1,'worse():&#160;romeo_and_juliet_sorted.txt']]],
-  ['worth_1146',['worth',['../romeo__and__juliet_8txt.html#a6b67fa49f4fc8525287376547586bd9d',1,'worth():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a6b67fa49f4fc8525287376547586bd9d',1,'worth():&#160;romeo_and_juliet_sorted.txt']]],
-  ['would_1147',['would',['../romeo__and__juliet_8txt.html#a12eab291da7382c9b96b6862073c0598',1,'would():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a8488f58b028b7c76a3fd348eecce0d31',1,'would():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wound_1148',['wound',['../romeo__and__juliet_8txt.html#a58e4a625bf7188bfc9b21d96e1cc355d',1,'wound():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a67645b8d8cc79e423b70dd4443764cf6',1,'wound():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wretched_1149',['wretched',['../romeo__and__juliet_8txt.html#aad00c3609aff0e7003e82ef9eafa0b9d',1,'wretched():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a3ea53d88e5af27464a53c01a6f6eefcf',1,'wretched():&#160;romeo_and_juliet_sorted.txt']]],
-  ['writ_1150',['writ',['../romeo__and__juliet_8txt.html#aca26548c563432ff83e7b29a3efbe127',1,'writ():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a7ace58c8af24f9527b38fccbfe986ac3',1,'writ():&#160;romeo_and_juliet_sorted.txt']]],
-  ['written_1151',['written',['../romeo__and__juliet_8txt.html#a60718bd3549b622aef5ed49ce0c1eb48',1,'written():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a60718bd3549b622aef5ed49ce0c1eb48',1,'written():&#160;romeo_and_juliet_sorted.txt']]],
-  ['wronged_1152',['wronged',['../romeo__and__juliet_8txt.html#a2fe4045cdfc02a9a48e777f5301c01ee',1,'wronged():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__sorted_8txt.html#a2fe4045cdfc02a9a48e777f5301c01ee',1,'wronged():&#160;romeo_and_juliet_sorted.txt']]]
+  ['vain_1120',['vain',['../romeo__and__juliet_8txt.html#a8692a29ae7c60348623c96b2139c609f',1,'vain():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a8692a29ae7c60348623c96b2139c609f',1,'vain():&#160;romeo_and_juliet_origin.txt']]],
+  ['vale_1121',['vale',['../eugene__onegin_8txt.html#a04baebda175ca51247b1154ecbc66460',1,'vale():&#160;eugene_onegin.txt'],['../eugene__onegin__origin_8txt.html#a04baebda175ca51247b1154ecbc66460',1,'vale():&#160;eugene_onegin_origin.txt'],['../eugene__onegin__sorted_8txt.html#a7be1c230a0755318c6b8562200d3c153',1,'vale():&#160;eugene_onegin_sorted.txt'],['../eugene__onegin__sorted__back_8txt.html#a256043278d4d75a5b3cd76f10ff9a1eb',1,'vale():&#160;eugene_onegin_sorted_back.txt']]],
+  ['valentine_1122',['Valentine',['../romeo__and__juliet_8txt.html#a765d97731ee1f36f0034790c6dc7f5c4',1,'Valentine():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a765d97731ee1f36f0034790c6dc7f5c4',1,'Valentine():&#160;romeo_and_juliet_origin.txt'],['../romeo__and__juliet__sorted__back_8txt.html#a002bbb49dbcb5930f60891ea9e53ec4d',1,'Valentine():&#160;romeo_and_juliet_sorted_back.txt']]],
+  ['validity_1123',['validity',['../romeo__and__juliet_8txt.html#a027f16975854935687029866f98dfc84',1,'validity():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a027f16975854935687029866f98dfc84',1,'validity():&#160;romeo_and_juliet_origin.txt'],['../romeo__and__juliet__sorted__back_8txt.html#a027f16975854935687029866f98dfc84',1,'validity():&#160;romeo_and_juliet_sorted_back.txt']]],
+  ['vault_1124',['vault',['../romeo__and__juliet_8txt.html#af59636ecdfc49126749350f3e5c27ac1',1,'vault():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#af59636ecdfc49126749350f3e5c27ac1',1,'vault():&#160;romeo_and_juliet_origin.txt'],['../romeo__and__juliet__sorted__back_8txt.html#af4ae5406660b87c7f7cce880eced5e30',1,'vault():&#160;romeo_and_juliet_sorted_back.txt']]],
+  ['verona_1125',['Verona',['../romeo__and__juliet_8txt.html#afa2e3f5edc1e073230eb16579f632a6f',1,'Verona():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#afa2e3f5edc1e073230eb16579f632a6f',1,'Verona():&#160;romeo_and_juliet_origin.txt'],['../romeo__and__juliet__sorted__back_8txt.html#a5cda681ea265fb4322a9484edc6ac471',1,'Verona():&#160;romeo_and_juliet_sorted_back.txt']]],
+  ['vessels_1126',['vessels',['../romeo__and__juliet_8txt.html#affc39c26d498cf7af52d36a1826ac7e9',1,'vessels():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#affc39c26d498cf7af52d36a1826ac7e9',1,'vessels():&#160;romeo_and_juliet_origin.txt'],['../romeo__and__juliet__sorted__back_8txt.html#affc39c26d498cf7af52d36a1826ac7e9',1,'vessels():&#160;romeo_and_juliet_sorted_back.txt']]],
+  ['vial_1127',['vial',['../romeo__and__juliet_8txt.html#a5182111a7b0b60f05ceb1188aaf13c9e',1,'vial():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a5182111a7b0b60f05ceb1188aaf13c9e',1,'vial():&#160;romeo_and_juliet_origin.txt']]],
+  ['vice_1128',['vice',['../romeo__and__juliet_8txt.html#a68428a3edc9a33c5c3268d93366d5a59',1,'vice():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a68428a3edc9a33c5c3268d93366d5a59',1,'vice():&#160;romeo_and_juliet_origin.txt']]],
+  ['view_1129',['view',['../romeo__and__juliet_8txt.html#a2abffcb7cbf3d6afe3010cb6c9b26782',1,'view():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a2abffcb7cbf3d6afe3010cb6c9b26782',1,'view():&#160;romeo_and_juliet_origin.txt']]],
+  ['villain_1130',['villain',['../romeo__and__juliet_8txt.html#a10d72e26bb31dda7598942ded877546a',1,'villain():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a405efaf5f955434cea767dd0d629df1a',1,'villain():&#160;romeo_and_juliet_origin.txt'],['../romeo__and__juliet__sorted__back_8txt.html#a10d72e26bb31dda7598942ded877546a',1,'villain():&#160;romeo_and_juliet_sorted_back.txt']]],
+  ['vitae_1131',['vitae',['../romeo__and__juliet_8txt.html#a97f7213aae423533c4e89ac36b66c662',1,'vitae():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a97f7213aae423533c4e89ac36b66c662',1,'vitae():&#160;romeo_and_juliet_origin.txt']]],
+  ['vitruvio_1132',['Vitruvio',['../romeo__and__juliet_8txt.html#afc7fdb833b0ef9f6e3ff64607b6964ee',1,'Vitruvio():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#afc7fdb833b0ef9f6e3ff64607b6964ee',1,'Vitruvio():&#160;romeo_and_juliet_origin.txt']]],
+  ['voice_1133',['voice',['../romeo__and__juliet_8txt.html#a75657250801b436b0e366380323ed137',1,'voice():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#a75657250801b436b0e366380323ed137',1,'voice():&#160;romeo_and_juliet_origin.txt'],['../romeo__and__juliet__sorted__back_8txt.html#a7ca119265e7ffc5c9d924d6a32b48d9c',1,'voice():&#160;romeo_and_juliet_sorted_back.txt']]],
+  ['vous_1134',['vous',['../eugene__onegin__sorted_8txt.html#a21ab28000f940c71e5f6c802da6c7a18',1,'vous():&#160;eugene_onegin_sorted.txt'],['../eugene__onegin__sorted__back_8txt.html#acbe88d21f7a858ef2ba87467e5fd69aa',1,'vous():&#160;eugene_onegin_sorted_back.txt']]],
+  ['vow_1135',['vow',['../romeo__and__juliet_8txt.html#aefe7aa4ae13ee910c451bafccebcb003',1,'vow():&#160;romeo_and_juliet.txt'],['../romeo__and__juliet__origin_8txt.html#aefe7aa4ae13ee910c451bafccebcb003',1,'vow():&#160;romeo_and_juliet_origin.txt']]],
+  ['vulgar_1136',['vulgar',['../eugene__onegin_8txt.html#a28512a0bef94956f9718e3d899032d5a',1,'vulgar(Не могу... Люблю я очень это слово, Но не могу перевести;Оно у нас покамест ново, И вряд ли быть ему в чести. Оно б годилось в эпиграмме...) Но обращаюсь к нашей даме. Беспечной прелестью мила:&#160;eugene_onegin.txt'],['../eugene__onegin__origin_8txt.html#a28512a0bef94956f9718e3d899032d5a',1,'vulgar(Не могу... Люблю я очень это слово, Но не могу перевести;Оно у нас покамест ново, И вряд ли быть ему в чести. Оно б годилось в эпиграмме...) Но обращаюсь к нашей даме. Беспечной прелестью мила:&#160;eugene_onegin_origin.txt'],['../eugene__onegin__sorted_8txt.html#a4fec0ac234d23a4a1795420e501f4233',1,'vulgar(Не могу... Зовут задорных игроков Зовут, сажают двух друзей. Зовут соседа к самовару, И far niente 23мой закон. И альманахи, и журналы, И ананасом золотым. И бал блестит во всей красе. И бегала за ним она, И без меня пора придет, И безнадежный эгоизм. И безотлучно с нею спит. И бесконечный котильон И бесподобный Грандисон36, И благородна...&quot; Тут бы можно
+И бледный цвет, и вид унылый;
+И блеск и шумные пиры,
+И, близ него ее заметя,
+И боязливыми шагами
+И брал на них одни аккорды,
+И брань, и саблю, и свинец.
+И будит Ленского воззваньем:
+И был бы счастлив... сколько мог!
+И был глубокий эконом,
+И были детские проказы
+И быстрой ножкой ножку бьет.
+И бьется радужным крылом,
+И бьются кони, пеной белой
+И важно повторяет ей
+Иван Петрович так же глуп,
+Ивану Петушкову - тоже.
+И вас покинул мой Евгений.
+И в голос все решили так,
+И, в гроб сходя, благословил.
+И вдаль бежал... Она за мной.
+И в дверь украдкою глядит.
+И, вдохновенья снова полный,
+И вдруг недвижны очи клонит,
+И вдруг прыжок, и вдруг летит,
+И вдруг умел расстаться с ним,
+И величавых париков.
+И верит избранной мечте?
+И верно б согласились вы,
+И, верный посох мне вручив, 
+И версты, теша праздный взор,
+И Вертер, мученик мятежный,
+И, вестник утра, ветер веет,
+И вечно вдохновенный взор, -
+И в залу высыпали все,
+И, взвившись, занавес шумит.
+И вздох он пеплу посвятил;
+И взорам адских привидений
+И взор заботливой прислуги.
+И вид в окно сквозь сумрак лунный,
+И вист, доныне знаменитый,
+И в их устах язык чужой
+И в котильон ее зовет.
+И в Летний сад гулять водил.
+И вместе несколько минут
+И в молчаливом кабинете,
+И в молчаливом кабинете
+И в мыслях молвила: вот он!
+И, в нем глубоко погружен,
+И в необдуманном письме
+И вновь задумчивый, унылый
+И вод веселое стекло
+И в одиночестве жестоком
+И возбуждать улыбку дам
+И вообще их презирал, -
+И восклицанья, и хлеб-соль.
+И восклицанья полились.
+И вот ввели в семью чужую...
+И вот в избе между слугами
+И вот из ближнего посада,
+И вот на чем вертится мир!
+И вот общественное мненье!64
+И вот одна, одна Татьяна!
+И вот она в саду моем
+И вот по родственным обедам
+И вот сосед велеречивый
+И вот с холма Татьяна сходит,
+И вот уже трещат морозы
+И вот уж с ним пред алтарем
+И в поле темное глядит.
+И впрямь, блажен любовник скромный,
+И вряд ли быть ему в чести.
+И в сад идет она грустить,
+И в самом ужасе она:
+И все кричат: мое! мое!
+И в сени прямо он идет,
+И все оттенки зимних нег48;
+И в сердце дума заронилась;
+И всех соседей развлекло.
+И всё дремало в тишине
+И всё Евгений на уме,
+И всё ей кажется бесценным,
+И всё ей кажется темно?
+И всё одно и то же квакать,
+И всё, прощаясь, суетилось
+И всё равно: надежда им
+И всё тогда пошло на стать.
+И всё, что радует, живит,
+И в сладостный, безгрешный сон
+И вслед за чинною толпою
+И в слухе шум, и блеск в очах...
+И вспомнил он Татьяны милой
+И встала со скамьи своей;
+И в сторону свой путь направим,
+И встречен Веспер петухом;
+И в сумрак липовых аллей,
+И всходит постепенно день.
+И всякого такого сброду...&quot; - И в темный угол заперла. И в трепет сердце нам приводит И входит на пустынный двор. И в час полуденный в кружок И вчуже чувство уважал. И в шалаше и крик, и шум;И в шуме света и в тиши И вы, заветные мечтанья, И вы, знакомые леса;И вы, знакомых гор вершины, И вы, красотки молодые, И вынулось колечко ей И выражалася с трудом И вы, читатель благосклонный, И вы, чувствительные дамы, И в это самое мгновенье И гармонических затей И где ж беглец людей и света, И где об ней идет беседа. И где теперь ее сестра? И говорила нараспев, И голосок ее звучит И гордость, и прямая честь. И гордых дам она скользит;И горожанка молодая, И гости едут со двора. Играет солнце;грязно тает Играет с самого утра. Играла жизнь, кипела кровь;Играть изволил в дурачки. Играть и прыгать не хотела И гроба тайны роковые, Игрок и гвардии сержант. И груда книг, и под окном Игры наши девичьи. И даже глупости смешной И даже трепетной рукой И даже честный человек:И даль свободного романа И дам и модных чудаков. И дам обдуманный наряд;И дверь пред ними отворилась, И деву гор, мой идеал, И дедов верный капитал И дела нет(их пол таков);И день и ночь до новой встречи. И день и ночь проводит он. Идет волшебница зима. Идет меж кресел по ногам, Идет, на мертвеца похожий. Идет Онегин с извиненьем. Идет по снеговой поляне, И детям прочили венцы Иди же к невским берегам, И дико он очами бродит, И для вручения письма. И для ногтей, и для зубов. И для Татьяны наконец И днем и вечером одна;И добродетельная мать. И дождалась... Открылись очи;И долго, будто сквозь тумана, И долго плакала она. И долго сердцу грустно было. И доле в праздной тишине, И дрожь и злость меня берет, И, други, никого, ей-богу! И дружба тяжкая мужей! И дружеский бокал вина Идти, не разделяя с ней И думал:глупо мне мешать И думать о красе ногтей:И думать:он меня любил, Идут за стол рука с рукой. И душу ей занять успел. И ей куплет передает. И ей открылся мир иной. И ей ужель возврата нет? И жажда знаний и труда, И жажду славы и похвал, И жаркий одинокий сон, И ждет:нейдет ли? Но не слышит. И жизнь могущая дает И жницы в волны погружать И журналистам на съеденье И забываться запретил! И заведет крещеный мир И завтра то же, что вчера. И, задыхаясь, на скамью И заиграет яркий день;И за могильною чертою И запищит она(Бог мой!):И запоздалые наряды, И запоздалые отзывы, - И запоздалый склад речей;И, зарыдав, у ваших ног И заслужи мне славы дань:И за столом у них гостям Из библиотеки чертей, Из блюда, полного водою, Известность низостью души, &quot;Изволь, родная, прикажи&quot;. И звуки ласковых речей, Издавна чтенье разлюбил, Изделье легкое Европы, И здесь героя моего, И здравствует еще доныне И здравый толк о том, о сем. И земли отдавал в залог. Из-за стола гремя встает;Излить мольбы, признанья, пени, Из лож и кресельных рядов. И злости мрачных эпиграмм. Измены вестью роковой, Измены утомить успели;Изменят - рад был отдохнуть. Из мира вытеснят и нас! Измучим сердце, а потом И знать, и моды образцы, Изображает смерть, не муку. Изображен довольно верно Изображу ль в картине верной Изобретает для забав, Из уст Онегина. Угрюмый, Из Энеиды два стиха. Изящного не много тут. И из уборной выходил И им не делится ни с кем. И им сулили каждый год И - и не мог. Она спросила, И каждая шепнула ей:И каждый взял свой пистолет. И как вакханочка резвилась, И как героя назову;И, как огнем обожжена, И календарь осьмого года:И капли слез, и на скамейке И к гробу прадедов теснит. И кланялся непринужденно;И клонит голову свою И книжку поутру читал... И к ним в безумные пиры И к размышлению влекло:И край отцов, и заточенье? И круг товарищей презренных, И крыльями трещит и машет;И кстати я замечу в скобках, И кто ж из-под него явился? И кудри черные до плеч. И кучера, вокруг огней, И к шутке, с желчью пополам, И лапу с острыми когтями И легче ласточки, влетает;И Ленский, жмуря левый глаз, И Ленский пешкою ладью И лень ей далее ступить. Или безделицей иной Или блистали, мой читатель;Или задумчивый Вампир, Или какой-нибудь издатель Или коварный искуситель:Или коснется горячо Или Мельмот, бродяга мрачный, Или мне чуждо наслажденье, Или молитвой услаждала Или над Летой усыпленный Или на лире голубка Или, нежней, как мотылек, Или, не радуясь возврату Или не сделался поэтом. Или(но это кроме шуток), Или печальным сумасбродом, Или платок подымет ей. Или по почте поздравлять, Или разыгранный Фрейшиц Или с природой оживленной Или таинственный Сбогар37. И локтем Таню враз толкнули, И лорда Байрона портрет, И лучше выдумать не мог. Иль Idol mio 79и ронял Иль Баратынского пером, Иль быстрый заяц меж полей Иль Вечный жид, или Корсар, Иль взор унылый не найдет Иль грамматических ошибок, Иль даже демоном моим. Иль даже сам в досаде пылкой Иль девичьей! Мы все должны Иль длинной сказки вздор живой, Иль корчит так же чудака? Иль край одежды целовать. Иль маской щегольнет иной, Иль мимо пролетит она, Иль нет-с&quot;. Таков был общий глас.
+Иль он, кокетствуя, шалил,
+Иль оскорбляет, иль смешит,
+Иль перси, полные томленьем;
+Иль письма девы молодой.
+Иль помириться их заставить,
+Иль предузнав издалека
+Иль при разъезде на крыльце
+Иль просто будет добрый малой,
+Иль розы пламенных ланит,
+Иль с академиком в чепце!
+Иль сатаническим уродом,
+Иль скоро слез прошла пора?
+Иль сон тяжелый перерви,
+Иль стала вдруг бледна, красна...
+Иль тихий разделить досуг.
+Иль хоть для славы был рожден;
+Иль явно, иль исподтишка,
+И любопытная теперь
+И мало к ней привязан я;
+И мглу крещенских вечеров.
+Имеет сельская свобода
+И между ими одичала,
+И между тем душа в ней ныла,
+И между тем луна сияла
+Имел он счастливый талант
+И меркнет милой Тани младость:
+И метить в ляжку иль в висок.
+Имея дома много дел,
+И мира новый блеск и шум
+И мир блаженством одарит.
+И мир ему закрыт и нем?..
+Им квас как воздух был потребен,
+Им на минуту овладел;
+Им настежь отворяет дверь,
+И, мнится, с ужасом читал
+И множество его причуд. 
+Им овладела понемногу;
+Им овладело беспокойство,
+И мог бы в обществе принесть
+И, может быть, еще нежней.
+И, может быть, на много дней.
+И молвил: &quot;Всех пора на смену;И молвил:&quot;Вы ко мне писали,
+И молвит: то-то был поэт!
+И молодежь минувших дней
+И молча гибнуть я должна.
+И молчалива, как Светлана,
+И молча обмененный взор
+И молча он повесил нос.
+И муж Татьянин показался,
+И муз возвышенных искусства,
+И мыслей мертвый капитал
+И мыслит: &quot;Что-то с Ольгой стало? И мысль об ней одушевила И мягко устланные горы И на барьер поставить их, И, наклонясь, ей шепчет нежно И наконец в своей постеле И наконец окаменеть И наконец от них отстал;И наконец перед зарею, И наконец увидел свет. И нам досталось от него И на могиле при луне, И нам он сердце шевелит. И нам становятся смешны И на Онегина глядит И на письмо не напирает И на порог ее кладет. И наслаждаясь не любя. И нас пленяли вдалеке И начал странствия без цели, И начинает понемногу И начитаться не могу. И наша дева насладилась И нашей братье рифмачам И наши внуки в добрый час Иная, старая весна И невнимательный лорнет. И недвижим остался он. И недоверчивый старик, И не заботился о том, И незваных гостей бранит;И не из их ли уж сторон? И необузданных страстей. И неотвязчивый лорнет И не попал он в цех задорный И не проходит жар ланит, И не пугал ничьих ушей И, не сводя с него очей, И нечто, и туманну даль, И нечувствительно он ей &quot;И, никого, уверен я!
+И ничего не говорит.
+И новый он приял венец.
+И ножку чувствую в руках;
+Иноплеменные слова.
+Иноплеменными словами,
+И нос и плечи подымал
+И ночь, и звезды, и луну,
+Иные даже утверждали,
+И ныне музу я впервые
+И нынче - Боже! - стынет кровь,
+Иных он очень отличал
+Иных уж нет, а те далече,
+И няня девушку с мольбой
+И облегченья не находит
+И обнажают лес вокруг.
+И обновила наконец
+И обновляются, и зреют -
+И об Онегине далеком
+И обувь бедную плетет.
+И о былом воспоминать?
+И одевался...
+И Ольги все объяты сном.
+И он ей сердце волновал!
+И он мурлыкал: Benedetta 78
+И он не сделался поэтом,
+И опершися на гранит,
+И отвечает: Агафон.
+И отворились наконец
+И отправлялся налегке
+И отставной советник Флянов,
+И очень рад, что прежний путь
+И очутился у соседок.
+И падает. Туманный взор
+И память юного поэта
+И пеньем были заняты:
+И первым снегом с кровли бани
+И перед ним пылал камин,
+И переимчивый Княжнин;
+И перелетная метель
+И песнь его была ясна,
+И печи в пестрых изразцах.
+И пилигримке молодой
+И пленниц берегов Салгира24.
+И плескам дружеским не внемлет,
+И по Балтическим волнам
+И поверяют нараспев
+И погулять и отдохнуть:
+И подает ему белье.
+И поделом: в разборе строгом,
+И подпись: t. a€. v. Annette; 
+И, позабыв столицы дальной
+И позабыла речь богов
+И полетели как стрела.
+И полку, с пыльной их семьей,
+И, полно, друг; не всё ль равно?
+&quot;И полно, Таня! В эти лета И полны истины живой И, полный искренней печалью, И полы завеса раздвинул;И, по обычаю народа, И после важно разошлись, И после во весь путь молчал. И после, дома целый день, И после ей наедине И после тайно обесславить И посмеяться кой о чем. И постепенно в усыпленье И потужить, и позлословить, И правда то, что в наши лета И предается безусловно И предаюсь моей судьбе. И предрассудки вековые, И предсказаниям луны. И пред шумящею пучиной, И прелесть важной простоты. И прерывал его меж тем И привлекательным лицом. И, признаюсь, от них бежал, И при конце последней части И, прислонившись у дверей, И продолжительный присест. И проклинает их досуги, И промотался наконец. И про нее между собою И про себя ее прочел. И прочая. Ее сомнений И прояснился темный ум. И путешественник залётный, И путешествия ему, И пышный цвет, и сладкий плод. И раб судьбу благословил. И радуги на снег наводят;И ранний звон колоколов, И распущенные власы, И рассыпалася, - тогда И рвы отеческой земли. И ревом скрыпок заглушен И резкий, охлажденный ум. И Ричардсона и Руссо. И рогоносец величавый, И рой изменниц молодых, И романтические розы;И руку жмет - и запылал И русский Н, как N французский, И сад над светлою рекою. И сам не знает поутру, И сани, и зарею поздной И свет ее с улыбкой встретил;И светской чернью ободренной, И свод элегий драгоценный И своенравной головой, И своенравной, и пустой... И сени расширял густые И сердца горестных замет. И сердца трепетные сны. И сердцем далеко носилась И сердцем пламенным и нежным? И сердце рвется пополам. И серебрятся средь полей... И сил уже бежать ей нет. И скачет. Пистолетов пара, И скоро звонкий голос Оли И скоро, скоро бури след И скоро стали неразлучны. И скуку праздничных затей. И слава!&quot; Но сулит утраты
+И славно зиму проведешь.
+И славу нашей старины,
+И славы сладкое мученье
+И сладостной любви венок
+И с легковерным ослепленьем
+И слез был полон томный взор.
+И слез, и рифм et cetera?.. 
+И слезы, тайных мук отраду...
+И сливки мальчик подавал;
+И слов любезную небрежность?
+И слышен говор ключевой, -
+И слышит голос: что ж? убит.
+И слышу гневный ваш укор.
+И смело вместо belle Nina 58
+И смело ей себя вверяю...
+И снам, и карточным гаданьям,
+И с ней Онегин в смутном сне
+И с ним Онегин. &quot;Ах, творец! - И с ним проститься был бы рад. И снисходительный Евгений, И снится чудный сон Татьяне. И снова, преданный безделью, И снов задумчивой души. И соблазнительных ночей. И современный человек И соловей во мгле древес И, сохраненная судьбой, Исполнены страстей и лени И споров, и веселых снов! И средь полуденных зыбей, И стаи галок на крестах. И стал теперь ее кумир И старый барин здесь живал;И старым бредит новизна. Истлели быстрой чередой, И столбик с куклою чугунной И стол с померкшею лампадой, И столь же строгому разбору И странным с Ольгой поведеньем И Страсбурга пирог нетленный Beef-steaks и страсбургский пирог И страх порока и стыда, И страшно ей;и торопливо И суждено совсем иное... Исчезла ревность и досада Исчезло счастье юных лет, И сыпать острые слова, И тайна брачныя постели И тайну сердца своего, Итак, дай Бог им долги дни! И так же ест и пьет за двух. Итак, она звалась Татьяной. И так они старели оба. Итак, писала по-французски... &quot;Итак, пошли тихонько внука
+И так уж тягостны они.
+И там, где прах его лежит,
+И там гуляет на просторе,
+И там же надписью печальной
+И там уж торжествует он.
+И Тане уж не так ужасно,
+И Таня в ужасе проснулась...
+И Таня входит в дом пустой,
+И Таня, скрыв свое волненье,
+И Таня слышит новость эту.
+И тем ее вернее губим
+И темной рамою мужчин
+(И тем я начал мой роман);
+И тесноту, и блеск, и радость,
+И тихо край земли светлеет,
+И тихо наконец она:
+И тихо слезы льет рекой,
+И тихо с няней говорит:
+И тихо целить в бледный лоб
+И томным светом озаряла
+И то сказать, что и в сраженье
+И тот же шпиц, и тот же муж;
+И тотчас вышел; но Евгений
+И то, что мы назвали франт.
+И трепетней гонимой лани,
+И труд, и мука, и отрада,
+И трюфли, роскошь юных лет,
+И тут, совсем утомлена,
+И тщетный дразнит аппетит,
+И ты, живой и постоянный,
+И ты, мой верный идеал,
+И увлекательный и вредный?
+И уж заранее зевал,
+И ужином. Мы время знаем
+И уж порядком отомстить.
+И узнавать себя стыдится;
+И ум, еще в сужденьях зыбкой,
+И, умиленными очами
+И умного дурачить славно,
+И усидела за столом.
+И устарела старина,
+И, устремив на чуждый свет
+И, утренней луны бледней
+И утро в полночь обратя,
+И учит азбуке детей.
+И, Фебовы презрев угрозы,
+И, флер от шляпы отвернув,
+И Флянов, не совсем здоровый,
+Их вовсе недостоин я.
+Их добродетели природной,
+Их дочки Таню обнимают.
+Их жажда крови отвела?
+И хлебник, немец аккуратный,
+Их не зовет его рожок;
+Их неожиданный приезд
+Их не свершив еще для света,
+Их образ тайный сохранила;
+Их озирая, говорит:
+И холод гордости спокойной,
+И хором бабушки твердят:
+И хором по наказу пели
+И хоть он был повеса пылкой,
+Их после муза оживила:
+Их почитал пустой игрушкой
+Их поэтическим огнем
+Их разговор благоразумный
+Их речи слышит без участья,
+Их своевольство иль порывы
+И чай несут. Люблю я час
+И часто целый день одна
+И человека растянуть
+И чем живет, и почему
+И, чтоб ее рассеять горе,
+И что ей душу ни смутило,
+И что ж? Глаза его читали,
+И что же видит?.. за столом
+И что ж? Любовью упоенный,
+И что ж нашел я с изумленьем?
+И что ж? оно приятно, звучно;
+И что не дрогнет их рука
+И что посредственность одна
+И что потом с улыбкой злою
+И что-то бледной и худой,
+И чувств и дум впадает он,
+И, чувств изнеженных отрада,
+И чувств и мыслей молодых,
+И чудеса подозревал.
+И чье-нибудь он сердце тронет;
+И шагом едет в чистом поле,
+И шайка вся сокрылась вдруг;
+И шевелится эпиграмма
+И шум их ветреных утех.
+И щелкнул в первый раз курок.
+И щетки тридцати родов
+И эта смесь чинов и лет.
+И этим письмам и слезам.
+И этот бледный полусвет,
+И эту проповедь... Но вас
+И эту пятую тетрадь
+И юный жар и юный бред.
+И я Бордо благоразумный
+И я, в закон себе вменяя
+И я лишен того: для вас
+И я любила вас; и что же?
+И я - при мысли о Светлане
+И ярко светится окошко,
+И я - со вздохом признаюсь -
+К Talon 8помчался: он уверен,
+Казалась девочкой чужой.
+Казалось, чуть жива была,
+Казался иногда нежней,
+Казаться мрачным, изнывать,
+Как dandy 4 лондонский одет -
+Какая радость: будет бал!
+Как Байрон, гордости поэт,
+Как Богдановича стихи.
+Как будто брежу я во сне...
+Как будто громом поражен.
+Как будто делом занялись.
+Как будто нам уж невозможно
+Как будто пухом зеленеют.
+Как будто слыша злой укор.
+Как будто спящий на ночлеге,
+Как будто хладная рука
+Как бури вешние полям:
+Как было встарь заведено...&quot; &quot;Как быть? Татьяна не дитя, -
+(Как вам, конечно, он знаком),
+Как ваше имя? 51Смотрит он
+Как величавая луна,
+Как взор его был быстр и нежен,
+Как вихорь жизни молодой,
+Как в лес зеленый из тюрьмы
+Как всё на свете, надоели;
+Как в страшном, непонятном сне,
+Как вы да я, как целый свет?
+(Как говорится, машинально) 
+Как государство богатеет,
+&quot;Как, Грандисон?.. а, Грандисон! Как грустно мне твое явленье, Как дань, готовую земле. Как Дельвиг пьяный на пиру. Как дым по небу голубому, Как жар, крестами золотыми Как женщин, он оставил книги, Как жертва, пышно убрана... Как жизнь поэта простодушна, Как завидим издали, Как заманим молодца, Как замки строиться должны:Как зюзя пьяный, и французам Какие глупые места! Какие сети им готовил! Как! из глуши степных селений...&quot;
+Как изменилася Татьяна!
+Как и надменная Москва.
+Как истинный француз, в кармане
+Как их писали в мощны годы,
+Как лань лесная, боязлива,
+Как листья осенью гнилой.
+Как мелким бесом рассыпался!
+Как много в нем отозвалось!
+Как мы ни бились, отличить.
+Как мысли девы простодушной,
+Как на больших похоронах;
+Как на досадную разлуку,
+Как на лугах ваш легкий след.
+&quot;Как наши годы-то летят!&quot;
+Как негой грудь ее полна!
+&quot;Как недогадлива ты, няня!&quot; -
+Какое горькое презренье
+Какое низкое коварство
+Какое томное волненье
+Какое чувство овладеет,
+Какой-нибудь пиит армейский
+Какой ответ? одну суровость.
+Какой-то важный генерал.
+Какой-то пошлый мадригал
+Какой у дочки тайный том
+Какому злобному веселью,
+Как он ни бейся, хоть умри.
+Как он, она была одета
+Как он, отстав от суеты,
+Как он умел забыть себя!
+Как он умел казаться новым,
+Как он язвительно злословил!
+Как описал себя пиит17.
+Как очарована стоит.
+Какою мыслью, замечаньем
+Как пламенно красноречив,
+Как походил он на поэта,
+Как поцелуй любви мила,
+Как прошлой юности грехи,
+Как пьяный путник на ночлеге,
+Как рано мог он лицемерить,
+Как рано мог уж он тревожить
+Как ряд докучных привидений.
+Как Сади некогда сказал.
+Как с вашим сердцем и умом
+Как, сердца исповедь любя,
+Как сильно ни была она
+Как совершенства образец.
+(Как сон любви, другая шалость)
+Как сон младенца, как луна
+Как стих без мысли в песне модной
+&quot;Как Таня выросла! Давно ль Как твердо в роль свою вошла! Как тень иль верная жена. Как тень она без цели бродит, Как только вспомню взгляд холодный Как только о себе самом. Как томен взор ее чудесный!.. Как томно был он молчалив, Как ты, божественный Омир, Как Child-Harold, угрюмый, томный Как удержать негодованье Как уст румяных без улыбки, Как утеснительного сана Как часто в горестной разлуке, Как часто в детстве я играл Как часто ласковая муза Как часто летнею порою, Как часто по брегам Тавриды Как часто по скалам Кавказа Как Чацкий, с корабля на бал. Как эта глупая луна Как я желал тогда с волнами Как я завидовал волнам, Как я ошибся, как наказан... Как я сказал, Зарецкий мой, Как я с Онегиным моим. Камин чуть дышит. Дым из трубок К Анисье дети побежали Капусту садит, как Гораций, Карикатура южных зим, Карикатуры всех гостей. Картежной шайки атаман, Картиной счастливой любви. Картины вас не привлекут:Кастрюльки, стулья, сундуки, Качал таинственный венок. Качая важно головою, К бегущей под горой реке;К беде неопытность ведет&quot;.
+К герою нашему подвел
+К гостям усердие большое,
+К грамматике приучит нас;
+К его язвительному спору,
+К ее крыльцу, стеклянным сеням
+К ее ногам упал Евгений;
+Кий на бильярде отдыхал,
+Кипучий, темный и седой
+Кипя враждой нетерпеливой,
+Кипящей младости моей
+Кипящий Ленский не хотел
+Кипящим в действии пустом.
+Китайский чайник нагревая;
+Кларисой, Юлией, Дельфиной,
+Клеветников и трусов злых,
+Клоками снега; сквозь вершины
+К луне подъемлет томны очи,
+К минуте мщенья приближаясь,
+К моей родне, и наконец
+К моим младенческим мечтам
+К началу жизни молодой.
+К ней дамы подвигались ближе;
+К ней как-то Вяземский подсел
+К ней, лая, кинулись собаки.
+К ней на плечо; вдруг Ольга входит,
+К ней не домчится гимн времен,
+К ней обратясь с листком в руке,
+К нему записочки несут.
+К нему на цыпочках летит,
+К нему слуга француз Гильо,
+К нему с повинной головою.
+(К несчастию, пересоленный);
+К несчастью, Ларина тащилась,
+Княгине слабою рукой
+Княгиня перед ним, одна,
+Княгиня смотрит на него...
+&quot;Княжна, mon ange!&quot; - &quot;Pachette!&quot;70 - -&quot;-Алина&quot;! -
+Княжны, простертой на диване.
+Князь на Онегина глядит.
+Ко благу чистая любовь
+Коварной двойке не вверял.
+Когда б в моей лишь было власти,
+Когда б вы знали, как ужасно
+Когда б еще ты был со мной,
+Когда благому просвещенью
+Когда блистательная дама
+Когда б мне быть отцом, супругом
+Когда б надежду я имела
+Когда болела голова;
+Когда б он знал, какая рана
+Когда б семейственной картиной
+Когда бы ведала Татьяна,
+Когда бы жизнь домашним кругом
+Когда бы знать она могла,
+Когда б я был, как ты, поэт.
+Когда в саду, в аллее нас
+Когда все вышли на крыльцо,
+Когда в углу сидел один,
+Когда гремел мазурки гром,
+Когда его увидел он.
+Когда же дело до Евгенья
+Когда же няня собирала
+Когда жестокая хандра
+Когда же черт возьмет тебя!&quot; Когда же юности мятежной Когда ж и где, в какой пустыне, Когда ж начну я вольный бег? Когда ж падучая звезда Когда ж хотелось уничтожить Когда на бледном небосклоне Когда, надев мужской наряд, Когда не в шутку занемог, Когда недвижим, на земле Когда-нибудь нас озарит Когда он глух и молчалив Когда прибегнем мы под знамя Когда прозрачно и светло Когда простой продукт имеет. Когда случалось где-нибудь Когда с такою простотой, Когда страстей угаснет пламя Когда стремглав верхом она Когда узнала меж гостей Когда церквей и колоколен, Когда я бедным помогала Кого ж любить? Кому же верить? Кого не утомят угрозы, Кого твой стих боготворил?&quot;
+Кого ты видела во сне?&quot; Кой-как пройдет, а завтра то ж, Кокетка, ветреный ребенок! Кокетка судит хладнокровно, Кокетства в ней ни капли нет - К окну Онегин подошел Ко мне забредшего соседа, Кому, в толпе ревнивых дев, &quot;Кому же, милая моя?
+Кому не скучно лицемерить,
+Кому поем, тому добро 
+Кому порок наш не беда?
+К Онегину&quot;. - &quot;Ну, дело, дело.
+Конец 
+Конечно, быть должно презренье
+Конечно б, это было смело,
+Конечно, вы не раз видали
+Конечно, не блистал ни чувством,
+Конечно, не один Евгений
+Конечно так. Но вихорь моды,
+Кончаю! Страшно перечесть...
+Кончину дяди старика.
+Коньками звучно режет лед;
+Конюшня, кухня и забор.
+Коня пред ним остановляет,
+Копыта, хоботы кривые,
+Кормилиц крик и плач детей.
+Корнеля гений величавый;
+Короткий вызов, иль картель: 
+Короче: русская хандра 
+Короче становился день,
+Корсет, альбом, княжну Алину,
+Корсет носила очень узкий,
+Космополитом, патриотом,
+Коснуться до всего слегка,
+Коснуться милых ног устами!
+Которой бы ваш друг с улыбкой,
+Которой ничего не жаль,
+Которой он наедине,
+Которой посвящали мы
+Которую воспел Назон,
+Которые в минувши дни
+Который, в горе и в беде,
+Который нам наводит сон, -
+Который сердцем и умом
+Которым возрожденья нет?
+Которым, за свои грехи,
+Которым сердце посвящали,
+Которых не было и нет
+Которых позднею порой
+К отцу, ни к матери своей;
+К плечу головушкой склонилась.
+К покойнику со всех сторон
+К послу такого порученья
+К почтовой прозе не привык.
+К приличию, закону света,
+К противуречию склонна.
+Красавец, в полном цвете лет,
+Красавице приятно-томной!
+Красавиц легкие уборы,
+Красавиц много на Москве.
+Красавиц модных модный враг,
+Красавиц новых поколенье,
+Красавицы не долго были
+Красами Ольги молодой,
+Красноречивым сумасбродом12.
+Красною смородиной.
+К реке сквозь липовый лесок.
+Крестила дряхлою рукой.
+Крещенским холодом она!
+Кривые толки, шум и брань!
+Кричит: &quot;Да перестаньте плакать, Кричит хозяйка:- наконец!&quot;
+Кровать, покрытая ковром,
+Кругла, красна лицом она,
+Кругом всё глушь; отвсюду он
+Кругом и шум и теснота;
+Кругом соседей много есть;
+Кружится вальса вихорь шумный;
+Кряхтя, валит медведь несносный;
+К своей жене и ей подводит
+К своим цветам, к своим романам
+К себе, к таинственному древу;
+К соседу... да велеть ему,
+К Татьяне Ленский; Харликову,
+&quot;Кто б мог подумать? Как давно! Кто б ни был ты, о мой читатель, Кто б смел искать девчонки нежной Кто будет там? своя семья. Кто в двадцать лет был франт иль хват, Кто в пятьдесят освободился Кто все движенья, все слова Кто все дела, все речи мерит Кто ей внушал и эту нежность, Кто ей внушал умильный вздор, Кто жил и мыслил, тот не может Кто клеветы про нас не сеет? &quot;Кто любит более тебя, 
+К тому ж и мнения супруга
+К тому ж они так непорочны,
+К тому ж - он мыслит - в это дело
+Кто нас заботливо лелеет?
+Кто не дочел ее романа
+Кто не изменит нам один?
+Кто не наскучит никогда?
+Кто он таков? Ужель Евгений?
+Кто охлаждал любовь - разлукой,
+Кто постепенно жизни холод
+Кто прежней Тани, бедной Тани
+Кто славы, денег и чинов
+Кто странным снам не предавался,
+Кто там в малиновом берете
+&quot;Кто? толстый этот генерал?&quot;
+Кто ты, мой ангел ли хранитель
+Кто, хладный ум угомонив,
+Кто черни светской не чуждался,
+Кто чувствовал, того тревожит
+Кувшин с брусничною водой.
+Кувшины с яблочной водой
+Куда ж поскачет мой проказник?
+Куда, зачем стремлюся я?
+Куда! и снова дело врозь&quot;. - &quot;Куда, куда вы удалились,
+Куда мне их и перечесть&quot;. - Куда поедет ввечеру. Куда по нем свой быстрый бег Куда стремглав в ямской карете &quot;Куда? Уж эти мне поэты!&quot; Кузина, помнишь Грандисона?&quot;
+Купаюсь, милые друзья!66
+Куплетом мучимый давно,
+Купцы, лачужки, мужики,
+Куртины, кровли и забор,
+Куртины, мостики, лужок,
+Кусты сирен переломала,
+К хозяйке дама приближалась,
+К хороводу нашему.
+К чему бесплодно спорить с веком?
+К Au я больше не способен;
+Лай мосек, чмоканье девиц,
+Лай, хохот, пенье, свист и хлоп,
+Латынь из моды вышла ныне:
+Легко мазурку танцевал
+Легла волнистыми коврами
+Легла. Над нею вьется Лель,
+Лежит светла, необозрима;
+Лепажа 65стволы роковые
+Лесная тень, журчанье струй,
+Лесов и нив уединенье,
+Лесов таинственная сень
+Лета к суровой прозе клонят,
+Лета шалунью рифму гонят,
+Летают ножки милых дам;
+Летают пламенные взоры,
+Летит из кельи восковой.
+Летит, как пух от уст Эола;
+Летит кибитка удалая;
+Летит, летит; взглянуть назад
+Лет сорок с ключницей бранился,
+Летучей славы не ловлю.
+Летучие листки альбома
+Лет чрез пятьсот) дороги, верно,
+Летя в пыли на почтовых,
+Лжет детским лепетом своим.
+Лились его живые слезы;
+Лихая мода, наш тиран,
+Лицо нас новое зовет.
+Лицо твое как маков цвет&quot;. - Лишь лодка, веслами махая, Лишь смертной бледностью покрылось Лишь только вдоль большой дороги Лобзать уста младых Армид, Ловили взор ее очей;Ловить влюбленными глазами, Ловить минуту умиленья, Ловласов обветшала слава Ложился на поля туман, Лорд Байрон прихотью удачной Луга и нивы золотые, Луна в воздушной синеве. Луна сокрылась за горою, Луну, небесную лампаду, Луны при свете серебристом Любви безумную тревогу Любви безумные страданья Любви все возрасты покорны;Любви, как милое дитя. Любви мечтательной друзья. Любви мы цену тем умножим, Любви невинной излиянья;Любви пленительные сны Любви приманчивый фиал, Любезней, верно, нет его. Любила русскую зиму, Любил и дух его суждений, Любили круглые качели, Любили мягких вы ковров Любил методу он из чувства, Любимец Тани... Он отрады Любите самого себя, Любить, душевно уважать Люблю героя моего, Люблю ее, мой друг Эльвина, Люблю их ножки;только вряд Люблю я бешеную младость,(Люблю я дружеские враки Люблю я очень это слово, Любовник Юлии Вольмар, Au любовнице подобен Любовной лестью усыпить, Любовь невинной девы дышит. Любовью шутит сатана. Любуясь шумной теснотою, Людей, о коих не сужу, Людей священные друзья;Людская молвь и конский топ!52 Людьми пестреющие хоры, Мазурка раздалась. Бывало, Малек-Адель и де Линар, Мальчишек радостный народ45 Мальчишки, лавки, фонари, Мальчишки разогнали псов, Манежный хлыстик. Таня дале;Манзони, Гердера, Шамфора, Маню ветрила кораблей. Марает он ответ учтивый. Марать летучие листы;Мартын Задека не решит;Мартын Задека стал потом Махнул рукою напоследок - Мгновенной думы долгий след, Мгновенной жатвой поколенья, Мгновенной нежностью очей Мгновенным пламенем покрыты, Мгновенным холодом облит, Медведь промолвил:&quot;Здесь мой кум:
+Медведя нет; она в сенях;
+Медведя слышит за собой,
+Меж ветхих песен альманаха
+Меж гор, лежащих полукругом,
+Между двух теток, у колонны,
+Между жарким и блан-манже,
+Между людей благоразумных
+Между Онегиным и мной,
+Меж ими всё рождало споры
+Меж сыром лимбургским живым
+Меж тем как мы, враги Гимена,
+Меж тем как сельские циклопы
+Меж тем, механик деревенский,
+Меж тем Онегина явленье
+Меж тем цель оды высока
+Мелькает, вьется первый снег,
+Мелькали сёлы; здесь и там
+Мельканье, вихорь быстрых пар,
+Мельканьем платьев и речей,
+Мелькают лица перед ним,
+Мелькают мимо будки, бабы,
+Мелькают профили голов
+Мелькнет и нет: известно это,
+Меня в сочельник навестил;
+Меняет с каждою весною.
+Меня пленяло: за него
+Меня покойница свекровь&quot;. - Меня презреньем наказать. Меня преследуете вы? Меня смущал;но я привык Меня с слезами заклинаний Меня стесняет сожаленье;Меняю милый, тихий свет Метаясь, хочет закричать:Метелью все занесены, Мечтам и годам нет возврата;Мечтами легкие мечты;Мечтами украшала ей. Мечтам невольная преданность, Мечтанью преданной безмерно, Мечтанья страшного значенье Мечтая с ним когда-нибудь Мечтой о дальней стороне, Мечтой то грустной, то прелестной Мечты, желания, печали Мечты, мечты! где ваша сладость? Милее мне домашний круг, Милей кошурка сердцу дев50. Минуты две они молчали, Младая дева с ним сам-друг;Младое сердце искушал;Младое сердце. &quot;Но теперь
+Младой двурогий лик луны
+Младой души, печали жадной;
+Младой и свежий поцелуй,
+Младые грации Москвы
+Младые дни мои неслись.
+Младых восторгов первый сон,
+Мне было б грустно мир оставить.
+Мне ваша искренность мила;
+Мне в том сознаться, вижу я.
+Мне галлицизмы40будут милы,
+Мне должно после долгой речи
+Мне дорог день, мне дорог час:
+Мне не наделала б вреда.
+Мне неприязненной стихии,
+Мне нравились его черты,
+Мне памятно другое время!
+Мне приходили на язык,
+Мне свой in-quarto подает,
+Мне снились, и душа моя
+Мне с плачем косу расплели
+Мне стало страшно - так и быть...
+Мне тошно, милая моя:
+Мне тяжела теперь и радость,
+Мне услаждала путь немой
+Мог изъясняться и писал;
+Мог оценить его дары,
+Могу ли их себе представить
+Моей мечтательницы милой,
+Моей Татьяне всё равно.
+Моей Татьяны сердце жгла!
+Мое! - сказал Евгений грозно,
+Мои богини! что вы? где вы?
+Мои летучие творенья,
+Моину вызвать (для того,
+Мои сомненья разреши.
+Мои счастливейшие дни?
+Мои успехи в вихре света,
+Мой бедный Ленский! за могилой
+Мой бедный Ленский! изнывая,
+Мой бедный Ленский, сердцем он
+Мой бестолковый ученик.
+Мой брат двоюродный, Буянов,
+&quot;Мой друг, вот Бог тебе порука&quot;. -
+&quot;Мой дядя самых честных правил, Мой модный дом и вечера, Мой неисправленный чудак. &quot;Мой секундант? - сказал Евгений, -
+Моленья, клятвы, мнимый страх,
+Молила мать; для бедной Тани
+Молить и требовать признанья,
+Моложе был меня, мой свет,
+Молящий вид, немой укор,
+Мораль на нас наводит сон,
+Морозна ночь, всё небо ясно;
+Морозной пылью подышать
+Морозной пылью серебрится
+Москва... как много в этом звуке
+Москва, я думал о тебе!
+Москвич в Гарольдовом плаще,
+Москвы коленопреклоненной
+Московских франтов и Цирцей
+Мосты забытые гниют,
+Мосты чугунные чрез воды
+Моя студенческая келья
+Моя Татьяна понимать
+Мужчины кланялися ниже,
+Мужчины против; и, крестясь,
+Мужьев военных и поход.
+Музыка будет полковая!
+Музыка уж греметь устала;
+Музыки грохот, свеч блистанье,
+Мурлыча, лапкой рыльце мыл:
+Мученье модных рифмачей,
+Мы все глядим в Наполеоны;
+Мы все учились понемногу
+Мы их обязаны ласкать,
+Мы лучше поспешим на бал,
+Мы любим слушать иногда
+Мы не слыхали про любовь;
+Мы помним горькую утрату,
+Мы почитаем всех нулями,
+Мы своевольно освятим.
+He мысля гордый свет забавить,
+Мы Таню завтра же покажем.
+Мы увяданье наших лет,
+На биржу тянется извозчик,
+На благородном расстоянье;
+На вате шлафор и чепец.
+На ваш отчаянный призыв?
+На вензель, двум сестрицам данный,
+На ветви сосны преклоненной,
+На вздохи, скуку и обман
+На вист вечерний приезжает,
+Наводит скуку и томленье
+На воск потопленный глядит:
+На воспаленном языке.
+На, вот возьми ее скорей!)
+На всех большое впечатленье
+На всех различные вериги;
+На всё сердитый господин:
+На встречу бедного певца
+На голос, знаемый детьми:
+На грудь кладет тихонько руку
+Над бедной нянею моей...
+Над безыменною рекой
+На два прибора стол накрыть;
+Надгробный камень, храм Киприды43
+Надгробный памятник гласит:
+Надев широкий боливар 7, 
+Надеждой, там недоуменьем
+Надежды нет! Он уезжает,
+Надежды сердца оживи
+Надежды, шалости, мечты.
+Надежней дружбы и родства:
+Надежно ввинченный кремень
+Надежный друг, помещик мирный
+Надзоры теток, матерей,
+Над их бровями надпись ада:
+Над ней он голову ломал
+Над нею и средь бурь мятежных
+На долгий срок разведены.
+На долгих иль на почтовых
+Надолго ль? Милая! Кузина!
+Надолго... навсегда. За ним
+Над отуманенной рекою;
+На дровнях обновляет путь;
+Надулся он и, негодуя,
+На душу мертвую давно,
+Над этой урною смиренной
+Наедине с своей душой
+Назвать; но с головы до ног
+На зеркальном паркете зал,
+Назначен был счастливый срок.
+Назначен строгою судьбой?
+На их полях она встречает
+Найдете вы в России целой
+На каждой станции трактир.
+(Наказ, основанный на том,
+На кляче тощей и косматой
+&quot;На ком?&quot; - &quot;На Лариной&quot;. - &quot;Татьяне!&quot;
+На красных лапках гусь тяжелый,
+На крик испуганный ея
+&quot;Налево? где? что там такое?&quot; -
+- Налей еще мне полстакана...
+На ложи незнакомых дам;
+На ложь журналов, на войну,
+На лоне сельской тишины!
+На месяц зеркало наводит;
+Нам заготовит Гименей
+На миг умолкли разговоры;
+На модном слове идеал 
+На мой прославленный портрет
+Нам по плечу и не странна?
+Нам просвещенье не пристало,
+Нам чувство дико и смешно.
+На небе с левой стороны,
+На нивах шум работ умолк;
+На ниву шумный рой летит.
+На отуманенном стекле
+Напев Торкватовых октав!19
+Напевы звучные заводит.
+На первом листике встречаешь
+На плоскость дам, на тон мужчин,
+На повороте наших лет,
+На полку сыплется. Зубчатый,
+Напомнил хоть единый звук.
+На потопленные луга.
+На прародительницу Эву:
+Напрасно ждал Наполеон,
+Напрасны ваши совершенства:
+На представление мое;
+На прелести ее степные
+Народных слез, рукоплесканий
+На самом утре наших дней.
+На сани труп оледенелый;
+На светский раут74привожу;
+На северном, печальном снеге
+На сем лице лишь гнева след...
+На синих, иссеченных льдах
+Наскуча упряжью своей,
+Наследник всех своих родных. -
+Наследников сердитый хор
+Наследство предоставил им,
+На смятом канапе лежал
+На снег и на свою жену.
+На солнце иней в день морозный,
+На солнце искрами блистая,
+На солнце, на часы смотрел,
+Настала осень золотая.
+Настали святки. То-то радость!
+Настанет вечер деревенский:
+Настанет ночь; луна обходит
+На станциях клопы да блохи
+На стекла хладные дыша,
+На стеклах легкие узоры,
+На столик ставят вощаной
+На стол облокотясь, порой
+На стол тотчас принесено.
+На стульях улеглись в столовой,
+На суд взыскательному свету
+На сцене скачут и шумят;
+На тайный суд себя призвав,
+На Таню чопорно глядят
+На толки про роман туманный,
+На третий роща, холм и поле
+На третье в ночь. Проснувшись рано,
+На тройке чалых лошадей;
+На ту, чей вид напомнил смутно
+Наукой славился любовной,
+На улицах разрытый снег.
+На утренней заре пастух
+Нахмурит брови - все молчат;
+Находит азбучным порядком
+На чай хозяйский слишком сладкий,
+На чердаке вралем рожденной
+Начнете плакать: ваши слезы
+Нашед мой прежний идеал,
+Нашел безвременный конец!
+Нашел он полон двор услуги;
+На шубах у подъезда спят;
+На шум блистательных сует...
+На шум пиров и буйных споров,
+На этом глупом небосклоне&quot;. На языке своем родном, Не без того, чтоб не вздохнуть, Неблагосклонно говорят. Небрежный плод моих забав, Не верит собственным глазам. Неверный зацепляя лед, Невест обширный полукруг, Невесту переспелых лет, Невесты не искал иной. Не вздумал им пенять на то:Не видит никого, кто руку Не видя тут ни капли толку, Не вижу я;да что нам в том?) Невинной прелести полна, Невинных лет предубежденья &quot;Не влюблена ль она?&quot; - &quot;В кого же?
+Невольник хитрый из оков
+Невольно в зеркало глядится
+Невольно докучает взору
+Невольно думала о том;
+Невольной ласки ожидать,
+Невольно ль, иль из доброй воли,
+Невольно, милые мои,
+Не в первый раз он тут явил
+Не все ли, русским языком
+Не в силах Ленский снесть удара;
+Не вспыхнет мысли в целы сутки,
+Не всякий вас, как я, поймет;
+Не вышло из пера его,
+Не гневайся, душа моя,
+(Не говорим уж о стихах);
+Не говорит она: отложим -
+Негодованье, сожаленье,
+Не гонит уж коров из хлева,
+Недавнею гордится славой.
+Недавно сына он женил.
+Не дай блуждать мне вкось и вкрив. 
+Не дай мне Бог сойтись на бале
+Не дай остыть душе поэта,
+Недвижим он лежал, и странен
+Недвижим юноша лежит,
+Недели две ходила сваха
+Не докучал моралью строгой,
+Не долго плакала она.
+Недоумения полна,
+Недоуменья полный взор...
+Не дрогнет сердце, хоть для шутки.
+Недуг, которого причину
+Недуг новейших россиян.
+&quot;Не думай... право... подозренье... Не думали о нас они... Нежней свирельного напева:Не замечаема никем, Не замечал он ничего. Не засмеяться ль им, пока Не знаемый в траве глухой Не знала б горького мученья. Не знали игл;склонясь на пяльцы, Не знаю, как перевести.) Не знаю:&#160;eugene_onegin_sorted.txt'],['../eugene__onegin__sorted__back_8txt.html#ae5dcd671158534307bd902503989af94',1,'vulgar(Не могу... И начитаться не могу. Им овладела понемногу;Но вскоре гости понемногу И начинает понемногу Мы все учились понемногу Готов нам оказать услугу Но ты, Бордо, подобен другу, В высоком лондонском кругу Да стол подвинь;я скоро лягу;Луну, небесную лампаду, Неоцененную награду, И слезы, тайных мук отраду... Судьба и жизнь в свою чреду, - Свою постылую свободу &quot;Но куча будет там народу
+И всякого такого сброду...&quot; - Привычке милой не дал ходу;Всё подвергалось их суду. Она, пророчествуя взгляду Но просто вам перескажу Я грозно в нем изображу, Затем, что к ним принадлежу. - Я модный свет ваш ненавижу;- Я тут еще беды не вижу. На светский раут74привожу;Людей, о коих не сужу, С ревнивой робостью гляжу. Глядит она тихонько в щелку, Девицы шепчут в уголку;Отрядом книг уставил полку, Читал, читал, а всё без толку:Не видя тут ни капли толку, Затяните песенку, Как на досадную разлуку, Изображает смерть, не муку. На грудь кладет тихонько руку Не видит никого, кто руку Подсели дамы к камельку;Душу трагедией в углу, Поймав нежданно за полу, Не нужно золота ему, Уж нынче предпочел ему. Он едет;лишь вошел... ему Да, впрочем, другу моему Оно желудку моему, И чем живет, и почему Не знаю, право, почему;Сама не зная почему) К хороводу нашему. К соседу... да велеть ему:&#160;eugene_onegin_sorted_back.txt']]]
 ];
