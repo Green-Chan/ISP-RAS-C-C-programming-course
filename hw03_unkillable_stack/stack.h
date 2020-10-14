@@ -17,7 +17,15 @@
 //!
 ///------------------------------------------------------------------------------------
 
+#ifndef DEBUG
+    #define DEBUG 0
+#endif
 
+#if DEBUG > 0
+    #ifndef STACK_TYPE_POISON
+        #define STACK_TYPE_POISON 0
+    #endif
+#endif
 
 
 #ifndef STACK_COMMON
@@ -31,9 +39,28 @@
 
 struct TEMPLATE(STACK_TYPE, stack_s)
 {
+    #if DEBUG > 1
+        unsigned long long first_hungry_cat;
+    #endif
     ssize_t size;
     ssize_t capacity;
     STACK_TYPE *data;
+    #if DEBUG > 0
+        //where it was constructed (for dump)
+        const char *stack_pointer_name;
+        const char *born_file;
+        int         born_line;
+        // where was the call of current stack_method (for errors)
+        // "NULL" and 0 if method was not called or was not called properly
+        const char *call_file;
+        int         call_line;
+    #endif // DEBUG > 0
+    #if DEBUG > 2
+        unsigned long long stack_hash;
+    #endif
+    #if DEBUG > 1
+        unsigned long long second_hungry_cat;
+    #endif
 };
 
 typedef struct TEMPLATE(STACK_TYPE, stack_s) TEMPLATE(STACK_TYPE, stack);
@@ -46,16 +73,43 @@ typedef struct TEMPLATE(STACK_TYPE, stack_s) TEMPLATE(STACK_TYPE, stack);
 #include <stdbool.h>
 #include <string.h>
 
-typedef enum stack_error_type {
-    STACK_OK = 0,
-    NULL_POINTER,
-    NEGATIVE_SIZE,
-    NEGATIVE_CAPACITY,
-    SIZE_GREATER_THAN_CAPACITY,
-    NULL_DATA_AND_POSITIVE_CAPACITY,
-    NULL_CAPACITY_AND_NOTNULL_DATA,
-    EMPTY_STACK
-} stack_error_type;
+#if DEBUG > 1
+    const unsigned long long HUNGRY_CAT_VAL = 0xCA715172EA7BEEF1;
+                                       // CAT IS WANT TO EAT BEEF !
+#endif
+
+#if DEBUG > 2
+    unsigned long long hash_mod = 257; // prime
+
+    unsigned long long stack_hash(unsigned char *ptr, size_t size) {
+        unsigned long long result = 0;
+        unsigned long long mod_pov = 1;
+        for (size_t i = 0; i < size; i++) {
+            result += ptr[i] * mod_pov;
+            mod_pov *= hash_mod;
+        }
+        return result;
+    }
+
+#endif // DEBUG > 2
+
+#if DEBUG > 0
+    typedef enum stack_error_type {
+        STACK_OK = 0,
+        NULL_POINTER,
+        NEGATIVE_SIZE,
+        NEGATIVE_CAPACITY,
+        SIZE_GREATER_THAN_CAPACITY,
+        NULL_DATA_AND_POSITIVE_CAPACITY,
+        NULL_CAPACITY_AND_NOTNULL_DATA,
+        EMPTY_STACK,
+        EMPTY_DATA_VALUE_NOT_POISON,
+        FIRST_STRUCT_CAT_IS_FULL,
+        SECOND_STRUCT_CAT_IS_FULL,
+        FIRST_DATA_CAT_IS_FULL,
+        SECOND_DATA_CAT_IS_FULL,
+        BAD_HASH
+    } stack_error_type;
 
 
 ///------------------------------------------------------------------------------------
@@ -77,38 +131,57 @@ const char *stack_error_name(stack_error_type error) {
         case NULL_DATA_AND_POSITIVE_CAPACITY: return "NULL_DATA_AND_POSITIVE_CAPACITY";
         case NULL_CAPACITY_AND_NOTNULL_DATA: return "NULL_CAPACITY_AND_NOTNULL_DATA";
         case EMPTY_STACK: return "POP_FROM_EMPTY_STACK";
+        case EMPTY_DATA_VALUE_NOT_POISON: return "EMPTY_DATA_VALUE_NOT_POISON";
+        case FIRST_STRUCT_CAT_IS_FULL: return "FIRST_STRUCT_CAT_IS_FULL";
+        case SECOND_STRUCT_CAT_IS_FULL : return "SECOND_STRUCT_CAT_IS_FULL";
+        case FIRST_DATA_CAT_IS_FULL: return "FIRST_DATA_CAT_IS_FULL";
+        case SECOND_DATA_CAT_IS_FULL: return "SECOND_DATA_CAT_IS_FULL";
+        case BAD_HASH: return "BAD_HASH";
         default: break;
     }
     return "UNKNOWN_ERROR";
-}
 
-#define standart_stack_assert(type, thou, file, line)                                            \
-do {                                                                                             \
-    stack_error_type error = TEMPLATE(type, stack_not_ok)(thou);                                 \
-    if (error != STACK_OK) {                                                                     \
-        printf("%s(%d): %s\n", file, line, stack_error_name(TEMPLATE(type, stack_not_ok)(thou)));\
-        if (error == NULL_POINTER) {                                                             \
-            assert(!"Got NULL instead of stack");                                                \
-        } else {                                                                                 \
-            assert(!"Stack is not ok");                                                          \
-        }                                                                                        \
-    }                                                                                            \
-} while(0)
+    #define standart_stack_assert(type, thou, flag_before)                                           \
+    do {                                                                                             \
+        stack_error_type error = TEMPLATE(type, stack_not_ok)(thou);                                 \
+        if (error != STACK_OK) {                                                                     \
+            if (flag_before) {                                                                       \
+                printf("Stack was corrupted be someone else\n");                                     \
+                printf("An errror was detected in method, called in\n");                             \
+            } else {                                                                                 \
+                printf("Stack was corrupted in stack method, called in\n");                          \
+            }                                                                                        \
+            printf("%s(%d): %s\n", thou->call_file, thou->call_line,                                 \
+                   stack_error_name(error));                                                         \
+            if (error == NULL_POINTER) {                                                             \
+                assert(!"Got NULL instead of stack");                                                \
+            } else {                                                                                 \
+                assert(!"Stack is not ok");                                                          \
+            }                                                                                        \
+        }                                                                                            \
+    } while(0)
+}
+#endif // DEBUG > 0
 
 //! The capacity, stack will have after push in stack with zero capacity
 #define FIRST_STACK_CAPACITY 1
 
+#if DEBUG > 0
+    ///------------------------------------------------------------------------------------
+    //! Checks if stack fields have valid values. If it is not, returns error number.
+    //!
+    //! @param[in]     type   type of the stack elements
+    //! @param[in]     thou   pointer to the stack
+    //!
+    //! @return 0 if stack is ok, error number otherwise.
+    //!
+    ///------------------------------------------------------------------------------------
+    #define stack_not_ok(type, thou) TEMPLATE(STACK_TYPE, stack_not_ok) (thou)
 
-///------------------------------------------------------------------------------------
-//! Checks if stack fields have valid values. If it is not, returns error number.
-//!
-//! @param[in]     type   type of the stack elements
-//! @param[in]     thou   pointer to the stack
-//!
-//! @return 0 if stack is ok, error number otherwise.
-//!
-///------------------------------------------------------------------------------------
-#define stack_not_ok(type, thou) TEMPLATE(STACK_TYPE, stack_not_ok) (thou)
+    #define file_line_save(thou) (thou)->call_file = __FILE__, (thou)->call_line = __LINE__
+    #define file_line_dele(thou) (thou)->call_file = "NULL"; (thou)->call_line = 0
+
+#endif // DEBUG > 0
 
 ///------------------------------------------------------------------------------------
 //! Constructs stack: puts valid values in the stack fields, that corresponds to an empty stack.
@@ -117,8 +190,14 @@ do {                                                                            
 //! @param[in,out] thou   pointer to the stack
 //!
 ///------------------------------------------------------------------------------------
-#define construct_stack(type, thou) TEMPLATE(type, construct_stack) (thou, __FILE__, __LINE__)
-
+#if DEBUG > 0
+    #define construct_stack(type, thou)\
+    (file_line_save(thou), (thou)->stack_pointer_name = #thou,\
+    (thou)->born_file = __FILE__, (thou)->born_line = __LINE__,\
+    TEMPLATE(type, construct_stack) (thou) )
+#else
+    #define construct_stack(type, thou) TEMPLATE(type, construct_stack) (thou)
+#endif
 ///------------------------------------------------------------------------------------
 //! Destructs stack: free allocated memory and puts invalid values in the stack fields.
 //!
@@ -126,7 +205,12 @@ do {                                                                            
 //! @param[in,out] thou   pointer to the stack
 //!
 ///------------------------------------------------------------------------------------
-#define destruct_stack(type, thou) TEMPLATE(type, destruct_stack) (thou, __FILE__, __LINE__)
+#if DEBUG > 0
+    #define destruct_stack(type, thou) \
+    (file_line_save(thou), TEMPLATE(type, destruct_stack) (thou))
+#else
+    #define destruct_stack(type, thou) TEMPLATE(type, destruct_stack) (thou)
+#endif
 
 ///------------------------------------------------------------------------------------
 //! Checks if stack is empty.
@@ -136,7 +220,12 @@ do {                                                                            
 //! @return 1 if stack is empty, 0 if it is not
 //!
 ///------------------------------------------------------------------------------------
-#define is_empty_stack(type, thou) TEMPLATE(type, is_empty_stack) (thou, __FILE__, __LINE__)
+#if DEBUG > 0
+    #define is_empty_stack(type, thou) \
+    (file_line_save(thou), TEMPLATE(type, is_empty_stack) (thou))
+#else
+    #define is_empty_stack(type, thou) TEMPLATE(type, is_empty_stack) (thou)
+#endif
 
 ///------------------------------------------------------------------------------------
 //! Pops the last element out of stack.
@@ -147,7 +236,12 @@ do {                                                                            
 //! @return popped element
 //!
 ///------------------------------------------------------------------------------------
-#define pop_stack(type, thou) TEMPLATE(type, pop_stack) (thou, __FILE__, __LINE__)
+#if DEBUG > 0
+    #define pop_stack(type, thou) \
+    (file_line_save(thou), TEMPLATE(type, pop_stack) (thou))
+#else
+    #define pop_stack(type, thou) TEMPLATE(type, pop_stack) (thou)
+#endif
 
 ///------------------------------------------------------------------------------------
 //! Reads the last element of stack without popping it.
@@ -158,7 +252,12 @@ do {                                                                            
 //! @return last element
 //!
 ///------------------------------------------------------------------------------------
-#define read_stack(type, thou) TEMPLATE(type, read_stack) (thou, __FILE__, __LINE__)
+#if DEBUG > 0
+    #define read_stack(type, thou) \
+    (file_line_save(thou), TEMPLATE(type, read_stack) (thou))
+#else
+    #define read_stack(type, thou) TEMPLATE(type, read_stack) (thou)
+#endif
 
 ///------------------------------------------------------------------------------------
 //! Pushes new element in stack. Doubles capacity and reallocates memory if necessary.
@@ -173,7 +272,12 @@ do {                                                                            
 //!       You can try to reserve needed amount of memory using @c stack_capacity and then push element.
 //!
 ///------------------------------------------------------------------------------------
-#define push_stack(type, thou, elem) TEMPLATE(type, push_stack) (thou, elem, __FILE__, __LINE__)
+#if DEBUG > 0
+    #define push_stack(type, thou, elem) \
+    (file_line_save(thou), TEMPLATE(type, push_stack) (thou, elem))
+#else
+    #define push_stack(type, thou, elem) TEMPLATE(type, push_stack) (thou, elem)
+#endif
 
 ///------------------------------------------------------------------------------------
 //! Gets size of the stack (number of elements in it).
@@ -184,7 +288,12 @@ do {                                                                            
 //! @return size of the stack
 //!
 ///------------------------------------------------------------------------------------
-#define stack_size(type, thou) TEMPLATE(type, stack_size) (thou, __FILE__, __LINE__)
+#if DEBUG > 0
+    #define stack_size(type, thou) \
+    (file_line_save(thou), TEMPLATE(type, stack_size) (thou))
+#else
+    #define stack_size(type, thou) TEMPLATE(type, stack_size) (thou)
+#endif
 
 ///------------------------------------------------------------------------------------
 //! Gets capacity of the stack (how much elements it can hold without allocation/reallocation).
@@ -195,7 +304,12 @@ do {                                                                            
 //! @return capacity of the stack
 //!
 ///------------------------------------------------------------------------------------
-#define stack_capacity(type, thou) TEMPLATE(type, stack_capacity) (thou, __FILE__, __LINE__)
+#if DEBUG > 0
+    #define stack_capacity(type, thou) \
+    (file_line_save(thou), TEMPLATE(type, stack_capacity) (thou))
+#else
+    #define stack_capacity(type, thou) TEMPLATE(type, stack_capacity) (thou)
+#endif
 
 ///------------------------------------------------------------------------------------
 //! Sets the capacity of the stack. Can be used either to allocate more memory or to free memory you don't need.
@@ -210,120 +324,347 @@ do {                                                                            
 //!       You can try to reserve less memory.
 //!
 ///------------------------------------------------------------------------------------
-#define reserve_stack(type, thou, new_capacity) TEMPLATE(type, reserve_stack) (thou, new_capacity, __FILE__, __LINE__)
-
+#if DEBUG > 0
+    #define reserve_stack(type, thou, new_capacity) \
+    (file_line_save(thou), TEMPLATE(type, reserve_stack) (thou, new_capacity))
+#else
+    #define reserve_stack(type, thou, new_capacity) TEMPLATE(type, reserve_stack) (thou, new_capacity)
 #endif
 
-stack_error_type TEMPLATE(STACK_TYPE, stack_not_ok) (TEMPLATE(STACK_TYPE, stack) *thou) {
-    if (thou == NULL) { return NULL_POINTER; }
-    if (thou->size < 0) { return NEGATIVE_SIZE; }
-    if (thou->capacity < 0) { return NEGATIVE_CAPACITY; }
-    if (thou->capacity < thou->size) { return SIZE_GREATER_THAN_CAPACITY; }
-    if (thou->data == NULL && thou->capacity > 0) { return NULL_DATA_AND_POSITIVE_CAPACITY; }
-    if (thou->data != NULL && thou->capacity == 0) { return NULL_CAPACITY_AND_NOTNULL_DATA; }
-    return STACK_OK;
+#endif // ndef STACK_COMMON
+
+#if DEBUG > 2
+    unsigned long long TEMPLATE(STACK_TYPE, count_hash) (TEMPLATE(STACK_TYPE, stack) *thou) {
+        unsigned long long saved_hash = thou->stack_hash;
+        const char *saved_call_file = thou->call_file;
+        int         saved_call_line = thou->call_line;
+        thou->stack_hash = 0;
+        thou->call_file = NULL;
+        thou->call_line = 0;
+        unsigned long long result = stack_hash((unsigned char *)thou, sizeof(*thou));
+        if (thou->data != NULL) {
+            result += stack_hash((unsigned char *)(((unsigned long long *)thou->data) - 1), thou->capacity * sizeof(STACK_TYPE) + 2 * sizeof(unsigned long long));
+        }
+        thou->stack_hash = saved_hash;
+        thou->call_file = saved_call_file;
+        thou->call_line = saved_call_line;
+        return result;
+    }
+#endif // DEBUG > 2
+
+#if DEBUG > 0
+    stack_error_type TEMPLATE(STACK_TYPE, stack_not_ok) (TEMPLATE(STACK_TYPE, stack) *thou) {
+        if (thou == NULL) { return NULL_POINTER; }
+        if (thou->size < 0) { return NEGATIVE_SIZE; }
+        if (thou->capacity < 0) { return NEGATIVE_CAPACITY; }
+        if (thou->capacity < thou->size) { return SIZE_GREATER_THAN_CAPACITY; }
+        if (thou->data == NULL && thou->capacity > 0) { return NULL_DATA_AND_POSITIVE_CAPACITY; }
+        if (thou->data != NULL && thou->capacity == 0) { return NULL_CAPACITY_AND_NOTNULL_DATA; }
+        for (ssize_t i = thou->size; i < thou->capacity; i++) {
+            if (thou->data[i] != STACK_TYPE_POISON) { return EMPTY_DATA_VALUE_NOT_POISON; }
+        }
+        #if DEBUG > 1
+            if (thou->first_hungry_cat != HUNGRY_CAT_VAL) { return FIRST_STRUCT_CAT_IS_FULL; }
+            if (thou->second_hungry_cat != HUNGRY_CAT_VAL) { return SECOND_STRUCT_CAT_IS_FULL; }
+            if (thou->data != NULL) {
+                if (((unsigned long long *) thou->data)[-1] != HUNGRY_CAT_VAL) { return FIRST_DATA_CAT_IS_FULL; }
+                if (((unsigned long long *)(thou->data + thou->capacity))[0] != HUNGRY_CAT_VAL) { return FIRST_DATA_CAT_IS_FULL; }
+            }
+        #endif
+        #if DEBUG > 2
+            if (thou->stack_hash != TEMPLATE(STACK_TYPE, count_hash)(thou)) { return BAD_HASH; }
+        #endif
+        return STACK_OK;
+    }
+#endif
+
+
+#if DEBUG > 1
+
+void * TEMPLATE(STACK_TYPE, cat_alloc) (size_t capacity) {
+    char *data = (char *)calloc(capacity * sizeof(STACK_TYPE) + 2 * sizeof(unsigned long long), 1);
+    if (data == NULL) { return NULL; }
+    ((unsigned long long *)data)[0] = HUNGRY_CAT_VAL;
+    ((unsigned long long *)(data + sizeof(unsigned long long) + capacity * sizeof(STACK_TYPE)))[0] = HUNGRY_CAT_VAL;
+    return (void *)(data + sizeof(unsigned long long));
 }
 
-void TEMPLATE(STACK_TYPE, construct_stack) (TEMPLATE(STACK_TYPE, stack) *thou, const char *file, int line) {
-    if (thou == NULL) {
-        printf("%s(%d): NULL_POINTER\n", file, line);
-        assert(!"Got NULL instead of stack");
+void * TEMPLATE(STACK_TYPE, cat_realloc) (void *data, size_t new_size) {
+    data = (char *)realloc(((char *)data) - sizeof(unsigned long long), new_size + 2 * sizeof(unsigned long long));
+    if (data == NULL) { return NULL; }
+    ((unsigned long long *)data)[0] = HUNGRY_CAT_VAL;
+    ((unsigned long long *)(data + sizeof(unsigned long long) + new_size))[0] = HUNGRY_CAT_VAL;
+    return (void *)(data + sizeof(unsigned long long));
+}
+
+void TEMPLATE(STACK_TYPE, cat_free) (void *data) {
+    if (data != NULL) {
+        free(((char *)data) - sizeof(unsigned long long));
     }
+}
+
+#endif // DEBUG > 1
+
+void TEMPLATE(STACK_TYPE, construct_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    #if DEBUG > 0
+        if (thou == NULL) {
+            printf("%s(%d): NULL_POINTER\n", thou->call_file, thou->call_line);
+            assert(!"Got NULL instead of stack");
+        }
+    #endif
+
     thou->size = 0;
     thou->capacity = 0;
     thou->data = NULL;
+    #if DEBUG > 1
+        thou->first_hungry_cat = HUNGRY_CAT_VAL;
+        thou->second_hungry_cat = HUNGRY_CAT_VAL;
+    #endif
+
+    #if DEBUG > 2
+        thou->stack_hash = TEMPLATE(STACK_TYPE, count_hash)(thou);
+    #endif
+
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, false);
+        file_line_dele(thou);
+    #endif
 }
 
-void TEMPLATE(STACK_TYPE, destruct_stack) (TEMPLATE(STACK_TYPE, stack) *thou, const char *file, int line) {
-    standart_stack_assert(STACK_TYPE, thou, file, line);
-    free(thou->data);
-    thou->data = (STACK_TYPE *)1; // POISON
-    thou->size = -666; // POISON
-    thou->capacity = -666; // POISON
+void TEMPLATE(STACK_TYPE, destruct_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, true);
+    #endif
+
+    #if DEBUG > 1
+        TEMPLATE(STACK_TYPE, cat_free)(thou->data);
+    #else
+        free(thou->data);
+    #endif
+
+    #if DEBUG > 0
+        thou->data = (STACK_TYPE *)1; // POISON
+        thou->size = -666; // POISON
+        thou->capacity = -666; // POISON
+        file_line_dele(thou);
+    #endif
 }
 
-bool TEMPLATE(STACK_TYPE, is_empty_stack) (TEMPLATE(STACK_TYPE, stack) *thou, const char *file, int line) {
-    standart_stack_assert(STACK_TYPE, thou, file, line);
+bool TEMPLATE(STACK_TYPE, is_empty_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, true);
+        file_line_dele(thou);
+    #endif
     return thou->size == 0;
 }
 
-STACK_TYPE TEMPLATE(STACK_TYPE, pop_stack) (TEMPLATE(STACK_TYPE, stack) *thou, const char *file, int line) {
-    standart_stack_assert(STACK_TYPE, thou, file, line);
-    if (is_empty_stack(STACK_TYPE, thou)) {
-        printf("%s(%d): POP_FROM_EMPTY_STACK\n", file, line);
-        assert(!"Pop from empty stack");
-    }
-    return thou->data[--thou->size];
+STACK_TYPE TEMPLATE(STACK_TYPE, pop_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, true);
+        if (is_empty_stack(STACK_TYPE, thou)) {
+            printf("%s(%d): POP_FROM_EMPTY_STACK\n", thou->call_file, thou->call_line);
+            assert(!"Pop from empty stack");
+        }
+    #endif
+    STACK_TYPE ret_val = thou->data[--thou->size];
+    #if DEBUG > 0
+        thou->data[thou->size] = STACK_TYPE_POISON;
+        #if DEBUG > 2
+            thou->stack_hash = TEMPLATE(STACK_TYPE, count_hash)(thou);
+        #endif
+        standart_stack_assert(STACK_TYPE, thou, false);
+        file_line_dele(thou);
+    #endif
+    return ret_val;
 }
 
-STACK_TYPE TEMPLATE(STACK_TYPE, read_stack) (TEMPLATE(STACK_TYPE, stack) *thou, const char *file, int line) {
-    standart_stack_assert(STACK_TYPE, thou, file, line);
-    if (is_empty_stack(STACK_TYPE, thou)) {
-        printf("%s(%d): EMPTY_STACK\n", file, line);
-        assert(!"Read from empty stack");
-    }
+STACK_TYPE TEMPLATE(STACK_TYPE, read_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, true);
+        if (is_empty_stack(STACK_TYPE, thou)) {
+            printf("%s(%d): POP_FROM_EMPTY_STACK\n", thou->call_file, thou->call_line);
+            assert(!"Read from empty stack");
+        }
+    #endif
     return thou->data[thou->size - 1];
 }
 
-int TEMPLATE(STACK_TYPE, push_stack) (TEMPLATE(STACK_TYPE, stack) *thou, STACK_TYPE elem, const char *file, int line) {
-    standart_stack_assert(STACK_TYPE, thou, file, line);
+int TEMPLATE(STACK_TYPE, push_stack) (TEMPLATE(STACK_TYPE, stack) *thou, STACK_TYPE elem) {
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, true);
+    #endif
     if (thou->capacity == 0) {
-        thou->data = calloc(FIRST_STACK_CAPACITY > 0 ? FIRST_STACK_CAPACITY : 1, sizeof(elem));
+        #if DEBUG > 1
+            thou->data = TEMPLATE(STACK_TYPE, cat_alloc)(FIRST_STACK_CAPACITY > 0 ? FIRST_STACK_CAPACITY : 1);
+        #else
+            thou->data = calloc(FIRST_STACK_CAPACITY > 0 ? FIRST_STACK_CAPACITY : 1, sizeof(elem));
+        #endif
         if (thou->data == NULL) {
+            #if DEBUG > 0
+                standart_stack_assert(STACK_TYPE, thou, false);
+                file_line_dele(thou);
+            #endif
             return 1;
         }
         thou->capacity = FIRST_STACK_CAPACITY > 0 ? FIRST_STACK_CAPACITY : 1;
     } else if (thou->size == thou->capacity) {
-        STACK_TYPE *new_data = realloc(thou->data, thou->capacity * 2 * sizeof(elem));
+        #if DEBUG > 1
+            STACK_TYPE *new_data = TEMPLATE(STACK_TYPE, cat_realloc)(thou->data, thou->capacity * 2 * sizeof(elem));
+        #else
+            STACK_TYPE *new_data = realloc(thou->data, thou->capacity * 2 * sizeof(elem));
+        #endif
         if (new_data == NULL) {
+            #if DEBUG > 0
+                standart_stack_assert(STACK_TYPE, thou, false);
+                file_line_dele(thou);
+            #endif
             return 1;
         }
-        memset(new_data + thou->capacity, 0, thou->capacity);
         thou->data = new_data;
         thou->capacity *= 2;
     }
     thou->data[thou->size++] = elem;
+    #if DEBUG > 0
+        for (ssize_t i = thou->size; i < thou->capacity; i++ ) {
+            thou->data[i] = STACK_TYPE_POISON;
+        }
+        #if DEBUG > 2
+            thou->stack_hash = TEMPLATE(STACK_TYPE, count_hash)(thou);
+        #endif
+        standart_stack_assert(STACK_TYPE, thou, false);
+        file_line_dele(thou);
+    #endif
     return 0;
 }
 
-ssize_t TEMPLATE(STACK_TYPE, stack_size) (TEMPLATE(STACK_TYPE, stack) *thou, const char *file, int line) {
-    standart_stack_assert(STACK_TYPE, thou, file, line);
+ssize_t TEMPLATE(STACK_TYPE, stack_size) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, true);
+        file_line_dele(thou);
+    #endif
     return thou->size;
 }
 
-ssize_t TEMPLATE(STACK_TYPE, stack_capacity) (TEMPLATE(STACK_TYPE, stack) *thou, const char *file, int line) {
-    standart_stack_assert(STACK_TYPE, thou, file, line);
+ssize_t TEMPLATE(STACK_TYPE, stack_capacity) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, true);
+        file_line_dele(thou);
+    #endif
     return thou->capacity;
 }
 
-int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stack) *thou, ssize_t new_capacity, const char *file, int line) {
-    standart_stack_assert(STACK_TYPE, thou, file, line);
-    if (new_capacity < thou->size) {
-        printf("%s(%d): SIZE_GREATER_THAN_CAPACITY\n", file, line);
-        assert(!"Invalid new_capacity");
-    }
+int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stack) *thou, ssize_t new_capacity) {
+    #if DEBUG > 0
+        standart_stack_assert(STACK_TYPE, thou, true);
+        if (new_capacity < thou->size) {
+            printf("%s(%d): SIZE_GREATER_THAN_CAPACITY\n", thou->call_file, thou->call_line);
+            assert(!"Invalid new_capacity");
+        }
+    #endif
     if (thou->capacity != new_capacity) {
         if (thou->capacity == 0) {
-            thou->data = calloc(new_capacity, sizeof(STACK_TYPE));
+            #if DEBUG > 1
+                thou->data = TEMPLATE(STACK_TYPE, cat_alloc)(new_capacity);
+            #else
+                thou->data = calloc(new_capacity, sizeof(STACK_TYPE));
+            #endif
             if (thou->data == NULL) {
+                #if DEBUG > 0
+                    standart_stack_assert(STACK_TYPE, thou, false);
+                    file_line_dele(thou);
+                #endif
                 return 1;
             }
         } else if (new_capacity == 0) {
-            free(thou->data);
+            #if DEBUG > 1
+                TEMPLATE(STACK_TYPE, cat_free)(thou->data);
+            #else
+                free(thou->data);
+            #endif
             thou->data = NULL;
         } else {
-            STACK_TYPE *new_data = realloc(thou->data, new_capacity);
+            #if DEBUG > 1
+                STACK_TYPE *new_data = TEMPLATE(STACK_TYPE, cat_realloc)(thou->data, new_capacity);
+            #else
+                STACK_TYPE *new_data = realloc(thou->data, new_capacity);
+            #endif
             if (new_data == NULL) {
+                #if DEBUG > 0
+                    standart_stack_assert(STACK_TYPE, thou, false);
+                    file_line_dele(thou);
+                #endif
                 return 1;
             }
             if (new_capacity > thou->capacity) {
-                memset(new_data + thou->capacity, 0, new_capacity - thou->capacity);
                 thou->data = new_data;
             }
             assert(thou->data == new_data);
         }
         thou->capacity = new_capacity;
     }
+    #if DEBUG > 0
+        for (ssize_t i = thou->size; i < thou->capacity; i++) {
+            thou->data[i] = STACK_TYPE_POISON;
+        }
+        #if DEBUG > 2
+            thou->stack_hash = TEMPLATE(STACK_TYPE, count_hash)(thou);
+        #endif
+        standart_stack_assert(STACK_TYPE, thou, false);
+        file_line_dele(thou);
+    #endif // DEBUG
     return 0;
 }
 
+#if DEBUG > 0
+    void TEMPLATE(STACK_TYPE, stack_dump) (TEMPLATE(STACK_TYPE, stack) *thou) {
+        stack_error_type error = TEMPLATE(STACK_TYPE, stack_not_ok)(thou);
+        printf("Stack[TYPE = %s] (%s) [0x%p]\n", TO_STRING(STACK_TYPE), stack_error_name(error), thou);
+        if (error != NULL_POINTER) {
+            printf("\"%s\"[%s(%d)]\n", thou->stack_pointer_name, thou->born_file, thou->born_line);
+            printf("{\n");
+            #if DEBUG > 1
+                printf("  first_hungry_cat = 0x%I64x\n", thou->first_hungry_cat);
+            #endif
+            printf("  size = %Id\n", thou->size);
+            printf("  size = %Id\n", thou->capacity);
+            printf("  data[0x%p]\n", thou->data);
+            if (thou->data != NULL && thou->capacity > 0) {
+                printf("  {\n");
+                #if DEBUG > 1
+                    printf("  first_data_hungry_cat = 0x%I64x\n", ((unsigned long long *)thou->data)[-1]);
+                #endif
+                ssize_t i = 0;
+                for (i = 0; i < thou->size && i < thou->capacity; i++) {
+                    printf("    *[%Id] = ", i);
+                    PRINT_STACK_TYPE(thou->data[i]);
+                    if (thou->data[i] == STACK_TYPE_POISON) {
+                        printf(" // POISON!");
+                    }
+                    printf("\n");
+                }
+                for (; i < thou->capacity; i++) {
+                    printf("     [%Id] = ", i);
+                    PRINT_STACK_TYPE(thou->data[i]);
+                    if (thou->data[i] == STACK_TYPE_POISON) {
+                        printf(" // POISON!");
+                    }
+                    printf("\n");
+                }
+                for (; i < thou->size; i++) {
+                    printf("    *\n");
+                }
+                #if DEBUG > 1
+                    printf("  second_data_hungry_cat = 0x%I64x\n", ((unsigned long long *)(thou->data + thou->capacity))[0]);
+                #endif
+                printf("  }\n");
+            }
+            #if DEBUG > 2
+                printf("  stack_hash = %I64u\n", thou->stack_hash);
+            #endif
+            #if DEBUG > 1
+                printf("  second_hungry_cat = 0x%I64x\n", thou->second_hungry_cat);
+            #endif
+            printf("}\n");
+        }
+    }
+#endif // DEBUG > 0

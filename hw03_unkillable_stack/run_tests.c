@@ -1,13 +1,17 @@
 #include <stdio.h>
 #include <assert.h>
 
+#define PRINT_STACK_TYPE(val) printf("%d", val)
 #define STACK_TYPE int
 #include "stack.h"
 #undef STACK_TYPE
+#undef PRINT_STACK_TYPE
 
+#define PRINT_STACK_TYPE(val) printf("%f", val)
 #define STACK_TYPE double
 #include "stack.h"
 #undef STACK_TYPE
+#undef PRINT_STACK_TYPE
 
 int main() {
     TEMPLATE(int, stack) si1, si2;
@@ -16,9 +20,14 @@ int main() {
     construct_stack(int, &si2);
     construct_stack(double, &sd1);
 
-    const int bign = 1000000;
+    const int bign = 10000;
 
     for (int i = 0; i < bign; i++) {
+        /*
+        if (i == 10) {
+            TEMPLATE(int, stack_dump)(&si1);
+        }
+        */
         push_stack(int, &si1, i);
         push_stack(int, &si2, i);
     }
