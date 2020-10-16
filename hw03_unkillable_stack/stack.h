@@ -3,7 +3,7 @@
 //! To use stack from this header you should define STACK_TYPE (the type of elements, stack will store),
 //! then include this file. If you want to use stacks with different types, undef STACK_TYPE after
 //! including this file, then define another STACK_TYPE and include this file again (repeat as many times
-//! as necessary).
+//! as necessary). STACK_TYPE should be one word (use typedef if it isn't).
 //!
 //! To declare new stacks write <CODE> TEMPLATE(type, stack) s1, s2; </CODE> where @c type is
 //! the type of elements, stack will store. Always initialize stacks before using (use @c construct_stack)
@@ -13,7 +13,26 @@
 //! where @c type is the type of elements, the stack stores, @c ptr is a pointer to the stack,
 //! and <CODE> [args] </CODE> are the other arguments of the method (if there are some).
 //!
-//! See usage example in run_tests.cpp
+//! Stack has several levels of security:
+//!
+//! If DEBUG=0 stack does not check itself;
+//!
+//! If DEBUG=1 stack checks if stack fields store valid values (size \f$ \leq \f$ capacity,
+//! data \f$ \neq \f$ NULL if capacity \f$ > \f$ 0, etc.). If they are not, program prints current stack and
+//! asserts. Stack also checks if reserved but not used elements are equal STACK_TYPE_POISON.
+//! If you not define STACK_TYPE_POISON, it is 0, so if STACK_TYPE cannot be compared with 0, the
+//! program will not compile.
+//! You should define PRINT_STACK_TYPE, if you want to see the values of stack elements, when
+//! current stack is printed.
+//!
+//! If DEBUG=2 stack do checks as when DEBUG=1 and also checks canaries that surround struct stack
+//! and the buffer with elements. (In this code hungry_cat written instead of canary just for fun.
+//! When canary is okay, it is flying and cat is hungry. When canary feels bad, cat can eat it.)
+//!
+//! If DEBUG=3 stack do checks as when DEBUG=2 and also checks if the hash of stack is equal to the
+//! hash counted the last time the stack has been changed.
+//!
+//! See stack usage example in run_tests.cpp
 //!
 ///------------------------------------------------------------------------------------
 
@@ -24,6 +43,9 @@
 #if DEBUG > 0
     #ifndef STACK_TYPE_POISON
         #define STACK_TYPE_POISON 0
+    #endif
+    #ifndef PRINT_STACK_TYPE
+        #define PRINT_STACK_TYPE(val) printf("PRINT_STACK_TYPE is not defined");
     #endif
 #endif
 
@@ -147,12 +169,13 @@ const char *stack_error_name(stack_error_type error) {
         if (error != STACK_OK) {                                                                     \
             if (flag_before) {                                                                       \
                 printf("Stack was corrupted be someone else\n");                                     \
-                printf("An errror was detected in method, called in\n");                             \
+                printf("An error was detected in method, called in\n");                             \
             } else {                                                                                 \
                 printf("Stack was corrupted in stack method, called in\n");                          \
             }                                                                                        \
             printf("%s(%d): %s\n", thou->call_file, thou->call_line,                                 \
                    stack_error_name(error));                                                         \
+            TEMPLATE(STACK_TYPE, stack_dump) (thou);                                                 \
             if (error == NULL_POINTER) {                                                             \
                 assert(!"Got NULL instead of stack");                                                \
             } else {                                                                                 \
@@ -376,6 +399,8 @@ const char *stack_error_name(stack_error_type error) {
         #endif
         return STACK_OK;
     }
+
+    void TEMPLATE(STACK_TYPE, stack_dump) (TEMPLATE(STACK_TYPE, stack) *thou);
 #endif
 
 

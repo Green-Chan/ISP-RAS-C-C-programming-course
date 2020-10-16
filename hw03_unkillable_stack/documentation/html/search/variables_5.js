@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['new_5fcapacity_57',['new_capacity',['../stack_8h.html#ae10e63cd496a3ab9132e84f53a21f29e',1,'stack.h']]]
+  ['thou_41',['thou',['../stack_8h.html#a9f996595ad56bd9e7e9685470ee19429',1,'stack.h']]]
 ];

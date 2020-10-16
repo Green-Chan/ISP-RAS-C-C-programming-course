@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['main_12',['main',['../run__tests_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'run_tests.c']]]
+  ['new_5fcapacity_9',['new_capacity',['../stack_8h.html#ae10e63cd496a3ab9132e84f53a21f29e',1,'stack.h']]]
 ];

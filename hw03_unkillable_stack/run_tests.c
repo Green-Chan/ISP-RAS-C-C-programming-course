@@ -7,7 +7,6 @@
 #undef STACK_TYPE
 #undef PRINT_STACK_TYPE
 
-#define PRINT_STACK_TYPE(val) printf("%f", val)
 #define STACK_TYPE double
 #include "stack.h"
 #undef STACK_TYPE
@@ -23,11 +22,11 @@ int main() {
     const int bign = 10000;
 
     for (int i = 0; i < bign; i++) {
-        /*
+
         if (i == 10) {
-            TEMPLATE(int, stack_dump)(&si1);
+            si1.size++;
         }
-        */
+
         push_stack(int, &si1, i);
         push_stack(int, &si2, i);
     }

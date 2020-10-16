@@ -2,7 +2,16 @@
 
 ## Description
 
-That is a stack that is as fragile as I can write. Each method checks if stack fields store valid values and asserts if they are not.
+That is a stack data structure that has several levels of security:
+
+* DEBUG=0. A usual stack that does not check itself;
+
+* DEBUG=1. Each method checks if stack fields store valid values (size is less or equal capacity, data is not equal NULL if capacity greater than 0, etc.).
+If they are not, program prints current stack and asserts. Stack also checks if reserved but not used elements are store poison values (they should on this level).
+
+* DEBUG=2. Stack do checks as when DEBUG=1 and also checks canaries that surround struct stack and the buffer with elements.
+
+* DEBUG=3. Stack do checks as when DEBUG=2 and also checks if the hash of stack is equal to the hash counted the last time the stack has been changed.
 
 That is C code that enable stack to store elements of any type. (All elements in the same stack have the same type, but you can have two or more stacks with different types of elements and you can choose any type.) That is how code could look like if you need an analog of C++ templates in C.
 
@@ -22,9 +31,9 @@ That is C code that enable stack to store elements of any type. (All elements in
 
 * Open CMD
 
-* Get to the hw03_unkillable_stack directory 
+* Get to the hw03_unkillable_stack directory
 ```
-> cd path\to\the\directory\hw03_unkillable_stack 
+> cd path\to\the\directory\hw03_unkillable_stack
 ```
 > **Note:** If you need to change the drive from C: to D:, type "D:" (without quotes).
 
@@ -34,11 +43,29 @@ That is C code that enable stack to store elements of any type. (All elements in
 ```
 > **Note:** you may need to learn how to add MinGW\bin to the PATH (the Environment Settings section in http://www.mingw.org/wiki/Getting_Started/).
 
-### Running tests 
+### Running tests
 
-* Run mingw32-make with argument test
+* Run mingw32-make with argument test (DEBUG=0 by default)
 ```
 > mingw32-make test
+```
+
+* Run mingw32-make with argument test and DEBUG=<required_level>
+```
+> mingw32-make test DEBUG=3
+```
+
+## Debugging
+
+To debug the program using GDB:
+* Rebuild the program with DEBUG=1 (or DEBUG=2, or DEBUG=3)
+```
+> mingw32-make clean
+> mingw32-make DEBUG=1
+```
+* Run program using GDB
+```
+> gdb run_tests.exe
 ```
 
 ## Documentation

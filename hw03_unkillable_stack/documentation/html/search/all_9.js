@@ -1,8 +1,8 @@
 var searchData=
 [
-  ['read_5fstack_21',['read_stack',['../stack_8h.html#aeb5c864550111462960a8652c1fac60d',1,'stack.h']]],
-  ['readme_2emd_22',['README.md',['../_r_e_a_d_m_e_8md.html',1,'']]],
-  ['reserve_5fstack_23',['reserve_stack',['../stack_8h.html#acd842379e96714070ec628eb5f0ca2bf',1,'stack.h']]],
-  ['return_24',['return',['../stack_8h.html#a9717e7bbecb906637e86cef6da3d83c2',1,'stack.h']]],
-  ['run_5ftests_2ec_25',['run_tests.c',['../run__tests_8c.html',1,'']]]
+  ['stack_2eh_19',['stack.h',['../stack_8h.html',1,'']]],
+  ['stack_5fcapacity_20',['stack_capacity',['../stack_8h.html#ab1b64bee8368ab4b5b4d4dd7048124e4',1,'stack.h']]],
+  ['stack_5fcommon_21',['STACK_COMMON',['../stack_8h.html#a07694b52cef655d8b8559d33d7d96e56',1,'stack.h']]],
+  ['stack_5fsize_22',['stack_size',['../stack_8h.html#aadba5e05cae44af14aaf36964cfb8d81',1,'stack.h']]],
+  ['stack_5ftype_23',['STACK_TYPE',['../run__tests_8c.html#aac3a9cf7da0ffc027fb96855734bd774',1,'STACK_TYPE():&#160;run_tests.c'],['../run__tests_8c.html#aac3a9cf7da0ffc027fb96855734bd774',1,'STACK_TYPE():&#160;run_tests.c']]]
 ];
