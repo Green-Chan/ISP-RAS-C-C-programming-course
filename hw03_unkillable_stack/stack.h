@@ -15,21 +15,22 @@
 //!
 //! Stack has several levels of security:
 //!
-//! If DEBUG=0 stack does not check itself;
+//! If DEBUG=0, stack does not check itself;
 //!
-//! If DEBUG=1 stack checks if stack fields store valid values (size \f$ \leq \f$ capacity,
+//! If DEBUG=1, stack checks if stack fields store valid values (size \f$ \leq \f$ capacity,
 //! data \f$ \neq \f$ NULL if capacity \f$ > \f$ 0, etc.). If they are not, program prints current stack and
 //! asserts. Stack also checks if reserved but not used elements are equal STACK_TYPE_POISON.
 //! If you not define STACK_TYPE_POISON, it is 0, so if STACK_TYPE cannot be compared with 0, the
 //! program will not compile.
 //! You should define PRINT_STACK_TYPE, if you want to see the values of stack elements, when
 //! current stack is printed.
+//! If you want some specific comparison for STACK_TYPE, you should define STACK_TYPE_CMP.
 //!
-//! If DEBUG=2 stack do checks as when DEBUG=1 and also checks canaries that surround struct stack
+//! If DEBUG=2, stack do checks as when DEBUG=1 and also checks canaries that surround struct stack
 //! and the buffer with elements. (In this code hungry_cat written instead of canary just for fun.
 //! When canary is okay, it is flying and cat is hungry. When canary feels bad, cat can eat it.)
 //!
-//! If DEBUG=3 stack do checks as when DEBUG=2 and also checks if the hash of stack is equal to the
+//! If DEBUG=3, stack do checks as when DEBUG=2 and also checks if the hash of stack is equal to the
 //! hash counted the last time the stack has been changed.
 //!
 //! See stack usage example in run_tests.cpp
@@ -44,8 +45,13 @@
     #ifndef STACK_TYPE_POISON
         #define STACK_TYPE_POISON 0
     #endif
+
     #ifndef PRINT_STACK_TYPE
         #define PRINT_STACK_TYPE(val) printf("PRINT_STACK_TYPE is not defined");
+    #endif
+
+    #ifndef STACK_TYPE_CMP
+        #define STACK_TYPE_CMP(a, b) a == b
     #endif
 #endif
 
@@ -169,11 +175,11 @@ const char *stack_error_name(stack_error_type error) {
         if (error != STACK_OK) {                                                                     \
             if (flag_before) {                                                                       \
                 printf("Stack was corrupted be someone else\n");                                     \
-                printf("An error was detected in method, called in\n");                             \
+                printf("An error was detected in method, called in\n");                              \
             } else {                                                                                 \
                 printf("Stack was corrupted in stack method, called in\n");                          \
             }                                                                                        \
-            printf("%s(%d): %s\n", thou->call_file, thou->call_line,                                 \
+            printf("%s(%d): %s\n", (thou)->call_file, (thou)->call_line,                             \
                    stack_error_name(error));                                                         \
             TEMPLATE(STACK_TYPE, stack_dump) (thou);                                                 \
             if (error == NULL_POINTER) {                                                             \
@@ -358,6 +364,7 @@ const char *stack_error_name(stack_error_type error) {
 
 #if DEBUG > 2
     unsigned long long TEMPLATE(STACK_TYPE, count_hash) (TEMPLATE(STACK_TYPE, stack) *thou) {
+        assert(thou != NULL);
         unsigned long long saved_hash = thou->stack_hash;
         const char *saved_call_file = thou->call_file;
         int         saved_call_line = thou->call_line;
@@ -384,7 +391,7 @@ const char *stack_error_name(stack_error_type error) {
         if (thou->data == NULL && thou->capacity > 0) { return NULL_DATA_AND_POSITIVE_CAPACITY; }
         if (thou->data != NULL && thou->capacity == 0) { return NULL_CAPACITY_AND_NOTNULL_DATA; }
         for (ssize_t i = thou->size; i < thou->capacity; i++) {
-            if (thou->data[i] != STACK_TYPE_POISON) { return EMPTY_DATA_VALUE_NOT_POISON; }
+            if (!(STACK_TYPE_CMP(thou->data[i], STACK_TYPE_POISON))) { return EMPTY_DATA_VALUE_NOT_POISON; }
         }
         #if DEBUG > 1
             if (thou->first_hungry_cat != HUNGRY_CAT_VAL) { return FIRST_STRUCT_CAT_IS_FULL; }
@@ -662,7 +669,7 @@ int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stack) *thou, ssiz
                 for (i = 0; i < thou->size && i < thou->capacity; i++) {
                     printf("    *[%Id] = ", i);
                     PRINT_STACK_TYPE(thou->data[i]);
-                    if (thou->data[i] == STACK_TYPE_POISON) {
+                    if (STACK_TYPE_CMP(thou->data[i], STACK_TYPE_POISON)) {
                         printf(" // POISON!");
                     }
                     printf("\n");
@@ -670,7 +677,7 @@ int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stack) *thou, ssiz
                 for (; i < thou->capacity; i++) {
                     printf("     [%Id] = ", i);
                     PRINT_STACK_TYPE(thou->data[i]);
-                    if (thou->data[i] == STACK_TYPE_POISON) {
+                    if (STACK_TYPE_CMP(thou->data[i], STACK_TYPE_POISON)) {
                         printf(" // POISON!");
                     }
                     printf("\n");

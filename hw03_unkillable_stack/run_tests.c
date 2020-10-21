@@ -1,16 +1,20 @@
 #include <stdio.h>
 #include <assert.h>
+#include <math.h>
 
 #define PRINT_STACK_TYPE(val) printf("%d", val)
 #define STACK_TYPE int
 #include "stack.h"
 #undef STACK_TYPE
 #undef PRINT_STACK_TYPE
+#undef STACK_TYPE_CMP
 
 #define STACK_TYPE double
+#define STACK_TYPE_CMP(a, b) fabs(a - b) < 1e-5
 #include "stack.h"
 #undef STACK_TYPE
 #undef PRINT_STACK_TYPE
+#undef STACK_TYPE_CMP
 
 int main() {
     TEMPLATE(int, stack) si1, si2;
@@ -22,11 +26,6 @@ int main() {
     const int bign = 10000;
 
     for (int i = 0; i < bign; i++) {
-
-        if (i == 10) {
-            si1.size++;
-        }
-
         push_stack(int, &si1, i);
         push_stack(int, &si2, i);
     }
