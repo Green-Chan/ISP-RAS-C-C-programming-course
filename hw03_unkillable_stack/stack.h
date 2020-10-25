@@ -168,28 +168,28 @@ const char *stack_error_name(stack_error_type error) {
         default: break;
     }
     return "UNKNOWN_ERROR";
-
-    #define standart_stack_assert(type, thou, flag_before)                                           \
-    do {                                                                                             \
-        stack_error_type error = TEMPLATE(type, stack_not_ok)(thou);                                 \
-        if (error != STACK_OK) {                                                                     \
-            if (flag_before) {                                                                       \
-                printf("Stack was corrupted be someone else\n");                                     \
-                printf("An error was detected in method, called in\n");                              \
-            } else {                                                                                 \
-                printf("Stack was corrupted in stack method, called in\n");                          \
-            }                                                                                        \
-            printf("%s(%d): %s\n", (thou)->call_file, (thou)->call_line,                             \
-                   stack_error_name(error));                                                         \
-            TEMPLATE(STACK_TYPE, stack_dump) (thou);                                                 \
-            if (error == NULL_POINTER) {                                                             \
-                assert(!"Got NULL instead of stack");                                                \
-            } else {                                                                                 \
-                assert(!"Stack is not ok");                                                          \
-            }                                                                                        \
-        }                                                                                            \
-    } while(0)
 }
+
+#define standart_stack_assert(type, thou, flag_before)                                           \
+do {                                                                                             \
+    stack_error_type error = TEMPLATE(type, stack_not_ok)(thou);                                 \
+    if (error != STACK_OK) {                                                                     \
+        if (flag_before) {                                                                       \
+            printf("Stack was corrupted be someone else\n");                                     \
+            printf("An error was detected in method, called in\n");                              \
+        } else {                                                                                 \
+            printf("Stack was corrupted in stack method, called in\n");                          \
+        }                                                                                        \
+        printf("%s(%d): %s\n", (thou)->call_file, (thou)->call_line,                             \
+               stack_error_name(error));                                                         \
+        TEMPLATE(STACK_TYPE, stack_dump) (thou);                                                 \
+        if (error == NULL_POINTER) {                                                             \
+            assert(!"Got NULL instead of stack");                                                \
+        } else {                                                                                 \
+            assert(!"Stack is not ok");                                                          \
+        }                                                                                        \
+    }                                                                                            \
+} while(0)
 #endif // DEBUG > 0
 
 //! The capacity, stack will have after push in stack with zero capacity
@@ -398,7 +398,7 @@ const char *stack_error_name(stack_error_type error) {
             if (thou->second_hungry_cat != HUNGRY_CAT_VAL) { return SECOND_STRUCT_CAT_IS_FULL; }
             if (thou->data != NULL) {
                 if (((unsigned long long *) thou->data)[-1] != HUNGRY_CAT_VAL) { return FIRST_DATA_CAT_IS_FULL; }
-                if (((unsigned long long *)(thou->data + thou->capacity))[0] != HUNGRY_CAT_VAL) { return FIRST_DATA_CAT_IS_FULL; }
+                if (((unsigned long long *)(thou->data + thou->capacity))[0] != HUNGRY_CAT_VAL) { return SECOND_DATA_CAT_IS_FULL; }
             }
         #endif
         #if DEBUG > 2
@@ -627,10 +627,7 @@ int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stack) *thou, ssiz
                 #endif
                 return 1;
             }
-            if (new_capacity > thou->capacity) {
-                thou->data = new_data;
-            }
-            assert(thou->data == new_data);
+            thou->data = new_data;
         }
         thou->capacity = new_capacity;
     }
