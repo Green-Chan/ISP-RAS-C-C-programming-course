@@ -58,6 +58,8 @@
 
 #ifndef STACK_COMMON
 
+#include <stdlib.h>
+
 #define TEMPLATE_IN(type, name) name ## _ ## type
 #define TEMPLATE(type, name) TEMPLATE_IN(type, name)
 #define TO_STRING_IN(s)  # s
