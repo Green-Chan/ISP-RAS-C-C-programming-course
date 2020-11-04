@@ -32,6 +32,9 @@ The command push must be followed by either the name of some register or a doubl
 The command jmp must be followed by the name of the label, that is defined in code. To define a label type its
 name (the sequence of alpha and digit symbols), then colon (:) without space symbols between them.
 
+You can see an example of code in specific assembler language in test1.kasm file. This code reads coefficients of quadratic equation and calculates
+a square root of its discriminant.
+
 In this project assembler, disassembler and processor for this specific assembler language are realized. Assembler assembles a specific
 binary code from program in specific assembler language. Disassembler disassembles specific binary code back to specific assembler language.
 Processor processes program in specific binary code.
