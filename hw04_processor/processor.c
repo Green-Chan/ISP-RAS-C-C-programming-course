@@ -26,11 +26,16 @@ char *get_processor_file_error()
 int header_error;
 
 int check_header_proc(const char **cur_char, size_t file_size) {
-    if (file_size < sizeof(header) || memcmp(*cur_char, header, sizeof(header)) != 0) {
+    if (file_size < sizeof(header1)) {
         return 1;
     }
-    (*cur_char) += sizeof(header);
-    return 0;
+    if (memcmp(*cur_char, header1, sizeof(header1)) == 0 ||
+        memcmp(*cur_char, header2, sizeof(header2)) == 0 ) {
+        // Both versions could be processed and headers have the same size
+        (*cur_char) += sizeof(header1);
+         return 0;
+    }
+    return 1;
 }
 
 #define END_PROC_AND_RETURN \
@@ -70,7 +75,7 @@ int process(const char *file_path)
 
     TEMPLATE(double, stack) proc_stack;
     construct_stack(double, &proc_stack);
-    double rax = NAN, rbx = NAN, rcx = NAN, rdx = NAN;
+    double registers[4] = { NAN, NAN, NAN, NAN };
 
     while (cur_cmd < program + program_size) {
         switch (*cur_cmd) {
@@ -153,13 +158,13 @@ int process(const char *file_path)
                 END_PROC_AND_RETURN POP_FROM_EMPTY_STACK_PROC_ERR;
             }
             cur_cmd++;
-            switch (*cur_cmd) {
-                case RAX: rax = pop_stack(double, &proc_stack); break;
-                case RBX: rbx = pop_stack(double, &proc_stack); break;
-                case RCX: rcx = pop_stack(double, &proc_stack); break;
-                case RDX: rdx = pop_stack(double, &proc_stack); break;
-                default: END_PROC_AND_RETURN UNKNOWN_REGISTER_PROC_ERR;
+            if (cur_cmd + 1 > program + program_size) {
+                END_PROC_AND_RETURN NO_HALT_PROC_ERR;
             }
+            if ((unsigned char) *cur_cmd >= sizeof(registers) / sizeof(registers[0])) {
+                END_PROC_AND_RETURN UNKNOWN_REGISTER_PROC_ERR;
+            }
+            registers[*cur_cmd] =  pop_stack(double, &proc_stack);
             cur_cmd++;
             break;
         case PUSH_VAL:
@@ -174,21 +179,26 @@ int process(const char *file_path)
             break;
         case PUSH_REG:
             cur_cmd++;
-            int push_res = 1;
             if (cur_cmd + 1 > program + program_size) {
                 END_PROC_AND_RETURN NO_HALT_PROC_ERR;
             }
-            switch (*cur_cmd) {
-                case RAX: push_res = push_stack(double, &proc_stack, rax); break;
-                case RBX: push_res = push_stack(double, &proc_stack, rbx); break;
-                case RCX: push_res = push_stack(double, &proc_stack, rcx); break;
-                case RDX: push_res = push_stack(double, &proc_stack, rdx); break;
-                default: END_PROC_AND_RETURN UNKNOWN_REGISTER_PROC_ERR;
+            if ((unsigned char) *cur_cmd >= sizeof(registers) / sizeof(registers[0])) {
+                END_PROC_AND_RETURN UNKNOWN_REGISTER_PROC_ERR;
             }
-            if (push_res) {
+            if (push_stack(double, &proc_stack, registers[*cur_cmd])) {
                 END_PROC_AND_RETURN OUT_OF_MEMORY_PROC_ERR;
             }
             cur_cmd++;
+            break;
+        case JMP:
+            cur_cmd++;
+            if (cur_cmd + sizeof(size_t) > program + program_size) {
+                END_PROC_AND_RETURN NO_HALT_PROC_ERR;
+            }
+            cur_cmd += sizeof(size_t) + *((size_t *)cur_cmd);
+            if (cur_cmd >= program + program_size) {
+                END_PROC_AND_RETURN BAD_JMP_ADDRESS_PROC_ERR;
+            }
             break;
         default: END_PROC_AND_RETURN UNKNOWN_COMMAND_PROC_ERR;
         }

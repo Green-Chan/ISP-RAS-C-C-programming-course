@@ -112,8 +112,10 @@ Description</h1>
 <td class="markdownTableBodyNone">pop  </td><td class="markdownTableBodyNone">take number from stack and put it in specified register, if register is not specified just removes number from stack   </td></tr>
 <tr class="markdownTableRowEven">
 <td class="markdownTableBodyNone">push  </td><td class="markdownTableBodyNone">put on stack a number stored in specified register or specified number   </td></tr>
+<tr class="markdownTableRowOdd">
+<td class="markdownTableBodyNone">jmp  </td><td class="markdownTableBodyNone">jump to the specified label and continue execution from the code just after the definition of the label   </td></tr>
 </table>
-<p>The command pop could be followed by the name of some register. The command push must be followed by either the name of some register or a double-precision floating-point number.</p>
+<p>The command pop could be followed by the name of some register. The command push must be followed by either the name of some register or a double-precision floating-point number. The command jmp must be followed by the name of the label, that is defined in code. To define a label type its name (the sequence of alpha and digit symbols), then colon (:) without space symbols between them.</p>
 <p>In this project assembler, disassembler and processor for this specific assembler language are realized. Assembler assembles a specific binary code from program in specific assembler language. Disassembler disassembles specific binary code back to specific assembler language. Processor processes program in specific binary code.</p>
 <h1><a class="anchor" id="autotoc_md2"></a>
 Getting Started</h1>

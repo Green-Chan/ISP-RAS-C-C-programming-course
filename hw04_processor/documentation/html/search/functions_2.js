@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['disassemble_73',['disassemble',['../assembler_8h.html#afa50e93440d2b324da3dcad0ccdd28e1',1,'disassemble(const char *file_in_path, const char *file_out_path):&#160;disassembler.c'],['../disassembler_8c.html#afa50e93440d2b324da3dcad0ccdd28e1',1,'disassemble(const char *file_in_path, const char *file_out_path):&#160;disassembler.c']]]
+  ['check_5fheader_5fdisasm_89',['check_header_disasm',['../disassembler_8c.html#aacf6e442ee38b27abd55594f6900f5bc',1,'disassembler.c']]],
+  ['check_5fheader_5fproc_90',['check_header_proc',['../processor_8c.html#ae9515d323417e4140f42f566cbd3d894',1,'processor.c']]]
 ];

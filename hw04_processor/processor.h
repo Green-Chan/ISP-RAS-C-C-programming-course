@@ -17,12 +17,14 @@ enum {
     POP,
     POP_REG,
     PUSH_VAL,
-    PUSH_REG
+    PUSH_REG,
+
+    JMP
 };
 
 //! Specific assembler language registers (the values, that represent registers in specific binary code)
 enum {
-    RAX,
+    RAX = 0,
     RBX,
     RCX,
     RDX
@@ -38,10 +40,12 @@ enum {
     NOT_ENOUGH_ARGS_ON_STACK_PROC_ERR,
     UNKNOWN_REGISTER_PROC_ERR,
     UNKNOWN_COMMAND_PROC_ERR,
-    NO_HALT_PROC_ERR
+    NO_HALT_PROC_ERR,
+    BAD_JMP_ADDRESS_PROC_ERR
 };
 
-static const char header[8] = {0, 'G', 'C', '1', '0', '0', '0', '0' };
+static const char header1[8] = {0, 'G', 'C', '1', '0', '0', '0', '0' };
+static const char header2[8] = {0, 'G', 'C', '2', '0', '0', '0', '0' };
 
 extern int header_error;
 

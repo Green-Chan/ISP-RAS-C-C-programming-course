@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['elem_38',['elem',['../stack_8h.html#a7f9eac3c20d1ca28181b6841c9ee03ca',1,'stack.h']]]
+  ['line_5fno_104',['line_no',['../structlabel__s.html#a626645eb222925d5b672d90f3fc42539',1,'label_s']]]
 ];

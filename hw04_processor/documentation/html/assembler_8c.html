@@ -69,7 +69,9 @@ $(function() {
 </div><!-- top -->
 <div class="header">
   <div class="summary">
+<a href="#nested-classes">Classes</a> &#124;
 <a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a> &#124;
 <a href="#func-members">Functions</a>  </div>
   <div class="headertitle">
 <div class="title">D:/Documents/GitHub/ISP_RAS_programming_course/hw04_processor/assembler.c File Reference</div>  </div>
@@ -83,13 +85,30 @@ $(function() {
 <code>#include &lt;windows.h&gt;</code><br />
 <code>#include &lt;stdint.h&gt;</code><br />
 <code>#include &lt;assert.h&gt;</code><br />
+<code>#include &quot;stack.h&quot;</code><br />
 </div><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
+Classes</h2></td></tr>
+<tr class="memitem:"><td class="memItemLeft" align="right" valign="top">struct &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structlabel__s.html">label_s</a></td></tr>
+<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:abb2b3df4fc04b7d34316af093c1e143a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#abb2b3df4fc04b7d34316af093c1e143a">CLOSE_IN_FILE</a>&#160;&#160;&#160;UnmapViewOfFile((LPCVOID)file_in_data); CloseHandle(file_in_mapping); CloseHandle(file_in_handle)</td></tr>
 <tr class="separator:abb2b3df4fc04b7d34316af093c1e143a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae13bfce724376331b048aa75671cff7d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#ae13bfce724376331b048aa75671cff7d">END_ASM_AND_RETURN</a></td></tr>
 <tr class="separator:ae13bfce724376331b048aa75671cff7d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a621b00cc56dcd6963898ac9ece455eb7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#a621b00cc56dcd6963898ac9ece455eb7">check_cmd</a>(cmd,  cur_symb,  file_end)&#160;&#160;&#160;<a class="el" href="assembler_8c.html#a4f27baa758575c90c9ef2950011ea22f">_check_cmd</a>(cmd, sizeof(cmd) - 1, cur_symb, file_end)</td></tr>
+<tr class="separator:a621b00cc56dcd6963898ac9ece455eb7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac3a9cf7da0ffc027fb96855734bd774"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#aac3a9cf7da0ffc027fb96855734bd774">STACK_TYPE</a>&#160;&#160;&#160;<a class="el" href="assembler_8c.html#acd36ee33352333fed7232cc437825d11">label</a></td></tr>
+<tr class="separator:aac3a9cf7da0ffc027fb96855734bd774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aac3a9cf7da0ffc027fb96855734bd774"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#aac3a9cf7da0ffc027fb96855734bd774">STACK_TYPE</a>&#160;&#160;&#160;size_t</td></tr>
+<tr class="separator:aac3a9cf7da0ffc027fb96855734bd774"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:acd36ee33352333fed7232cc437825d11"><td class="memItemLeft" align="right" valign="top">typedef struct <a class="el" href="structlabel__s.html">label_s</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#acd36ee33352333fed7232cc437825d11">label</a></td></tr>
+<tr class="separator:acd36ee33352333fed7232cc437825d11"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
@@ -99,10 +118,61 @@ Functions</h2></td></tr>
 <tr class="separator:a99e54f90fbb17736a86f835c8991671f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e0240e3b8996d34031b1d3e5966261f"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#a0e0240e3b8996d34031b1d3e5966261f">skip_spaces</a> (const char **cur_symb, const char *end)</td></tr>
 <tr class="separator:a0e0240e3b8996d34031b1d3e5966261f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4f27baa758575c90c9ef2950011ea22f"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#a4f27baa758575c90c9ef2950011ea22f">_check_cmd</a> (const char *cmd, size_t cmd_size, const char **cur_symb, const char *file_end)</td></tr>
+<tr class="separator:a4f27baa758575c90c9ef2950011ea22f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7f734aa1d85c5894a2171ab8fb3f571c"><td class="memItemLeft" align="right" valign="top">char&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#a7f734aa1d85c5894a2171ab8fb3f571c">get_register</a> (const char **cur_symb, const char *file_end)</td></tr>
+<tr class="separator:a7f734aa1d85c5894a2171ab8fb3f571c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac93c002450ec5a2ad476d5a7df14abc1"><td class="memItemLeft" align="right" valign="top">size_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#ac93c002450ec5a2ad476d5a7df14abc1">find_label</a> (TEMPLATE(<a class="el" href="assembler_8c.html#acd36ee33352333fed7232cc437825d11">label</a>, stack) *thou, const char *label_name, size_t label_len)</td></tr>
+<tr class="separator:ac93c002450ec5a2ad476d5a7df14abc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab12fba460fbae5b6ae1aa6168a0dc688"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="assembler_8c.html#ab12fba460fbae5b6ae1aa6168a0dc688">assemble</a> (const char *file_in_path, const char *file_out_path, int *err_line)</td></tr>
 <tr class="separator:ab12fba460fbae5b6ae1aa6168a0dc688"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="a621b00cc56dcd6963898ac9ece455eb7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a621b00cc56dcd6963898ac9ece455eb7">&#9670;&nbsp;</a></span>check_cmd</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define check_cmd</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cmd, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">cur_symb, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">file_end&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="assembler_8c.html#a4f27baa758575c90c9ef2950011ea22f">_check_cmd</a>(cmd, sizeof(cmd) - 1, cur_symb, file_end)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Compares the first word (the sequence of not space symbols to the end of file or first space symbol) at <code>cur_symb</code> with command or register at <code>cmd</code>. If they are equal, sets <code>cur_symb</code> to the next symbol after the first word.</p>
+<dl class="section note"><dt>Note</dt><dd><code>cmd</code> should be static const char array from <a class="el" href="assembler_8h.html">assembler.h</a> so that <code>sizeof(cmd)</code> is the size of <code>cmd</code> </dd></dl>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">cmd</td><td>String representation of command or register </td></tr>
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">cur_symb</td><td>Pointer to the pointer to the current symbol of text being parsing </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_end</td><td>Pointer to the symbol after last symbol of the text </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>1 if the first word is equal to the specified command or register, 0 otherwise </dd></dl>
+
+</div>
+</div>
 <a id="abb2b3df4fc04b7d34316af093c1e143a"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#abb2b3df4fc04b7d34316af093c1e143a">&#9670;&nbsp;</a></span>CLOSE_IN_FILE</h2>
 
@@ -128,13 +198,98 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line"><a class="code" href="assembler_8c.html#abb2b3df4fc04b7d34316af093c1e143a">CLOSE_IN_FILE</a>; \</div>
+<b>Value:</b><div class="fragment"><div class="line">destruct_stack(<a class="code" href="structlabel__s.html">label</a>, &amp;label_tab); \</div>
+<div class="line">destruct_stack(<span class="keywordtype">size_t</span>, &amp;jmp_args); \</div>
+<div class="line">CLOSE_IN_FILE; \</div>
 <div class="line">fclose(file_out); \</div>
 <div class="line">return</div>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="aac3a9cf7da0ffc027fb96855734bd774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac3a9cf7da0ffc027fb96855734bd774">&#9670;&nbsp;</a></span>STACK_TYPE <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STACK_TYPE&#160;&#160;&#160;<a class="el" href="assembler_8c.html#acd36ee33352333fed7232cc437825d11">label</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<a id="aac3a9cf7da0ffc027fb96855734bd774"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aac3a9cf7da0ffc027fb96855734bd774">&#9670;&nbsp;</a></span>STACK_TYPE <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STACK_TYPE&#160;&#160;&#160;size_t</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="acd36ee33352333fed7232cc437825d11"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd36ee33352333fed7232cc437825d11">&#9670;&nbsp;</a></span>label</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef struct <a class="el" href="structlabel__s.html">label_s</a> <a class="el" href="assembler_8c.html#acd36ee33352333fed7232cc437825d11">label</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a4f27baa758575c90c9ef2950011ea22f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f27baa758575c90c9ef2950011ea22f">&#9670;&nbsp;</a></span>_check_cmd()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">int _check_cmd </td>
+          <td>(</td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>cmd</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>cmd_size</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>cur_symb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+</div>
+</div>
 <a id="ab12fba460fbae5b6ae1aa6168a0dc688"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab12fba460fbae5b6ae1aa6168a0dc688">&#9670;&nbsp;</a></span>assemble()</h2>
 
@@ -179,6 +334,50 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="ac93c002450ec5a2ad476d5a7df14abc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac93c002450ec5a2ad476d5a7df14abc1">&#9670;&nbsp;</a></span>find_label()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">size_t find_label </td>
+          <td>(</td>
+          <td class="paramtype">TEMPLATE(<a class="el" href="assembler_8c.html#acd36ee33352333fed7232cc437825d11">label</a>, stack) *&#160;</td>
+          <td class="paramname"><em>thou</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>label_name</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">size_t&#160;</td>
+          <td class="paramname"><em>label_len</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Finds the first entry of label in label table</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">thou</td><td>Pointer to the label table </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">label_name</td><td>Pointer to the begin of the label name </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">label_len</td><td>Length of the label name </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The index of the first found entry. Size of label_tab if there is no entry for this label. </dd></dl>
+
+</div>
+</div>
 <a id="a2389e2c1284d9f4c58f50e6e08bae91e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a2389e2c1284d9f4c58f50e6e08bae91e">&#9670;&nbsp;</a></span>get_assembler_file_in_error()</h2>
 
@@ -193,6 +392,43 @@ Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+</div>
+</div>
+<a id="a7f734aa1d85c5894a2171ab8fb3f571c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7f734aa1d85c5894a2171ab8fb3f571c">&#9670;&nbsp;</a></span>get_register()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">char get_register </td>
+          <td>(</td>
+          <td class="paramtype">const char **&#160;</td>
+          <td class="paramname"><em>cur_symb</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const char *&#160;</td>
+          <td class="paramname"><em>file_end</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Compares the first word (the sequence of not space symbols to the end of file or first space symbol) at <code>cur_symb</code> with string representations of existing registers. If the first word equal to some of them, sets <code>cur_symb</code> to the next symbol after the word and returns the code of the corresponding register.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in,out]</td><td class="paramname">cur_symb</td><td>Pointer to the pointer to the current symbol of text being parsing </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">file_end</td><td>Pointer to the symbol after last symbol of the text </td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>If the first word is equal to some register string representation, code of the register. -1 otherwise </dd></dl>
 
 </div>
 </div>
@@ -243,7 +479,7 @@ Functions</h2></td></tr>
 </div>
 </div>
 </div><!-- contents -->
-<div class="ttc" id="aassembler_8c_html_abb2b3df4fc04b7d34316af093c1e143a"><div class="ttname"><a href="assembler_8c.html#abb2b3df4fc04b7d34316af093c1e143a">CLOSE_IN_FILE</a></div><div class="ttdeci">#define CLOSE_IN_FILE</div><div class="ttdef"><b>Definition:</b> assembler.c:23</div></div>
+<div class="ttc" id="astructlabel__s_html"><div class="ttname"><a href="structlabel__s.html">label_s</a></div><div class="ttdef"><b>Definition:</b> assembler.c:97</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20

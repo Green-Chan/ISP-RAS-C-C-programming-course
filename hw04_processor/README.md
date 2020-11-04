@@ -25,9 +25,12 @@ Here is a specific assembler language for this processor:
 | sqrt     | take number from stack and put on stack its square root |
 | pop      | take number from stack and put it in specified register, if register is not specified just removes number from stack |
 | push     | put on stack a number stored in specified register or specified number |
+| jmp      | jump to the specified label and continue execution from the code just after the definition of the label |
 
 The command pop could be followed by the name of some register.
 The command push must be followed by either the name of some register or a double-precision floating-point number.
+The command jmp must be followed by the name of the label, that is defined in code. To define a label type its
+name (the sequence of alpha and digit symbols), then colon (:) without space symbols between them.
 
 In this project assembler, disassembler and processor for this specific assembler language are realized. Assembler assembles a specific
 binary code from program in specific assembler language. Disassembler disassembles specific binary code back to specific assembler language.

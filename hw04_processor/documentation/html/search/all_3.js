@@ -1,6 +1,7 @@
 var searchData=
 [
-  ['end_5fasm_5fand_5freturn_12',['END_ASM_AND_RETURN',['../assembler_8c.html#ae13bfce724376331b048aa75671cff7d',1,'assembler.c']]],
-  ['end_5fdis_5fand_5freturn_13',['END_DIS_AND_RETURN',['../disassembler_8c.html#a1f2d7dfa41b8409b58bad8955fca2b95',1,'disassembler.c']]],
-  ['end_5fproc_5fand_5freturn_14',['END_PROC_AND_RETURN',['../processor_8c.html#adb552101f9d1bd1533a79e7d77598f33',1,'processor.c']]]
+  ['check_5fcmd_8',['check_cmd',['../assembler_8c.html#a621b00cc56dcd6963898ac9ece455eb7',1,'assembler.c']]],
+  ['check_5fheader_5fdisasm_9',['check_header_disasm',['../disassembler_8c.html#aacf6e442ee38b27abd55594f6900f5bc',1,'disassembler.c']]],
+  ['check_5fheader_5fproc_10',['check_header_proc',['../processor_8c.html#ae9515d323417e4140f42f566cbd3d894',1,'processor.c']]],
+  ['close_5fin_5ffile_11',['CLOSE_IN_FILE',['../assembler_8c.html#abb2b3df4fc04b7d34316af093c1e143a',1,'CLOSE_IN_FILE():&#160;assembler.c'],['../disassembler_8c.html#abb2b3df4fc04b7d34316af093c1e143a',1,'CLOSE_IN_FILE():&#160;disassembler.c']]]
 ];

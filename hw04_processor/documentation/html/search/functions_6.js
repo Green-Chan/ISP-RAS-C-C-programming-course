@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['skip_5fspaces_79',['skip_spaces',['../assembler_8c.html#a0e0240e3b8996d34031b1d3e5966261f',1,'assembler.c']]]
+  ['main_97',['main',['../run__tests_8c.html#ae66f6b31b5ad750f1fe042a706a4e3d4',1,'run_tests.c']]]
 ];

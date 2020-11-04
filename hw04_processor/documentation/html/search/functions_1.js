@@ -1,5 +1,4 @@
 var searchData=
 [
-  ['check_5fheader_5fdisasm_71',['check_header_disasm',['../disassembler_8c.html#aacf6e442ee38b27abd55594f6900f5bc',1,'disassembler.c']]],
-  ['check_5fheader_5fproc_72',['check_header_proc',['../processor_8c.html#ae9515d323417e4140f42f566cbd3d894',1,'processor.c']]]
+  ['assemble_88',['assemble',['../assembler_8c.html#ab12fba460fbae5b6ae1aa6168a0dc688',1,'assemble(const char *file_in_path, const char *file_out_path, int *err_line):&#160;assembler.c'],['../assembler_8h.html#ab12fba460fbae5b6ae1aa6168a0dc688',1,'assemble(const char *file_in_path, const char *file_out_path, int *err_line):&#160;assembler.c']]]
 ];

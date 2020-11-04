@@ -1,7 +1,6 @@
 var searchData=
 [
-  ['rax_108',['RAX',['../processor_8h.html#adf764cbdea00d65edcd07bb9953ad2b7ad8a2b3cfd37dc1215cf782d326e5186c',1,'processor.h']]],
-  ['rbx_109',['RBX',['../processor_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a3fca113e3a8a54281655d842075690be',1,'processor.h']]],
-  ['rcx_110',['RCX',['../processor_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a9319e76c0baaa9e53113184ab7d25944',1,'processor.h']]],
-  ['rdx_111',['RDX',['../processor_8h.html#adf764cbdea00d65edcd07bb9953ad2b7a0358584dab0bc3a6ff014581cf6f4660',1,'processor.h']]]
+  ['out_5fcmd_129',['OUT_CMD',['../processor_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba15d602db8b6ba5eaeead00af5533c2fe',1,'processor.h']]],
+  ['out_5fof_5fmemory_5fasm_5ferr_130',['OUT_OF_MEMORY_ASM_ERR',['../assembler_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba9733b8c888d5efd79e67a1c1466a7c7f',1,'assembler.h']]],
+  ['out_5fof_5fmemory_5fproc_5ferr_131',['OUT_OF_MEMORY_PROC_ERR',['../processor_8h.html#a99fb83031ce9923c84392b4e92f956b5a108df648e8a6e5be3e9a03f7b02d16ac',1,'processor.h']]]
 ];

@@ -8,7 +8,10 @@ enum {
     FILE_OUT_ASM_ERR,
     UNKNOWN_CMD_ASM_ERR,
     UNKNOWN_ARG_ASM_ERR,
-    NO_HALT_ASM_ERR
+    NO_HALT_ASM_ERR,
+    OUT_OF_MEMORY_ASM_ERR,
+    UNDEFINED_LABEL_ASM_ERR,
+    MULTIPLE_DEFINE_OF_LABEL_ASM_ERR
 };
 
 //! Possible return values of disassemble function.
@@ -33,6 +36,7 @@ static const char DIV_STR[] = "div";
 static const char SQRT_STR[] = "sqrt";
 static const char POP_STR[] = "pop";
 static const char PUSH_STR[] = "push";
+static const char JMP_STR[] = "jmp";
 
 //! String representation of specific assembler language registers
 static const char RAX_STR[] = "rax";

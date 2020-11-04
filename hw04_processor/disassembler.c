@@ -30,12 +30,31 @@ CLOSE_IN_FILE; \
 fclose(file_out); \
 return
 
+int write_register(char *buf, size_t *size, char reg) {
+    // We know that all registers are rax (code 0), rbx (1), rcx (2), rdx (3)
+    if ((unsigned char) reg > 3) {
+        // Not a register
+        return 1;
+    } else {
+        buf[*size + 0] = 'r';
+        buf[*size + 1] = 'a' + reg;
+        buf[*size + 2] = 'x';
+        *size += 3;
+        return 0;
+    }
+}
+
 int check_header_disasm(const char **cur_char, size_t file_size) {
-    if (file_size < sizeof(header) || memcmp(*cur_char, header, sizeof(header)) != 0) {
+    if (file_size < sizeof(header1)) {
         return 1;
     }
-    (*cur_char) += sizeof(header);
-    return 0;
+    if (memcmp(*cur_char, header1, sizeof(header1)) == 0 ||
+        memcmp(*cur_char, header2, sizeof(header2)) == 0 ) {
+        // Both versions could be disassembled and headers have the same size
+        (*cur_char) += sizeof(header1);
+         return 0;
+    }
+    return 1;
 }
 
 int disassemble(const char *file_in_path, const char *file_out_path) {
@@ -73,7 +92,7 @@ int disassemble(const char *file_in_path, const char *file_out_path) {
         size_t size = 0;
         switch (*cur_cmd) {
         case HALT:
-            if (fwrite(HALT_STR, sizeof(HALT_STR), 1, file_out) != 1) {
+            if (fwrite(HALT_STR, sizeof(HALT_STR) - 1, 1, file_out) != 1) {
                 END_DIS_AND_RETURN FILE_OUT_DISASM_ERR;
             }
             if (fclose(file_out) != 0) {
@@ -91,75 +110,59 @@ int disassemble(const char *file_in_path, const char *file_out_path) {
             }
             return DISASM_SUCCESS;
         case IN_CMD:
-            memcpy(buf, IN_STR, sizeof(IN_STR));
-            size = sizeof(IN_STR);
+            memcpy(buf, IN_STR, sizeof(IN_STR) - 1);
+            size = sizeof(IN_STR) - 1;
             cur_cmd++;
             break;
         case OUT_CMD:
-            memcpy(buf, OUT_STR, sizeof(OUT_STR));
-            size = sizeof(OUT_STR);
+            memcpy(buf, OUT_STR, sizeof(OUT_STR) - 1);
+            size = sizeof(OUT_STR) - 1;
             cur_cmd++;
             break;
         case ADD:
-            memcpy(buf, ADD_STR, sizeof(ADD_STR));
-            size = sizeof(ADD_STR);
+            memcpy(buf, ADD_STR, sizeof(ADD_STR) -1 );
+            size = sizeof(ADD_STR) - 1;
             cur_cmd++;
             break;
         case SUB:
-            memcpy(buf, SUB_STR, sizeof(SUB_STR));
-            size = sizeof(SUB_STR);
+            memcpy(buf, SUB_STR, sizeof(SUB_STR) -1 );
+            size = sizeof(SUB_STR) - 1;
             cur_cmd++;
             break;
         case MUL:
-            memcpy(buf, MUL_STR, sizeof(MUL_STR));
-            size = sizeof(MUL_STR);
+            memcpy(buf, MUL_STR, sizeof(MUL_STR) -1 );
+            size = sizeof(MUL_STR) - 1;
             cur_cmd++;
             break;
         case DIV:
-            memcpy(buf, DIV_STR, sizeof(DIV_STR));
-            size = sizeof(DIV_STR);
+            memcpy(buf, DIV_STR, sizeof(DIV_STR) - 1);
+            size = sizeof(DIV_STR) - 1;
             cur_cmd++;
             break;
         case SQRT:
-            memcpy(buf, SQRT_STR, sizeof(SQRT_STR));
-            size = sizeof(SQRT_STR);
+            memcpy(buf, SQRT_STR, sizeof(SQRT_STR) - 1);
+            size = sizeof(SQRT_STR) - 1;
             cur_cmd++;
             break;
         case POP:
-            memcpy(buf, POP_STR, sizeof(POP_STR));
-            size = sizeof(POP_STR);
+            memcpy(buf, POP_STR, sizeof(POP_STR) - 1);
+            size = sizeof(POP_STR) - 1;
             cur_cmd++;
             break;
         case POP_REG:
-            memcpy(buf, POP_STR, sizeof(POP_STR));
-            size = sizeof(POP_STR);
+            memcpy(buf, POP_STR, sizeof(POP_STR) - 1);
+            size = sizeof(POP_STR) - 1;
             cur_cmd++;
             buf[size] = ' ';
             size++;
-            switch (*cur_cmd) {
-                case RAX:
-                    memcpy(buf + size, RAX_STR, sizeof(RAX_STR));
-                    size += sizeof(RAX_STR);
-                    break;
-                case RBX:
-                    memcpy(buf + size, RBX_STR, sizeof(RBX_STR));
-                    size += sizeof(RBX_STR);
-                    break;
-                case RCX:
-                    memcpy(buf + size, RCX_STR, sizeof(RCX_STR));
-                    size += sizeof(RCX_STR);
-                    break;
-                case RDX:
-                    memcpy(buf + size, RDX_STR, sizeof(RDX_STR));
-                    size += sizeof(RDX_STR);
-                    break;
-                default: END_DIS_AND_RETURN UNKNOWN_REG_DISASM_ERR;
+            if (write_register(buf, &size, *cur_cmd)) {
+                END_DIS_AND_RETURN UNKNOWN_REG_DISASM_ERR;
             }
             cur_cmd++;
             break;
         case PUSH_VAL:
-            memcpy(buf, PUSH_STR, sizeof(PUSH_STR));
-            size = sizeof(PUSH_STR);
+            memcpy(buf, PUSH_STR, sizeof(PUSH_STR) - 1);
+            size = sizeof(PUSH_STR) - 1;
             cur_cmd++;
             buf[size] = ' ';
             size++;
@@ -167,37 +170,37 @@ int disassemble(const char *file_in_path, const char *file_out_path) {
                 END_DIS_AND_RETURN NO_HALT_PROC_ERR;
             }
             // -2 to keep space for "\r\n" in the end
-            int n = snprintf(buf + size, sizeof(buf) - size - 2, "%d", *((double *)cur_cmd));
+            int n = snprintf(buf + size, sizeof(buf) - size - 2, "%lf", *((double *)cur_cmd));
             size += (n < sizeof(buf) - size - 2 ? n : sizeof(buf) - size - 2);
             cur_cmd += sizeof(double);
             break;
         case PUSH_REG:
-            memcpy(buf, PUSH_STR, sizeof(PUSH_STR));
-            size = sizeof(PUSH_STR);
+            memcpy(buf, PUSH_STR, sizeof(PUSH_STR) - 1);
+            size = sizeof(PUSH_STR) - 1;
             cur_cmd++;
             buf[size] = ' ';
             size++;
-            switch (*cur_cmd) {
-                case RAX:
-                    memcpy(buf + size, RAX_STR, sizeof(RAX_STR));
-                    size += sizeof(RAX_STR);
-                    break;
-                case RBX:
-                    memcpy(buf + size, RBX_STR, sizeof(RBX_STR));
-                    size += sizeof(RBX_STR);
-                    break;
-                case RCX:
-                    memcpy(buf + size, RCX_STR, sizeof(RCX_STR));
-                    size += sizeof(RCX_STR);
-                    break;
-                case RDX:
-                    memcpy(buf + size, RDX_STR, sizeof(RDX_STR));
-                    size += sizeof(RDX_STR);
-                    break;
-                default: END_DIS_AND_RETURN UNKNOWN_REG_DISASM_ERR;
+            if (write_register(buf, &size, *cur_cmd)) {
+                END_DIS_AND_RETURN UNKNOWN_REG_DISASM_ERR;
             }
             cur_cmd++;
             break;
+        case JMP:
+            {
+                memcpy(buf, JMP_STR, sizeof(JMP_STR) - 1);
+                size = sizeof(JMP_STR) - 1;
+                cur_cmd++;
+                buf[size++] = ' ';
+                if (cur_cmd + sizeof(size_t) > file_in_data + file_in_size) {
+                    END_DIS_AND_RETURN NO_HALT_PROC_ERR;
+                }
+                // -2 to keep space for "\r\n" in the end
+                size_t abs_addr = cur_cmd - file_in_data + sizeof(size_t) + *((size_t *)cur_cmd);
+                int n = snprintf(buf + size, sizeof(buf) - size - 2, "%Id", abs_addr);
+                size += (n < sizeof(buf) - size - 2 ? n : sizeof(buf) - size - 2);
+                cur_cmd += sizeof(size_t);
+                break;
+            }
         default: END_DIS_AND_RETURN UNKNOWN_CMD_DISASM_ERR;
         }
         buf[size++] = '\r';

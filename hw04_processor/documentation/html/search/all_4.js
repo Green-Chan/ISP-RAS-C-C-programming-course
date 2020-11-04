@@ -1,8 +1,7 @@
 var searchData=
 [
-  ['file_5fin_5fasm_5ferr_15',['FILE_IN_ASM_ERR',['../assembler_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba5784db78721027bdec6850fd212e1eb1',1,'assembler.h']]],
-  ['file_5fin_5fdisasm_5ferr_16',['FILE_IN_DISASM_ERR',['../assembler_8h.html#adf764cbdea00d65edcd07bb9953ad2b7aa0ffe2360ef94d91f16918c41fe8369b',1,'assembler.h']]],
-  ['file_5fout_5fasm_5ferr_17',['FILE_OUT_ASM_ERR',['../assembler_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba73eea5de76b2ca496cd07df6fc578f60',1,'assembler.h']]],
-  ['file_5fout_5fdisasm_5ferr_18',['FILE_OUT_DISASM_ERR',['../assembler_8h.html#adf764cbdea00d65edcd07bb9953ad2b7abb09fc9da4d949c05008b8a725deda54',1,'assembler.h']]],
-  ['file_5fproc_5ferr_19',['FILE_PROC_ERR',['../processor_8h.html#a99fb83031ce9923c84392b4e92f956b5a3afe5431611926f006f3a22046c82daf',1,'processor.h']]]
+  ['disasm_5fsuccess_12',['DISASM_SUCCESS',['../assembler_8h.html#adf764cbdea00d65edcd07bb9953ad2b7ae2e244ab493232ccfab64ed14e5e1204',1,'assembler.h']]],
+  ['disassemble_13',['disassemble',['../assembler_8h.html#afa50e93440d2b324da3dcad0ccdd28e1',1,'disassemble(const char *file_in_path, const char *file_out_path):&#160;disassembler.c'],['../disassembler_8c.html#afa50e93440d2b324da3dcad0ccdd28e1',1,'disassemble(const char *file_in_path, const char *file_out_path):&#160;disassembler.c']]],
+  ['disassembler_2ec_14',['disassembler.c',['../disassembler_8c.html',1,'']]],
+  ['div_15',['DIV',['../processor_8h.html#a06fc87d81c62e9abb8790b6e5713c55ba8565f0d60c3ba6d468661c49d86e9744',1,'processor.h']]]
 ];

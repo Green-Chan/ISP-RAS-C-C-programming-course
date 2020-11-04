@@ -1,0 +1,15 @@
+    push 1.0
+    out
+    jmp 1
+a:
+    push 3.0
+    out
+    jmp a1
+1:
+    push 2.0
+    out
+    jmp a
+a1:
+    push 4.0
+    out
+    halt

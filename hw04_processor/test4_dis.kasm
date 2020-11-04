@@ -1,0 +1,12 @@
+push 1.000000
+out
+jmp 46
+push 3.000000
+out
+jmp 65
+push 2.000000
+out
+jmp 27
+push 4.000000
+out
+halt
