@@ -19,7 +19,16 @@ enum {
     PUSH_VAL,
     PUSH_REG,
 
-    JMP
+    JMP,
+    JIF,
+    CALL,
+    RET,
+
+    LESS,
+    GREATER,
+    OR,
+    AND,
+    NOT
 };
 
 //! Specific assembler language registers (the values, that represent registers in specific binary code)
@@ -41,11 +50,13 @@ enum {
     UNKNOWN_REGISTER_PROC_ERR,
     UNKNOWN_COMMAND_PROC_ERR,
     NO_HALT_PROC_ERR,
-    BAD_JMP_ADDRESS_PROC_ERR
+    BAD_JMP_ADDRESS_PROC_ERR,
+    RET_WITHOUT_CALL_PROC_ERR
 };
 
 static const char header1[8] = {0, 'G', 'C', '1', '0', '0', '0', '0' };
 static const char header2[8] = {0, 'G', 'C', '2', '0', '0', '0', '0' };
+static const char header3[8] = {0, 'G', 'C', '3', '0', '0', '0', '0' };
 
 extern int header_error;
 

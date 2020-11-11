@@ -1,18 +1,36 @@
+8:
 in
+9:
 in
+10:
 in
+11:
 pop rcx
+13:
 pop rbx
+15:
 pop rax
+17:
 push rbx
+19:
 push rbx
+21:
 mul
+22:
 push 4.000000
+31:
 push rax
+33:
 push rcx
+35:
 mul
+36:
 mul
+37:
 sub
+38:
 sqrt
+39:
 out
+40:
 halt

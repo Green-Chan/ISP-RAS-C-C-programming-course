@@ -37,6 +37,14 @@ static const char SQRT_STR[] = "sqrt";
 static const char POP_STR[] = "pop";
 static const char PUSH_STR[] = "push";
 static const char JMP_STR[] = "jmp";
+static const char JIF_STR[] = "jif";
+static const char CALL_STR[] = "call";
+static const char RET_STR[] = "ret";
+static const char LESS_STR[] = "less";
+static const char GREATER_STR[] = "grtr";
+static const char OR_STR[] = "or";
+static const char AND_STR[] = "and";
+static const char NOT_STR[] = "not";
 
 //! String representation of specific assembler language registers
 static const char RAX_STR[] = "rax";

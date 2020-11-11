@@ -1,0 +1,52 @@
+8:
+in
+9:
+call 28
+18:
+out
+19:
+jmp 113
+28:
+pop rax
+30:
+push rax
+32:
+push 1.000000
+41:
+grtr
+42:
+jif 61
+51:
+push 1.000000
+60:
+ret
+61:
+push rax
+63:
+push rax
+65:
+push 1.000000
+74:
+sub
+75:
+call 28
+84:
+pop rbx
+86:
+pop rax
+88:
+push rbx
+90:
+push rax
+92:
+push 2.000000
+101:
+sub
+102:
+call 28
+111:
+add
+112:
+ret
+113:
+halt

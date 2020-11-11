@@ -4,6 +4,15 @@
 #include "stack.h"
 #undef STACK_TYPE
 
+#ifndef STACK_SIZE_T
+#define STACK_SIZE_T
+
+#define STACK_TYPE size_t
+#include "stack.h"
+#undef STACK_TYPE
+
+#endif // STACK_SIZE_T
+
 #include <string.h>
 #include <math.h>
 #include <windows.h>
@@ -30,7 +39,8 @@ int check_header_proc(const char **cur_char, size_t file_size) {
         return 1;
     }
     if (memcmp(*cur_char, header1, sizeof(header1)) == 0 ||
-        memcmp(*cur_char, header2, sizeof(header2)) == 0 ) {
+        memcmp(*cur_char, header2, sizeof(header2)) == 0 ||
+        memcmp(*cur_char, header3, sizeof(header3)) == 0 ) {
         // Both versions could be processed and headers have the same size
         (*cur_char) += sizeof(header1);
          return 0;
@@ -74,7 +84,9 @@ int process(const char *file_path)
     }
 
     TEMPLATE(double, stack) proc_stack;
+    TEMPLATE(size_t, stack) call_stack;
     construct_stack(double, &proc_stack);
+    construct_stack(size_t, &call_stack);
     double registers[4] = { NAN, NAN, NAN, NAN };
 
     while (cur_cmd < program + program_size) {
@@ -112,6 +124,10 @@ int process(const char *file_path)
         case SUB:
         case MUL:
         case DIV:
+        case LESS:
+        case GREATER:
+        case OR:
+        case AND:
             {
                 if (stack_size(double, &proc_stack) < 2) {
                     END_PROC_AND_RETURN NOT_ENOUGH_ARGS_ON_STACK_PROC_ERR;
@@ -124,9 +140,12 @@ int process(const char *file_path)
                     case SUB: result = arg1 - arg2; break;
                     case MUL: result = arg1 * arg2; break;
                     case DIV: result = arg1 / arg2; break;
+                    case LESS: result = arg1 < arg2 ? 1.0 : -1.0; break; // 1 is true, -1 is false
+                    case GREATER: result = arg1 > arg2 ? 1.0 : -1.0; break; // 1 is true, -1 is false
+                    case OR: result = (arg1 > 0 || arg2 > 0) ? 1.0 : -1.0; break; // 1 is true, -1 is false
+                    case AND: result = (arg1 > 0 && arg2 > 0) ? 1.0 : -1.0; break; // 1 is true, -1 is false
                     default: assert(!"impossible case");
                 }
-
                 int push_res = push_stack(double, &proc_stack, result);
                 // It is always OK, 'cause we just poped two elements
                 assert(push_res == 0);
@@ -135,11 +154,18 @@ int process(const char *file_path)
             }
             break;
         case SQRT:
+        case NOT:
             {
                 if (is_empty_stack(double, &proc_stack)) {
                     END_PROC_AND_RETURN NOT_ENOUGH_ARGS_ON_STACK_PROC_ERR;
                 }
-                double result = sqrt(pop_stack(double, &proc_stack));
+                double arg = pop_stack(double, &proc_stack);
+                double result = NAN;
+                switch (*cur_cmd) {
+                    case SQRT: result = sqrt(arg); break;
+                    case NOT: result = -arg; break; // 1 is true, -1 is false
+                    default: assert(!"impossible case");
+                }
                 int push_res = push_stack(double, &proc_stack, result);
                 // It is always OK, 'cause we just poped two elements
                 assert(push_res == 0);
@@ -164,7 +190,7 @@ int process(const char *file_path)
             if ((unsigned char) *cur_cmd >= sizeof(registers) / sizeof(registers[0])) {
                 END_PROC_AND_RETURN UNKNOWN_REGISTER_PROC_ERR;
             }
-            registers[*cur_cmd] =  pop_stack(double, &proc_stack);
+            registers[*cur_cmd] = pop_stack(double, &proc_stack);
             cur_cmd++;
             break;
         case PUSH_VAL:
@@ -199,6 +225,37 @@ int process(const char *file_path)
             if (cur_cmd >= program + program_size) {
                 END_PROC_AND_RETURN BAD_JMP_ADDRESS_PROC_ERR;
             }
+            break;
+        case JIF:
+            cur_cmd++;
+            if (cur_cmd + sizeof(size_t) > program + program_size) {
+                END_PROC_AND_RETURN NO_HALT_PROC_ERR;
+            }
+            if (is_empty_stack(double, &proc_stack)) {
+                END_PROC_AND_RETURN POP_FROM_EMPTY_STACK_PROC_ERR;
+            }
+            if (pop_stack(double, &proc_stack) > 0) {
+                cur_cmd += sizeof(size_t) + *((size_t *)cur_cmd);
+            } else {
+                cur_cmd += sizeof(size_t);
+            }
+            break;
+        case CALL:
+            cur_cmd++;
+            if (push_stack(size_t, &call_stack, (size_t) (cur_cmd + sizeof(size_t)))) {
+                END_PROC_AND_RETURN OUT_OF_MEMORY_PROC_ERR;
+            }
+            if (cur_cmd + sizeof(size_t) > program + program_size) {
+                END_PROC_AND_RETURN NO_HALT_PROC_ERR;
+            }
+            cur_cmd += sizeof(size_t) + *((size_t *)cur_cmd);
+            break;
+        case RET:
+            if (is_empty_stack(size_t, &call_stack)) {
+                END_PROC_AND_RETURN RET_WITHOUT_CALL_PROC_ERR;
+            }
+            cur_cmd++;
+            cur_cmd = (const char *) pop_stack(size_t, &call_stack);
             break;
         default: END_PROC_AND_RETURN UNKNOWN_COMMAND_PROC_ERR;
         }

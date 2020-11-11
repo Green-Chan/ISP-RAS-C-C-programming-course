@@ -49,12 +49,25 @@ int check_header_disasm(const char **cur_char, size_t file_size) {
         return 1;
     }
     if (memcmp(*cur_char, header1, sizeof(header1)) == 0 ||
-        memcmp(*cur_char, header2, sizeof(header2)) == 0 ) {
+        memcmp(*cur_char, header2, sizeof(header2)) == 0 ||
+        memcmp(*cur_char, header3, sizeof(header3)) == 0 ) {
         // Both versions could be disassembled and headers have the same size
         (*cur_char) += sizeof(header1);
          return 0;
     }
     return 1;
+}
+
+int print_label(char *buf, size_t *size, const char **cur_cmd, const char* file_in_data, size_t file_in_size, size_t buf_size) {
+    if (*cur_cmd + sizeof(size_t) > file_in_data + file_in_size) {
+        return NO_HALT_PROC_ERR;
+    }
+    // -2 to keep space for "\r\n" in the end
+    int n = snprintf(buf + *size, buf_size - *size - 2, "%Id",
+                     *cur_cmd - file_in_data + sizeof(size_t) + *((size_t *)(*cur_cmd)));
+    *size += (n < buf_size - *size - 2 ? n : buf_size - *size - 2);
+    *cur_cmd += sizeof(size_t);
+    return 0;
 }
 
 int disassemble(const char *file_in_path, const char *file_out_path) {
@@ -90,6 +103,18 @@ int disassemble(const char *file_in_path, const char *file_out_path) {
     while (cur_cmd < file_in_data + file_in_size) {
         char buf[20];
         size_t size = 0;
+
+        // Print a label -- address of the next command
+        int n = snprintf(buf, sizeof(buf) - 3, "%Id", cur_cmd - file_in_data);
+        size += (n < sizeof(buf) - 3 ? n : sizeof(buf) - 3);
+        buf[size++] = ':';
+        buf[size++] = '\r';
+        buf[size++] = '\n';
+        if (fwrite(buf, size, 1, file_out) != 1) {
+            END_DIS_AND_RETURN FILE_OUT_DISASM_ERR;
+        }
+
+        size = 0;
         switch (*cur_cmd) {
         case HALT:
             if (fwrite(HALT_STR, sizeof(HALT_STR) - 1, 1, file_out) != 1) {
@@ -191,16 +216,66 @@ int disassemble(const char *file_in_path, const char *file_out_path) {
                 size = sizeof(JMP_STR) - 1;
                 cur_cmd++;
                 buf[size++] = ' ';
-                if (cur_cmd + sizeof(size_t) > file_in_data + file_in_size) {
+                int label_err = print_label(buf, &size, &cur_cmd, file_in_data, file_in_size, sizeof(buf));
+                if (label_err) {
                     END_DIS_AND_RETURN NO_HALT_PROC_ERR;
                 }
-                // -2 to keep space for "\r\n" in the end
-                size_t abs_addr = cur_cmd - file_in_data + sizeof(size_t) + *((size_t *)cur_cmd);
-                int n = snprintf(buf + size, sizeof(buf) - size - 2, "%Id", abs_addr);
-                size += (n < sizeof(buf) - size - 2 ? n : sizeof(buf) - size - 2);
-                cur_cmd += sizeof(size_t);
                 break;
             }
+        case JIF:
+            {
+                memcpy(buf, JIF_STR, sizeof(JIF_STR) - 1);
+                size = sizeof(JIF_STR) - 1;
+                cur_cmd++;
+                buf[size++] = ' ';
+                int label_err = print_label(buf, &size, &cur_cmd, file_in_data, file_in_size, sizeof(buf));
+                if (label_err) {
+                    END_DIS_AND_RETURN NO_HALT_PROC_ERR;
+                }
+                break;
+            }
+        case CALL:
+            {
+                memcpy(buf, CALL_STR, sizeof(CALL_STR) - 1);
+                size = sizeof(CALL_STR) - 1;
+                cur_cmd++;
+                buf[size++] = ' ';
+                int label_err = print_label(buf, &size, &cur_cmd, file_in_data, file_in_size, sizeof(buf));
+                if (label_err) {
+                    END_DIS_AND_RETURN NO_HALT_PROC_ERR;
+                }
+                break;
+            }
+        case RET:
+            memcpy(buf, RET_STR, sizeof(RET_STR) -1 );
+            size = sizeof(RET_STR) - 1;
+            cur_cmd++;
+            break;
+        case LESS:
+            memcpy(buf, LESS_STR, sizeof(LESS_STR) -1 );
+            size = sizeof(LESS_STR) - 1;
+            cur_cmd++;
+            break;
+        case GREATER:
+            memcpy(buf, GREATER_STR, sizeof(GREATER_STR) -1 );
+            size = sizeof(GREATER_STR) - 1;
+            cur_cmd++;
+            break;
+        case OR:
+            memcpy(buf, OR_STR, sizeof(OR_STR) -1 );
+            size = sizeof(OR_STR) - 1;
+            cur_cmd++;
+            break;
+        case AND:
+            memcpy(buf, AND_STR, sizeof(AND_STR) -1 );
+            size = sizeof(AND_STR) - 1;
+            cur_cmd++;
+            break;
+        case NOT:
+            memcpy(buf, NOT_STR, sizeof(NOT_STR) -1 );
+            size = sizeof(NOT_STR) - 1;
+            cur_cmd++;
+            break;
         default: END_DIS_AND_RETURN UNKNOWN_CMD_DISASM_ERR;
         }
         buf[size++] = '\r';

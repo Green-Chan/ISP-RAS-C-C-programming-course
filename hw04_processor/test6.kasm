@@ -1,0 +1,41 @@
+    in
+    call fibonacci
+    out
+    jmp end
+
+
+
+fibonacci:
+    pop rax
+    push rax
+    push 1
+    grtr
+    jif greater
+    push 1
+    ret
+
+greater:
+    push rax
+
+    push rax
+    push 1
+    sub
+    call fibonacci
+
+    pop rbx
+    pop rax
+    push rbx
+
+    push rax
+    push 2
+    sub
+    call fibonacci
+
+    add
+    ret
+
+
+
+
+end:
+    halt

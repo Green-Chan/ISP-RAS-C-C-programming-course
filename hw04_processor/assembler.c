@@ -30,7 +30,7 @@ fclose(file_out); \
 return
 
 int write_header(FILE *file_out) {
-    if (fwrite(header2, sizeof(header2), 1, file_out) != 1) {
+    if (fwrite(header3, sizeof(header3), 1, file_out) != 1) {
         return 1;
     }
     return 0;
@@ -130,6 +130,44 @@ size_t find_label(TEMPLATE(label, stack) *thou, const char *label_name, size_t l
     }
     return i;
 }
+
+
+int get_label(const char **cur_symb, const char *file_end, TEMPLATE(label, stack) *label_tab,
+              TEMPLATE(size_t, stack) *jmp_args, size_t *line, char *label_idx_place, size_t cur_byte) {
+    *line += skip_spaces(cur_symb, file_end);
+    size_t len = 0;
+    while (*cur_symb + len < file_end && (isalpha((*cur_symb)[len]) || isdigit((*cur_symb)[len]))) {
+        len++;
+    }
+    if (*cur_symb + len >= file_end) {
+        // Where is halt command?
+        return NO_HALT_ASM_ERR;
+    }
+    if (isspace((*cur_symb)[len])) {
+        // That is correct label [cur_symb; cur_symb + len)
+        size_t label_idx = find_label(label_tab, *cur_symb, len);
+        if (label_idx == label_tab->size) {
+            // That is a new label, and we don't know it's address yet
+            label new_label = {*cur_symb, len, (size_t) -1ll, *line};
+            if (push_stack(label, label_tab, new_label)) {
+                return OUT_OF_MEMORY_ASM_ERR;
+            }
+        }
+        // Put an index in the specified place
+        assert (label_idx == find_label(label_tab, *cur_symb, len));
+        memcpy(label_idx_place, &label_idx, sizeof(size_t));
+        // And memorize address of the argument (current address plus one)
+        if (push_stack(size_t, jmp_args, cur_byte + 1)) {
+            return OUT_OF_MEMORY_ASM_ERR;
+        }
+        *cur_symb += len;
+        return 0;
+    } else {
+        // That is not a label
+        return UNKNOWN_ARG_ASM_ERR;
+    }
+}
+
 
 int assemble(const char *file_in_path, const char *file_out_path, int *err_line) {
     HANDLE file_in_handle = CreateFile(file_in_path, GENERIC_READ, FILE_SHARE_READ, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -299,45 +337,53 @@ int assemble(const char *file_in_path, const char *file_out_path, int *err_line)
                 size = 2;
             }
         } else if (check_cmd(JMP_STR, &cur_symb, file_in_data + file_in_size)) {
-            line += skip_spaces(&cur_symb, file_in_data + file_in_size);
-            size_t len = 0;
-            while (cur_symb + len < file_in_data + file_in_size &&
-                   (isalpha(cur_symb[len]) || isdigit(cur_symb[len]))) {
-                len++;
-            }
-            if (cur_symb + len >= file_in_data + file_in_size) {
-                // Where is halt command?
-                break;
-            }
-            if (isspace(cur_symb[len])) {
-            //  --------------------------------------------
-            //  at least there should be a halt command after argument
-                // That is correct label [cur_symb; cur_symb + len)
-                size_t label_idx = find_label(&label_tab, cur_symb, len);
-                if (label_idx == label_tab.size) {
-                    // That is a new label, and we don't know it's address yet
-                    label new_label = {cur_symb, len, (size_t) -1ll, line};
-                    if (push_stack(label, &label_tab, new_label)) {
-                        END_ASM_AND_RETURN OUT_OF_MEMORY_ASM_ERR;
-                    }
-                }
-                // Put an index of this label as an argument of jmp
-                assert (label_idx == find_label(&label_tab, cur_symb, len));
-                buf[0] = JMP;
-                memcpy(buf + 1, &label_idx, sizeof(size_t));
-                size = 1 + sizeof(size_t);
-                // And memorize address of the argument (current address plus one)
-                if (push_stack(size_t, &jmp_args, cur_byte + 1)) {
-                    END_ASM_AND_RETURN OUT_OF_MEMORY_ASM_ERR;
-                }
-                cur_symb += len;
+            int label_err = get_label(&cur_symb, file_in_data + file_in_size, &label_tab, &jmp_args, &line, buf + 1, cur_byte);
+            if (label_err) {
+                END_ASM_AND_RETURN label_err;
             } else {
-                // That is not a label
-                END_ASM_AND_RETURN UNKNOWN_ARG_ASM_ERR;
+                buf[0] = JMP;
+                // get_label wrote size_t argument at address (buf + 1)
+                size = 1 + sizeof(size_t);
             }
+        } else if (check_cmd(JIF_STR, &cur_symb, file_in_data + file_in_size)) {
+            int label_err = get_label(&cur_symb, file_in_data + file_in_size, &label_tab, &jmp_args, &line, buf + 1, cur_byte);
+            if (label_err) {
+                END_ASM_AND_RETURN label_err;
+            } else {
+                buf[0] = JIF;
+                // get_label wrote size_t argument at address (buf + 1)
+                size = 1 + sizeof(size_t);
+            }
+        } else if (check_cmd(CALL_STR, &cur_symb, file_in_data + file_in_size)) {
+            int label_err = get_label(&cur_symb, file_in_data + file_in_size, &label_tab, &jmp_args, &line, buf + 1, cur_byte);
+            if (label_err) {
+                END_ASM_AND_RETURN label_err;
+            } else {
+                buf[0] = CALL;
+                // get_label wrote size_t argument at address (buf + 1)
+                size = 1 + sizeof(size_t);
+            }
+        } else if (check_cmd(RET_STR, &cur_symb, file_in_data + file_in_size)) {
+            buf[0] = RET;
+            size = 1;
+        } else if (check_cmd(LESS_STR, &cur_symb, file_in_data + file_in_size)) {
+            buf[0] = LESS;
+            size = 1;
+        } else if (check_cmd(GREATER_STR, &cur_symb, file_in_data + file_in_size)) {
+            buf[0] = GREATER;
+            size = 1;
+        } else if (check_cmd(OR_STR, &cur_symb, file_in_data + file_in_size)) {
+            buf[0] = OR;
+            size = 1;
+        } else if (check_cmd(AND_STR, &cur_symb, file_in_data + file_in_size)) {
+            buf[0] = AND;
+            size = 1;
+        } else if (check_cmd(NOT_STR, &cur_symb, file_in_data + file_in_size)) {
+            buf[0] = NOT;
+            size = 1;
         } else {
             // That is not a command
-            // Check if it is label
+            // Check if it is a label
             size_t len = 0;
             while (true) {
                 if (cur_symb + len + sizeof(HALT_STR) - 1 >= file_in_data + file_in_size) {

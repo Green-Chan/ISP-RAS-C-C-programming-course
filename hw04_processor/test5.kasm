@@ -1,0 +1,13 @@
+    in
+    in
+    less
+    not
+    jif GreaterOrEqual
+Less:
+    push 1
+    jmp End
+GreaterOrEqual:
+    push 2
+End:
+    out
+    halt

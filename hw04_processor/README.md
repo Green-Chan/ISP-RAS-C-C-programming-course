@@ -3,6 +3,7 @@
 ## Description
 
 That is an emulation of some functions of a specific processor. It has a stack and four registers of double-precision floating-point numbers.
+It also has a call stack (see commands call and ret below).
 
 Here is a specific assembler language for this processor:
 
@@ -26,14 +27,29 @@ Here is a specific assembler language for this processor:
 | pop      | take number from stack and put it in specified register, if register is not specified just removes number from stack |
 | push     | put on stack a number stored in specified register or specified number |
 | jmp      | jump to the specified label and continue execution from the code just after the definition of the label |
+| jif      | take number from stack and if it is true, jumps to the specified label and continue execution from the code just after the definition of the label |
+| call     | this command puts the place of itself on call stack, jumps to the specified label and the execution continuing from the code just after the definition of the label |
+| ret      | take last record from call stack and continue execution just after the call, that made this record |
+| less     | take two numbers from stack, and if the first less then the second, put true on stack, else put false |
+| grtr     | take two numbers from stack, and if the first greater then the second, put true on stack, else put false |
+| or       | take two numbers from stack, if at least one of them true, put true on stack, else put false |
+| and      | take two numbers from stack, if both of them true, put true on stack, else put false |
+| not      | take number from stack, if it is false, put true on stack, else put false |
 
 The command pop could be followed by the name of some register.
 The command push must be followed by either the name of some register or a double-precision floating-point number.
 The command jmp must be followed by the name of the label, that is defined in code. To define a label type its
 name (the sequence of alpha and digit symbols), then colon (:) without space symbols between them.
+True and false are represented as 1 and -1 one. If operations jif, or, and, not are being applied to other values, behavior is undefined.
+
+File with code should have halt command. It should be the last command in the file, because other text after this command is not taken into account.
+That is a design flaw, which is not fixed yet.
 
 You can see an example of code in specific assembler language in test1.kasm file. This code reads coefficients of quadratic equation and calculates
 a square root of its discriminant.
+
+The other example is in test6.kasm file. This program reads a number and prints corresponding Fibonacci number. If the read number is incorrect (not natural),
+prints some value (you can try to understand what is it).
 
 In this project assembler, disassembler and processor for this specific assembler language are realized. Assembler assembles a specific
 binary code from program in specific assembler language. Disassembler disassembles specific binary code back to specific assembler language.
