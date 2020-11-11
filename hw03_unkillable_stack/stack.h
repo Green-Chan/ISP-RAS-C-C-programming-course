@@ -151,7 +151,7 @@ typedef struct TEMPLATE(STACK_TYPE, stack_s) TEMPLATE(STACK_TYPE, stack);
 //!
 ///------------------------------------------------------------------------------------
 
-const char *stack_error_name(stack_error_type error) {
+inline static const char *stack_error_name(stack_error_type error) {
     switch(error) {
         case STACK_OK: return "STACK_OK";
         case NULL_POINTER: return "NULL_POINTER";
@@ -365,7 +365,7 @@ do {                                                                            
 #endif // ndef STACK_COMMON
 
 #if DEBUG > 2
-    unsigned long long TEMPLATE(STACK_TYPE, count_hash) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    inline static unsigned long long TEMPLATE(STACK_TYPE, count_hash) (TEMPLATE(STACK_TYPE, stack) *thou) {
         assert(thou != NULL);
         unsigned long long saved_hash = thou->stack_hash;
         const char *saved_call_file = thou->call_file;
@@ -385,7 +385,7 @@ do {                                                                            
 #endif // DEBUG > 2
 
 #if DEBUG > 0
-    stack_error_type TEMPLATE(STACK_TYPE, stack_not_ok) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    inline static stack_error_type TEMPLATE(STACK_TYPE, stack_not_ok) (TEMPLATE(STACK_TYPE, stack) *thou) {
         if (thou == NULL) { return NULL_POINTER; }
         if (thou->size < 0) { return NEGATIVE_SIZE; }
         if (thou->capacity < 0) { return NEGATIVE_CAPACITY; }
@@ -409,13 +409,13 @@ do {                                                                            
         return STACK_OK;
     }
 
-    void TEMPLATE(STACK_TYPE, stack_dump) (TEMPLATE(STACK_TYPE, stack) *thou);
+    inline static void TEMPLATE(STACK_TYPE, stack_dump) (TEMPLATE(STACK_TYPE, stack) *thou);
 #endif
 
 
 #if DEBUG > 1
 
-void * TEMPLATE(STACK_TYPE, cat_alloc) (size_t capacity) {
+inline static void * TEMPLATE(STACK_TYPE, cat_alloc) (size_t capacity) {
     char *data = (char *)calloc(capacity * sizeof(STACK_TYPE) + 2 * sizeof(unsigned long long), 1);
     if (data == NULL) { return NULL; }
     ((unsigned long long *)data)[0] = HUNGRY_CAT_VAL;
@@ -423,7 +423,7 @@ void * TEMPLATE(STACK_TYPE, cat_alloc) (size_t capacity) {
     return (void *)(data + sizeof(unsigned long long));
 }
 
-void * TEMPLATE(STACK_TYPE, cat_realloc) (void *data, size_t new_size) {
+inline static void * TEMPLATE(STACK_TYPE, cat_realloc) (void *data, size_t new_size) {
     data = (char *)realloc(((char *)data) - sizeof(unsigned long long), new_size + 2 * sizeof(unsigned long long));
     if (data == NULL) { return NULL; }
     ((unsigned long long *)data)[0] = HUNGRY_CAT_VAL;
@@ -431,7 +431,7 @@ void * TEMPLATE(STACK_TYPE, cat_realloc) (void *data, size_t new_size) {
     return (void *)(data + sizeof(unsigned long long));
 }
 
-void TEMPLATE(STACK_TYPE, cat_free) (void *data) {
+inline static void TEMPLATE(STACK_TYPE, cat_free) (void *data) {
     if (data != NULL) {
         free(((char *)data) - sizeof(unsigned long long));
     }
@@ -439,7 +439,7 @@ void TEMPLATE(STACK_TYPE, cat_free) (void *data) {
 
 #endif // DEBUG > 1
 
-void TEMPLATE(STACK_TYPE, construct_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+inline static void TEMPLATE(STACK_TYPE, construct_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #if DEBUG > 0
         if (thou == NULL) {
             printf("%s(%d): NULL_POINTER\n", thou->call_file, thou->call_line);
@@ -465,7 +465,7 @@ void TEMPLATE(STACK_TYPE, construct_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #endif
 }
 
-void TEMPLATE(STACK_TYPE, destruct_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+inline static void TEMPLATE(STACK_TYPE, destruct_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #if DEBUG > 0
         standart_stack_assert(STACK_TYPE, thou, true);
     #endif
@@ -484,7 +484,7 @@ void TEMPLATE(STACK_TYPE, destruct_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #endif
 }
 
-bool TEMPLATE(STACK_TYPE, is_empty_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+inline static bool TEMPLATE(STACK_TYPE, is_empty_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #if DEBUG > 0
         standart_stack_assert(STACK_TYPE, thou, true);
         file_line_dele(thou);
@@ -492,7 +492,7 @@ bool TEMPLATE(STACK_TYPE, is_empty_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     return thou->size == 0;
 }
 
-STACK_TYPE TEMPLATE(STACK_TYPE, pop_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+inline static STACK_TYPE TEMPLATE(STACK_TYPE, pop_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #if DEBUG > 0
         standart_stack_assert(STACK_TYPE, thou, true);
         if (is_empty_stack(STACK_TYPE, thou)) {
@@ -512,7 +512,7 @@ STACK_TYPE TEMPLATE(STACK_TYPE, pop_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     return ret_val;
 }
 
-STACK_TYPE TEMPLATE(STACK_TYPE, read_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
+inline static STACK_TYPE TEMPLATE(STACK_TYPE, read_stack) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #if DEBUG > 0
         standart_stack_assert(STACK_TYPE, thou, true);
         if (is_empty_stack(STACK_TYPE, thou)) {
@@ -523,7 +523,7 @@ STACK_TYPE TEMPLATE(STACK_TYPE, read_stack) (TEMPLATE(STACK_TYPE, stack) *thou) 
     return thou->data[thou->size - 1];
 }
 
-int TEMPLATE(STACK_TYPE, push_stack) (TEMPLATE(STACK_TYPE, stack) *thou, STACK_TYPE elem) {
+inline static int TEMPLATE(STACK_TYPE, push_stack) (TEMPLATE(STACK_TYPE, stack) *thou, STACK_TYPE elem) {
     #if DEBUG > 0
         standart_stack_assert(STACK_TYPE, thou, true);
     #endif
@@ -571,7 +571,7 @@ int TEMPLATE(STACK_TYPE, push_stack) (TEMPLATE(STACK_TYPE, stack) *thou, STACK_T
     return 0;
 }
 
-ssize_t TEMPLATE(STACK_TYPE, stack_size) (TEMPLATE(STACK_TYPE, stack) *thou) {
+inline static ssize_t TEMPLATE(STACK_TYPE, stack_size) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #if DEBUG > 0
         standart_stack_assert(STACK_TYPE, thou, true);
         file_line_dele(thou);
@@ -579,7 +579,7 @@ ssize_t TEMPLATE(STACK_TYPE, stack_size) (TEMPLATE(STACK_TYPE, stack) *thou) {
     return thou->size;
 }
 
-ssize_t TEMPLATE(STACK_TYPE, stack_capacity) (TEMPLATE(STACK_TYPE, stack) *thou) {
+inline static ssize_t TEMPLATE(STACK_TYPE, stack_capacity) (TEMPLATE(STACK_TYPE, stack) *thou) {
     #if DEBUG > 0
         standart_stack_assert(STACK_TYPE, thou, true);
         file_line_dele(thou);
@@ -587,7 +587,7 @@ ssize_t TEMPLATE(STACK_TYPE, stack_capacity) (TEMPLATE(STACK_TYPE, stack) *thou)
     return thou->capacity;
 }
 
-int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stack) *thou, ssize_t new_capacity) {
+inline static int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stack) *thou, ssize_t new_capacity) {
     #if DEBUG > 0
         standart_stack_assert(STACK_TYPE, thou, true);
         if (new_capacity < thou->size) {
@@ -647,7 +647,7 @@ int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stack) *thou, ssiz
 }
 
 #if DEBUG > 0
-    void TEMPLATE(STACK_TYPE, stack_dump) (TEMPLATE(STACK_TYPE, stack) *thou) {
+    inline static void TEMPLATE(STACK_TYPE, stack_dump) (TEMPLATE(STACK_TYPE, stack) *thou) {
         stack_error_type error = TEMPLATE(STACK_TYPE, stack_not_ok)(thou);
         printf("Stack[TYPE = %s] (%s) [0x%p]\n", TO_STRING(STACK_TYPE), stack_error_name(error), thou);
         if (error != NULL_POINTER) {
