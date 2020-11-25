@@ -1,0 +1,48 @@
+digraph "graph2" {
+	"node 0:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 0:
+*"->"node 1:
+-";
+	"node 1:
+-"[style="filled",fillcolor="lightgreen"]
+	"node 1:
+-"->"node 2:
++";
+	"node 2:
++"[style="filled",fillcolor="lightgreen"]
+	"node 3:
+1.000000"[style="filled",fillcolor="yellow"]	"node 2:
++"->"node 3:
+1.000000";
+	"node 4:
+2.000000"[style="filled",fillcolor="yellow"]	"node 2:
++"->"node 4:
+2.000000";
+	"node 5:
+3.000000"[style="filled",fillcolor="yellow"]	"node 1:
+-"->"node 5:
+3.000000";
+	"node 0:
+*"->"node 6:
+/";
+	"node 6:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 6:
+/"->"node 7:
+-";
+	"node 7:
+-"[style="filled",fillcolor="lightgreen"]
+	"node 8:
+0.000000"[style="filled",fillcolor="yellow"]	"node 7:
+-"->"node 8:
+0.000000";
+	"node 9:
+5.000000"[style="filled",fillcolor="yellow"]	"node 7:
+-"->"node 9:
+5.000000";
+	"node 10:
+3.000000"[style="filled",fillcolor="yellow"]	"node 6:
+/"->"node 10:
+3.000000";
+}
