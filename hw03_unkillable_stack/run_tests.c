@@ -2,6 +2,7 @@
 #include <assert.h>
 #include <math.h>
 
+#define STACK_TYPE_POISON 666
 #define PRINT_STACK_TYPE(val) printf("%d", val)
 #define STACK_TYPE int
 #include "stack.h"

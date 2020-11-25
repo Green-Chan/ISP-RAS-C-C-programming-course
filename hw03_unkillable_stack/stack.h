@@ -657,7 +657,7 @@ inline static int TEMPLATE(STACK_TYPE, reserve_stack) (TEMPLATE(STACK_TYPE, stac
                 printf("  first_hungry_cat = 0x%I64x\n", thou->first_hungry_cat);
             #endif
             printf("  size = %Id\n", thou->size);
-            printf("  size = %Id\n", thou->capacity);
+            printf("  capacity = %Id\n", thou->capacity);
             printf("  data[0x%p]\n", thou->data);
             if (thou->data != NULL && thou->capacity > 0) {
                 printf("  {\n");
