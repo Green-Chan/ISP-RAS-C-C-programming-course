@@ -17,7 +17,8 @@ expression_tree.o: expression_tree.c expression_tree.h
 	$(CC) -c expression_tree.c $(CFLAGS)
 
 test: run_tests
-	run_tests.exe < test.in
+	run_tests.exe < test.in > test.out
+	ECHO n | COMP test.out test_ok.out 2> nul
 
 clean:
 	del *.o *.exe

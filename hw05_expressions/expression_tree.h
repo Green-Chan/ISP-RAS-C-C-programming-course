@@ -1,13 +1,21 @@
 #ifndef EXPRESSION_TREE_GUARD
 
 typedef struct expression {
+    char type;
     union {
        char operation;
+       char variable;
        double number;
     };
     struct expression *children[2];
 } expression;
 
+//! Possible values of expression type
+enum {
+    EXPR_OPERATION = 'o',
+    EXPR_VARIABLE = 'v',
+    EXPR_NUMBER = 'n'
+};
 
 //! Return values of @c read_expression function
 enum {
@@ -40,9 +48,11 @@ int read_expression(const char *str, expression **expr_tree, const char **err_po
 //! @param [in] expr_tree  Pointer to the tree
 void destruct_expression(expression *expr_tree);
 
-//! Prints tree to the output.
+//! Prints tree to the output and checks its correctness.
 //!
 //! @param [in] expr_tree  Pointer to the tree
+//!
+//! @note It prints tree even if it is not correct
 void print_expr_tree_stdout(expression *expr_tree);
 
 //! Prints tree in graph format. Create (or rewrite) <name>.dot and <name>.pdf files and opens PDF file.
@@ -51,15 +61,21 @@ void print_expr_tree_stdout(expression *expr_tree);
 //! @param [in] name       C-string (terminated by '\0'), name for output files
 //!
 //! @return 0 on success, 1 if some problem with files occurs
+//!
+//! @note It prints tree even if it is not correct
+//! @note @c name could contain a relative path
 int print_expr_tree_graph(expression *expr_tree, const char *name);
 
 
 //! Prints formula for expression. Create (or rewrite) <name>.tex , <name>.aux , <name>.log and <name>.pdf files and opens PDF file.
 //!
 //! @param [in] expr_tree  Pointer to the tree
-//! @param [in] name       C-string (terminated by '\0'), name for output files
+//! @param [in] name       C-string (terminated by '\0'), name for output files.
 //!
 //! @return 0 on success, 1 if some problem with files occurs
+//!
+//! @note It prints tree even if it is not correct, but output is undefined. It also may look as it is correct
+//! @note @c name could contain a relative path, but not absolute. Function works incorrect with absolute path
 int print_expr_formula(expression *expr_tree, const char *name);
 
 #define EXPRESSION_TREE_GUARD

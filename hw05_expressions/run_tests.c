@@ -19,7 +19,7 @@ int main() {
 
         expression *expr_tree = NULL;
         const char *err_pos = NULL;
-        read_expression(buf, &expr_tree, &err_pos);
+        printf ("read result: %d\n", read_expression(buf, &expr_tree, &err_pos));
 
         printf("err_idx: %d\n\n", (int) (err_pos - buf));
 
@@ -27,17 +27,18 @@ int main() {
         printf("\n\n");
 
         static unsigned char num = 0;
-        char buf[15];
-        size_t len = sprintf(buf, "graph%d", (int)num);
-        assert(len < 15);
+        char buf[30];
+        size_t len = sprintf(buf, "output_files/graph%d", (int)num);
+        assert(len < 30);
         buf[len] = '\0';
         print_expr_tree_graph(expr_tree, buf);
 
-        len = sprintf(buf, "formula%d", (int)num++);
-        assert(len < 15);
+        len = sprintf(buf, "output_files/formula%d", (int)num++);
+        assert(len < 30);
         buf[len] = '\0';
         print_expr_formula(expr_tree, buf);
 
         destruct_expression(expr_tree);
     }
+
 }
