@@ -78,6 +78,8 @@ int print_expr_tree_graph(expression *expr_tree, const char *name);
 //! @note @c name could contain a relative path, but not absolute. Function works incorrect with absolute path
 int print_expr_formula(expression *expr_tree, const char *name);
 
+expression *simplify_expression(expression *expr_tree, double eps);
+
 #define EXPRESSION_TREE_GUARD
 #endif
 

@@ -4,10 +4,11 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
+#include <math.h>
 
 #include "expression_tree.h"
 
-void expr_skip_spaces(const char **str) {
+static void expr_skip_spaces(const char **str) {
     assert(str != NULL && *str != NULL);
     while (isspace(**str)) {
         (*str)++;
@@ -24,7 +25,7 @@ void destruct_expression(expression *expr_tree) {
     free(expr_tree);
 }
 
-int read_expr_internal(const char *str, expression **expr_tree, const char **err_pos) {
+static int read_expr_internal(const char *str, expression **expr_tree, const char **err_pos) {
     assert(str != NULL);
     assert(expr_tree != NULL);
     assert(err_pos != NULL);
@@ -247,7 +248,7 @@ void print_expr_tree_stdout(expression *expr_tree) {
     height--;
 }
 
-int print_expr_tree_graph_internal(expression *expr_tree, FILE *fout, size_t *node_number) {
+static int print_expr_tree_graph_internal(expression *expr_tree, FILE *fout, size_t *node_number) {
     assert(expr_tree != NULL);
 
     #ifdef PRINT_
@@ -356,7 +357,7 @@ int print_expr_tree_graph(expression *expr_tree, const char *name) {
     return 0;
 }
 
-int print_expr_formula_internal(expression *expr_tree, FILE *fout) {
+static int print_expr_formula_internal(expression *expr_tree, FILE *fout) {
     #ifdef CHECK_RETURN_
         #error "That's a local define, it should not be defined"
     #endif
@@ -544,4 +545,153 @@ int print_expr_formula(expression *expr_tree, const char *name) {
     command[real_cmd_len] = '\0';
     system(command);
     return 0;
+}
+
+inline
+static int comp_eps(double a, double b, double eps) {
+    return fabs(a - b) <= eps;
+}
+
+expression *simplify_expression(expression *expr_tree, double eps) {
+    if (expr_tree == NULL) {
+        return 0;
+    }
+    switch (expr_tree->type) {
+    case EXPR_NUMBER:
+        return expr_tree;
+    case EXPR_VARIABLE:
+        return expr_tree;
+    case EXPR_OPERATION:
+        #ifdef SIMPLIFY_TWO_ARGS_
+            #error "That's a local define, it should not be defined"
+        #endif
+        #define SIMPLIFY_TWO_ARGS_ \
+            expr_tree->children[0] = simplify_expression(expr_tree->children[0], eps); \
+            expr_tree->children[1] = simplify_expression(expr_tree->children[1], eps); \
+            if (expr_tree->children[0] == NULL || expr_tree->children[1] == NULL) { \
+                return expr_tree; \
+            }
+        #ifdef RETURN_CHILD_
+            #error "That's a local define, it should not be defined"
+        #endif
+        #define RETURN_CHILD_(idx) \
+            expression *return_tree = expr_tree->children[idx]; \
+            expr_tree->children[idx] = NULL; \
+            destruct_expression(expr_tree); \
+            return return_tree;
+        switch (expr_tree->operation) {
+        case '+':
+            SIMPLIFY_TWO_ARGS_
+            if (expr_tree->children[0]->type == EXPR_NUMBER) {
+                if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
+                    RETURN_CHILD_(1)
+                }
+                if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                    expr_tree->children[1]->number += expr_tree->children[0]->number;
+                    RETURN_CHILD_(1)
+                }
+            } else if (expr_tree->children[1]->type == EXPR_NUMBER && comp_eps(expr_tree->children[1]->number, 0, eps)) {
+                RETURN_CHILD_(0)
+            }
+            return expr_tree;
+        case '-':
+            SIMPLIFY_TWO_ARGS_
+            if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                if (comp_eps(expr_tree->children[1]->number, 0, eps)) {
+                    RETURN_CHILD_(0)
+                }
+                if (expr_tree->children[0]->type == EXPR_NUMBER) {
+                    expr_tree->children[0]->number -= expr_tree->children[1]->number;
+                    RETURN_CHILD_(0)
+                }
+            }
+            return expr_tree;
+        case '*':
+            SIMPLIFY_TWO_ARGS_
+            if (expr_tree->children[0]->type == EXPR_NUMBER) {
+                if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
+                    RETURN_CHILD_(0)
+                }
+                if (comp_eps(expr_tree->children[0]->number, 1, eps)) {
+                    RETURN_CHILD_(1)
+                }
+                if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                    expr_tree->children[1]->number *= expr_tree->children[0]->number;
+                    RETURN_CHILD_(1)
+                }
+            } else if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                if (comp_eps(expr_tree->children[1]->number, 0, eps)) {
+                    RETURN_CHILD_(1)
+                }
+                if (comp_eps(expr_tree->children[1]->number, 1, eps)) {
+                    RETURN_CHILD_(0)
+                }
+            }
+            return expr_tree;
+        case '/':
+            SIMPLIFY_TWO_ARGS_
+            if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                if (comp_eps(expr_tree->children[1]->number, 1, eps)) {
+                    RETURN_CHILD_(0)
+                }
+                if (expr_tree->children[0]->type == EXPR_NUMBER) {
+                    expr_tree->children[0]->number /= expr_tree->children[1]->number;
+                    RETURN_CHILD_(0)
+                }
+            } else if (expr_tree->children[0]->type == EXPR_NUMBER && comp_eps(expr_tree->children[0]->number, 0, eps)) {
+                RETURN_CHILD_(0)
+            }
+            return expr_tree;
+        case '^':
+            SIMPLIFY_TWO_ARGS_
+            if (expr_tree->children[0]->type == EXPR_NUMBER) {
+                if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
+                    RETURN_CHILD_(0)
+                }
+                if (comp_eps(expr_tree->children[0]->number, 1, eps)) {
+                    RETURN_CHILD_(0)
+                }
+                if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                    expr_tree->children[0]->number = pow(expr_tree->children[0]->number, expr_tree->children[1]->number);
+                    RETURN_CHILD_(0)
+                }
+            } else if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
+                    expr_tree->children[1]->number = 1;
+                    RETURN_CHILD_(1)
+                }
+                if (comp_eps(expr_tree->children[0]->number, 1, eps)) {
+                    RETURN_CHILD_(0)
+                }
+            }
+            return expr_tree;
+        #ifdef SIN_COS_SIMP_
+            #error "That's a local define, it should not be defined"
+        #endif
+        #define SIN_COS_SIMP_(sin_cos) \
+            expr_tree->children[1] = simplify_expression(expr_tree->children[1], eps); \
+            if (expr_tree->children[1] == NULL) { \
+                return expr_tree; \
+            } \
+            if (expr_tree->children[1]->type == EXPR_NUMBER) { \
+                expr_tree->children[1]->number = sin_cos (expr_tree->children[1]->number); \
+                RETURN_CHILD_(1) \
+            }
+        case 's':
+            SIN_COS_SIMP_(sin)
+            return expr_tree;
+        case 'c':
+            SIN_COS_SIMP_(cos)
+            return expr_tree;
+        #undef SIN_COS_SIMP_
+        default:
+            return expr_tree;
+        }
+        assert(!"should not be here");
+        #undef SIMPLIFY_TWO_ARGS_
+        #undef RETURN_CHILD_
+    default:
+        return expr_tree;
+    }
+    assert(!"should not be here");
 }
