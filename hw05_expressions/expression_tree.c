@@ -19,10 +19,37 @@ void destruct_expression(expression *expr_tree) {
     if (expr_tree == NULL) {
         return;
     }
+    #ifdef DEBUG
+        expr_tree->type = 13;
+    #endif // DEBUG
     for (size_t i = 0; i < sizeof(expr_tree->children) / sizeof(expr_tree->children[0]); i++) {
         destruct_expression(expr_tree->children[i]);
     }
     free(expr_tree);
+}
+
+expression *copy_expression(expression *expr_tree) {
+    if (expr_tree == NULL) {
+        return NULL;
+    }
+    expression *new_tree = calloc(1, sizeof(expression));
+    if (new_tree == NULL) {
+        return (expression *) 1;
+    }
+    *new_tree = *expr_tree;
+    char mem_limit = 0;
+    for (size_t i = 0; i < sizeof(expr_tree->children) / sizeof(expr_tree->children[0]); i++) {
+        new_tree->children[i] = copy_expression(expr_tree->children[i]);
+        if (new_tree->children[i] == (expression *) 1) {
+            new_tree->children[i] = NULL;
+            mem_limit = 1;
+        }
+    }
+    if (mem_limit) {
+        destruct_expression(new_tree);
+        return (expression *) 1;
+    }
+    return new_tree;
 }
 
 static int read_expr_internal(const char *str, expression **expr_tree, const char **err_pos) {
@@ -69,16 +96,22 @@ static int read_expr_internal(const char *str, expression **expr_tree, const cha
                    destruct_expression(tmp_expr_tree); \
                    return EXPR_INVALID_STR;
 
-    #ifdef SINCOS_
+    #ifdef FUNC_
         #error "That's a local define, it should not be defined"
     #endif
-    // Sine (cosine) should not have first argument
-    #define SINCOS_ if (tmp_expr_tree->children[0] != NULL) { \
+    // Sine, cosine and natural logarithm should not have first argument
+    #define FUNC_(func_str) \
+                    for (size_t i = 1; i < sizeof(func_str) - 1; i++) { \
+                        if (str[i] != func_str[i]) { \
+                            ERROR_ \
+                        } \
+                    } \
+                    if (tmp_expr_tree->children[0] != NULL) { \
                         ERROR_ \
                     } \
                     tmp_expr_tree->type = EXPR_OPERATION; \
                     tmp_expr_tree->operation = str[0]; \
-                    str += 3; // Skip operation string
+                    str += sizeof(func_str) - 1; // Skip function string
 
     // If there was no argument, that's OK. It may be unary minus, sine, cosine, a number or a variable
     // read operation (spaces are already skipped)
@@ -106,17 +139,15 @@ static int read_expr_internal(const char *str, expression **expr_tree, const cha
         break;
     case 's':
         // That should be sine
-        if (str[1] != 'i' || str[2] != 'n') {
-            ERROR_
-        }
-        SINCOS_
+        FUNC_("sin")
         break;
     case 'c':
         // That should be cosine
-        if (str[1] != 'o' || str[2] != 's') {
-            ERROR_
-        }
-        SINCOS_
+        FUNC_("cos")
+        break;
+    case 'l':
+        // That should be natural logarithm
+        FUNC_("ln")
         break;
     default:
         // That is not operation, so it should be a number or a variable
@@ -234,8 +265,13 @@ void print_expr_tree_stdout(expression *expr_tree) {
             printf("sin\n");
         } else if (expr_tree->operation == 'c') {
             printf("cos\n");
-        } else {
+        } else if (expr_tree->operation == 'l') {
+            printf("ln\n");
+        } else if (expr_tree->operation == '+' || expr_tree->operation == '-' || expr_tree->operation == '*' ||
+                   expr_tree->operation == '/' || expr_tree->operation == '^') {
             printf("%c\n", expr_tree->operation);
+        } else {
+            printf("??\n");
         }
         break;
     default:
@@ -256,6 +292,7 @@ static int print_expr_tree_graph_internal(expression *expr_tree, FILE *fout, siz
     #endif
     #define PRINT_(fmt, node_num, node_val) \
         if (fprintf(fout, fmt, node_num, node_val) < 0) { \
+            printf("ATTENTION\n"); \
             fclose(fout); \
             return 1; \
         }
@@ -294,12 +331,17 @@ static int print_expr_tree_graph_internal(expression *expr_tree, FILE *fout, siz
             PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "sin")
         } else if (expr_tree->operation == 'c') {
             PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "cos")
-        } else {
+        } else if (expr_tree->operation == 'l') {
+            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "ln")
+        } else if (expr_tree->operation == '+' || expr_tree->operation == '-' || expr_tree->operation == '*' ||
+                   expr_tree->operation == '/' || expr_tree->operation == '^') {
             PRINT_TREE_("\"node %I64d:\n%c\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", expr_tree->operation)
+        } else {
+            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "??")
         }
         break;
     default:
-        PRINT_TREE_("\"node %I64d:\n%s\"", "", "??")
+        PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"red\"]", "??")
     }
 
     return 0;
@@ -432,11 +474,11 @@ static int print_expr_formula_internal(expression *expr_tree, FILE *fout) {
             if (expr_tree->children[0] == NULL) {
                 CHECK_RETURN_(fprintf(fout, "NOARG") < 0)
             } else if (expr_tree->children[0]->type == EXPR_OPERATION) {
-                #ifdef SIN_COS_POWER_PRINT_
+                #ifdef FUNC_POWER_PRINT_
                     #error "That's a local define, it should not be defined"
                 #endif
-                #define SIN_COS_POWER_PRINT_(sin_cos) \
-                    CHECK_RETURN_(fprintf(fout, sin_cos "^{") < 0) \
+                #define FUNC_POWER_PRINT_(func) \
+                    CHECK_RETURN_(fprintf(fout, func "^{") < 0) \
                     PRINT_CHILD_(1) \
                     CHECK_RETURN_(fprintf(fout, "}(") < 0) \
                     if (expr_tree->children[0]->children[1] == NULL) { \
@@ -447,17 +489,20 @@ static int print_expr_formula_internal(expression *expr_tree, FILE *fout) {
                     CHECK_RETURN_(fprintf(fout, ")") < 0) \
 
                 if (expr_tree->children[0]->operation == 's') {
-                    SIN_COS_POWER_PRINT_("sin")
-                    return 0; // Everything is already printed
+                    FUNC_POWER_PRINT_("sin")
+                    return 0;
                 } else if (expr_tree->children[0]->operation == 'c') {
-                    SIN_COS_POWER_PRINT_("cos")
-                    return 0; // Everything is already printed
+                    FUNC_POWER_PRINT_("cos")
+                    return 0;
+                } else if (expr_tree->children[0]->operation == 'l') {
+                    FUNC_POWER_PRINT_("ln")
+                    return 0;
                 } else {
                     CHECK_RETURN_(fprintf(fout, "(") < 0)
                     CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[0], fout) != 0)
                     CHECK_RETURN_(fprintf(fout, ")") < 0)
                 }
-                #undef SIN_COS_POWER_PRINT_
+                #undef FUNC_POWER_PRINT_
             } else {
                 CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[0], fout) != 0)
             }
@@ -466,16 +511,24 @@ static int print_expr_formula_internal(expression *expr_tree, FILE *fout) {
             PRINT_CHILD_(1)
             CHECK_RETURN_(fprintf(fout, "}") < 0)
             return 0;
-        case 's':
-            CHECK_RETURN_(fprintf(fout, "sin(") < 0)
-            PRINT_CHILD_(1)
+
+        #ifdef FUNC_PRINT_
+            #error "That's a local define, it should not be defined"
+        #endif
+        #define FUNC_PRINT_(func) \
+            CHECK_RETURN_(fprintf(fout, func "(") < 0) \
+            PRINT_CHILD_(1) \
             CHECK_RETURN_(fprintf(fout, ")") < 0)
+        case 's':
+            FUNC_PRINT_("sin")
             return 0;
         case 'c':
-            CHECK_RETURN_(fprintf(fout, "cos(") < 0)
-            PRINT_CHILD_(1)
-            CHECK_RETURN_(fprintf(fout, ")") < 0)
+            FUNC_PRINT_("cos")
             return 0;
+        case 'l':
+            FUNC_PRINT_("ln")
+            return 0;
+        #undef FUNC_PRINT_
         default:
             CHECK_RETURN_(fprintf(fout, "UNKNOWN") < 0)
             return 0;
@@ -488,6 +541,7 @@ static int print_expr_formula_internal(expression *expr_tree, FILE *fout) {
     assert(!"should not be here");
     #undef CHECK_RETURN_
     #undef PRINT_CHILD_
+    #undef PRINT_ADD_SUB_CHILD_IN_BRACKETS_
 }
 
 int print_expr_formula(expression *expr_tree, const char *name) {
@@ -521,9 +575,10 @@ int print_expr_formula(expression *expr_tree, const char *name) {
     if (fclose(file_out) != 0) {
         return 1;
     }
-    size_t cmd_len = strlen("pdflatex \".tex\" -output-directory  >nul 2>nul") + 1 + n + n;
+    size_t cmd_len = strlen("pdflatex -output-directory \".tex\"  >nul 2>nul") + 1 + n + n;
     char command[cmd_len];
-    size_t real_cmd_len = sprintf(command, "pdflatex \"%s.tex\" ", name);
+    size_t real_cmd_len = 0;
+
     size_t directory_end = 0;
     for (size_t i = 0; i < n; i++) {
         if (name[i] == '/') {
@@ -531,11 +586,14 @@ int print_expr_formula(expression *expr_tree, const char *name) {
         }
     }
     if (directory_end == 0) {
-        real_cmd_len += sprintf(command + real_cmd_len, ">nul 2>nul");
+        real_cmd_len += sprintf(command + real_cmd_len, "pdflatex ");
     } else {
         buf[directory_end] = '\0';
-        real_cmd_len += sprintf(command + real_cmd_len, "-output-directory %s >nul 2>nul", buf);
+        real_cmd_len += sprintf(command + real_cmd_len, "pdflatex -output-directory %s ", buf);
     }
+
+    real_cmd_len += sprintf(command + real_cmd_len, "\"%s.tex\" >nul 2>nul", name);
+
     assert(real_cmd_len + 1 <= cmd_len);
     command[real_cmd_len] = '\0';
     system(command);
@@ -554,7 +612,7 @@ static int comp_eps(double a, double b, double eps) {
 
 expression *simplify_expression(expression *expr_tree, double eps) {
     if (expr_tree == NULL) {
-        return 0;
+        return NULL;
     }
     switch (expr_tree->type) {
     case EXPR_NUMBER:
@@ -583,11 +641,11 @@ expression *simplify_expression(expression *expr_tree, double eps) {
         case '+':
             SIMPLIFY_TWO_ARGS_
             if (expr_tree->children[0]->type == EXPR_NUMBER) {
-                if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
-                    RETURN_CHILD_(1)
-                }
                 if (expr_tree->children[1]->type == EXPR_NUMBER) {
                     expr_tree->children[1]->number += expr_tree->children[0]->number;
+                    RETURN_CHILD_(1)
+                }
+                if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
                     RETURN_CHILD_(1)
                 }
             } else if (expr_tree->children[1]->type == EXPR_NUMBER && comp_eps(expr_tree->children[1]->number, 0, eps)) {
@@ -597,11 +655,11 @@ expression *simplify_expression(expression *expr_tree, double eps) {
         case '-':
             SIMPLIFY_TWO_ARGS_
             if (expr_tree->children[1]->type == EXPR_NUMBER) {
-                if (comp_eps(expr_tree->children[1]->number, 0, eps)) {
-                    RETURN_CHILD_(0)
-                }
                 if (expr_tree->children[0]->type == EXPR_NUMBER) {
                     expr_tree->children[0]->number -= expr_tree->children[1]->number;
+                    RETURN_CHILD_(0)
+                }
+                if (comp_eps(expr_tree->children[1]->number, 0, eps)) {
                     RETURN_CHILD_(0)
                 }
             }
@@ -609,14 +667,14 @@ expression *simplify_expression(expression *expr_tree, double eps) {
         case '*':
             SIMPLIFY_TWO_ARGS_
             if (expr_tree->children[0]->type == EXPR_NUMBER) {
+                if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                    expr_tree->children[1]->number *= expr_tree->children[0]->number;
+                    RETURN_CHILD_(1)
+                }
                 if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
                     RETURN_CHILD_(0)
                 }
                 if (comp_eps(expr_tree->children[0]->number, 1, eps)) {
-                    RETURN_CHILD_(1)
-                }
-                if (expr_tree->children[1]->type == EXPR_NUMBER) {
-                    expr_tree->children[1]->number *= expr_tree->children[0]->number;
                     RETURN_CHILD_(1)
                 }
             } else if (expr_tree->children[1]->type == EXPR_NUMBER) {
@@ -631,11 +689,11 @@ expression *simplify_expression(expression *expr_tree, double eps) {
         case '/':
             SIMPLIFY_TWO_ARGS_
             if (expr_tree->children[1]->type == EXPR_NUMBER) {
-                if (comp_eps(expr_tree->children[1]->number, 1, eps)) {
-                    RETURN_CHILD_(0)
-                }
                 if (expr_tree->children[0]->type == EXPR_NUMBER) {
                     expr_tree->children[0]->number /= expr_tree->children[1]->number;
+                    RETURN_CHILD_(0)
+                }
+                if (comp_eps(expr_tree->children[1]->number, 1, eps)) {
                     RETURN_CHILD_(0)
                 }
             } else if (expr_tree->children[0]->type == EXPR_NUMBER && comp_eps(expr_tree->children[0]->number, 0, eps)) {
@@ -645,45 +703,48 @@ expression *simplify_expression(expression *expr_tree, double eps) {
         case '^':
             SIMPLIFY_TWO_ARGS_
             if (expr_tree->children[0]->type == EXPR_NUMBER) {
-                if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
-                    RETURN_CHILD_(0)
-                }
-                if (comp_eps(expr_tree->children[0]->number, 1, eps)) {
-                    RETURN_CHILD_(0)
-                }
                 if (expr_tree->children[1]->type == EXPR_NUMBER) {
                     expr_tree->children[0]->number = pow(expr_tree->children[0]->number, expr_tree->children[1]->number);
                     RETURN_CHILD_(0)
                 }
-            } else if (expr_tree->children[1]->type == EXPR_NUMBER) {
                 if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
-                    expr_tree->children[1]->number = 1;
-                    RETURN_CHILD_(1)
+                    RETURN_CHILD_(0)
                 }
                 if (comp_eps(expr_tree->children[0]->number, 1, eps)) {
                     RETURN_CHILD_(0)
                 }
+            } else if (expr_tree->children[1]->type == EXPR_NUMBER) {
+                if (comp_eps(expr_tree->children[1]->number, 0, eps)) {
+                    expr_tree->children[1]->number = 1;
+                    RETURN_CHILD_(1)
+                }
+                if (comp_eps(expr_tree->children[1]->number, 1, eps)) {
+                    RETURN_CHILD_(0)
+                }
             }
             return expr_tree;
-        #ifdef SIN_COS_SIMP_
+        #ifdef FUNC_SIMP_
             #error "That's a local define, it should not be defined"
         #endif
-        #define SIN_COS_SIMP_(sin_cos) \
+        #define FUNC_SIMP_(func) \
             expr_tree->children[1] = simplify_expression(expr_tree->children[1], eps); \
             if (expr_tree->children[1] == NULL) { \
                 return expr_tree; \
             } \
             if (expr_tree->children[1]->type == EXPR_NUMBER) { \
-                expr_tree->children[1]->number = sin_cos (expr_tree->children[1]->number); \
+                expr_tree->children[1]->number = func (expr_tree->children[1]->number); \
                 RETURN_CHILD_(1) \
             }
         case 's':
-            SIN_COS_SIMP_(sin)
+            FUNC_SIMP_(sin)
             return expr_tree;
         case 'c':
-            SIN_COS_SIMP_(cos)
+            FUNC_SIMP_(cos)
             return expr_tree;
-        #undef SIN_COS_SIMP_
+        case 'l':
+            FUNC_SIMP_(log)
+            return expr_tree;
+        #undef FUNC_SIMP_
         default:
             return expr_tree;
         }
@@ -694,4 +755,172 @@ expression *simplify_expression(expression *expr_tree, double eps) {
         return expr_tree;
     }
     assert(!"should not be here");
+}
+
+expression *differentiate_expression(expression *expr_tree, char diff_var) {
+    if (expr_tree == NULL) {
+        return NULL;
+    }
+
+    expression *result_tree = NULL;
+
+    #ifdef MAKE_NUM_NODE_
+        #error "That's a local define, it should not be defined"
+    #endif
+    #define MAKE_NUM_NODE_(new_node_ptr, num) \
+        new_node_ptr = calloc(1, sizeof(expression)); \
+        if (new_node_ptr == NULL) { \
+            destruct_expression(result_tree); \
+            return (expression *) 1; \
+        } \
+        new_node_ptr->type = EXPR_NUMBER; \
+        new_node_ptr->number = num;
+
+    #ifdef MAKE_OP_NODE_
+        #error "That's a local define, it should not be defined"
+    #endif
+    #define MAKE_OP_NODE_(new_node_ptr, op) \
+        new_node_ptr = calloc(1, sizeof(expression)); \
+        if (new_node_ptr == NULL) { \
+            destruct_expression(result_tree); \
+            return (expression *) 1; \
+        } \
+        new_node_ptr->type = EXPR_OPERATION; \
+        new_node_ptr->operation = op;
+
+    #ifdef MAKE_COPY_NODE_
+        #error "That's a local define, it should not be defined"
+    #endif
+    #define MAKE_COPY_NODE_(new_node_ptr, old_node_ptr) \
+        new_node_ptr = copy_expression(old_node_ptr); \
+        if (new_node_ptr == (expression *) 1) { \
+            new_node_ptr = NULL; \
+            destruct_expression(result_tree); \
+            return (expression *) 1; \
+        }
+
+    #ifdef MAKE_DIFF_NODE_
+        #error "That's a local define, it should not be defined"
+    #endif
+    #define MAKE_DIFF_NODE_(new_node_ptr, old_node_ptr) \
+        new_node_ptr = differentiate_expression(old_node_ptr, diff_var); \
+        if (new_node_ptr == (expression *) 1) { \
+            new_node_ptr = NULL; \
+            destruct_expression(result_tree); \
+            return (expression *) 1; \
+        }
+    switch(expr_tree->type) {
+    case EXPR_NUMBER:
+        MAKE_NUM_NODE_(result_tree, 0)
+        return result_tree;
+    case EXPR_VARIABLE:
+        if (expr_tree->variable == diff_var) {
+            MAKE_NUM_NODE_(result_tree, 1)
+        } else {
+            MAKE_NUM_NODE_(result_tree, 0)
+        }
+        return result_tree;
+    case EXPR_OPERATION:
+        {
+            switch (expr_tree->operation) {
+            case '+':
+            case '-':
+                MAKE_OP_NODE_(result_tree, expr_tree->operation)
+                MAKE_DIFF_NODE_(result_tree->children[0], expr_tree->children[0])
+                MAKE_DIFF_NODE_(result_tree->children[1], expr_tree->children[1])
+                return result_tree;
+            case '*':
+                // d(L * R) = (dL * R) + (L * dR)
+                MAKE_OP_NODE_  (result_tree, '+')
+
+                MAKE_OP_NODE_  (result_tree->children[0], '*')
+                MAKE_DIFF_NODE_(result_tree->children[0]->children[0], expr_tree->children[0]) // dL
+                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1]) // R
+
+                MAKE_OP_NODE_  (result_tree->children[1], '*')
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0], expr_tree->children[0]) // L
+                MAKE_DIFF_NODE_(result_tree->children[1]->children[1], expr_tree->children[1]) // dR
+
+                return result_tree;
+            case '/':
+                // d(L / R) = ( (dL * R) - (L * dR) ) / (R * R)
+                MAKE_OP_NODE_  (result_tree, '/')
+
+                MAKE_OP_NODE_  (result_tree->children[0], '-')
+                MAKE_OP_NODE_  (result_tree->children[0]->children[0], '*')
+                MAKE_DIFF_NODE_(result_tree->children[0]->children[0]->children[0], expr_tree->children[0]) // dL
+                MAKE_COPY_NODE_(result_tree->children[0]->children[0]->children[1], expr_tree->children[1]) // R
+                MAKE_OP_NODE_  (result_tree->children[0]->children[1], '*')
+                MAKE_COPY_NODE_(result_tree->children[0]->children[1]->children[0], expr_tree->children[0]) // L
+                MAKE_DIFF_NODE_(result_tree->children[0]->children[1]->children[1], expr_tree->children[1]) // dR
+
+                MAKE_OP_NODE_  (result_tree->children[1], '*')
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0], expr_tree->children[1]) // R
+                MAKE_COPY_NODE_(result_tree->children[1]->children[1], expr_tree->children[1]) // R
+
+                return result_tree;
+            case '^':
+                // d(L^R) = L^R * ( (dL) / L * R + (dR) * ln(L) )
+                MAKE_OP_NODE_  (result_tree, '*')
+
+                MAKE_OP_NODE_  (result_tree->children[0], '^')
+                MAKE_COPY_NODE_(result_tree->children[0]->children[0], expr_tree->children[0])
+                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1])
+
+                MAKE_OP_NODE_  (result_tree->children[1], '+')
+
+                MAKE_OP_NODE_  (result_tree->children[1]->children[0], '*')
+                MAKE_OP_NODE_  (result_tree->children[1]->children[0]->children[0], '/')
+                MAKE_DIFF_NODE_(result_tree->children[1]->children[0]->children[0]->children[0], expr_tree->children[0])
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[0]->children[1], expr_tree->children[0])
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[1], expr_tree->children[1])
+
+                MAKE_OP_NODE_  (result_tree->children[1]->children[1], '*')
+                MAKE_DIFF_NODE_(result_tree->children[1]->children[1]->children[0], expr_tree->children[1])
+                MAKE_OP_NODE_  (result_tree->children[1]->children[1]->children[1], 'l')
+                MAKE_COPY_NODE_(result_tree->children[1]->children[1]->children[1]->children[1], expr_tree->children[0])
+
+                return result_tree;
+            case 's':
+                // d sin(R) = cos(R) * dR
+                MAKE_OP_NODE_  (result_tree, '*')
+
+                MAKE_OP_NODE_  (result_tree->children[0], 'c')
+                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1])
+
+                MAKE_DIFF_NODE_(result_tree->children[1], expr_tree->children[1])
+
+                return result_tree;
+            case 'c':
+                // d cos(R) = -sin(R) * dR
+                MAKE_OP_NODE_  (result_tree, '-')
+                MAKE_NUM_NODE_ (result_tree->children[0], 0)
+                MAKE_OP_NODE_  (result_tree->children[1], '*')
+
+                MAKE_OP_NODE_  (result_tree->children[1]->children[0], 's')
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[1], expr_tree->children[1])
+
+                MAKE_DIFF_NODE_(result_tree->children[1]->children[1], expr_tree->children[1])
+
+                return result_tree;
+            case 'l':
+                // d ln(R) = (dR) / R
+                MAKE_OP_NODE_  (result_tree, '/')
+                MAKE_DIFF_NODE_(result_tree->children[0], expr_tree->children[1])
+                MAKE_COPY_NODE_(result_tree->children[1], expr_tree->children[1])
+
+                return result_tree;
+            default:
+                destruct_expression(result_tree);
+                return copy_expression(expr_tree);
+            }
+        default:
+            destruct_expression(result_tree);
+            return copy_expression(expr_tree);
+        }
+    }
+    #undef MAKE_NUM_NODE_
+    #undef MAKE_OP_NODE_
+    #undef MAKE_COPY_NODE_
+    #undef MAKE_DIFF_NODE_
 }

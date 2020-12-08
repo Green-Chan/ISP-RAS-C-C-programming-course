@@ -1,0 +1,71 @@
+digraph "output_files/simp_diff_graph3" {
+"node 0:
+*";
+	"node 0:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 0:
+*"->"node 1:
+cos";
+	"node 1:
+cos"[style="filled",fillcolor="lightgreen"]
+	"node 1:
+cos"->"node 2:
+^";
+	"node 2:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 2:
+^"->"node 3:
+x";
+	"node 3:
+x"[style="filled",fillcolor="lightblue"]
+	"node 2:
+^"->"node 4:
+0.500000";
+	"node 4:
+0.500000"[style="filled",fillcolor="yellow"]
+	"node 0:
+*"->"node 5:
+*";
+	"node 5:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 5:
+*"->"node 6:
+^";
+	"node 6:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 6:
+^"->"node 7:
+x";
+	"node 7:
+x"[style="filled",fillcolor="lightblue"]
+	"node 6:
+^"->"node 8:
+0.500000";
+	"node 8:
+0.500000"[style="filled",fillcolor="yellow"]
+	"node 5:
+*"->"node 9:
+*";
+	"node 9:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 9:
+*"->"node 10:
+/";
+	"node 10:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 10:
+/"->"node 11:
+1.000000";
+	"node 11:
+1.000000"[style="filled",fillcolor="yellow"]
+	"node 10:
+/"->"node 12:
+x";
+	"node 12:
+x"[style="filled",fillcolor="lightblue"]
+	"node 9:
+*"->"node 13:
+0.500000";
+	"node 13:
+0.500000"[style="filled",fillcolor="yellow"]
+}

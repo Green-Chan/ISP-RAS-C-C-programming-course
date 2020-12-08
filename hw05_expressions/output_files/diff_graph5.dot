@@ -1,0 +1,101 @@
+digraph "output_files/diff_graph5" {
+"node 0:
+*";
+	"node 0:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 0:
+*"->"node 1:
+^";
+	"node 1:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 1:
+^"->"node 2:
+sin";
+	"node 2:
+sin"[style="filled",fillcolor="lightgreen"]
+	"node 2:
+sin"->"node 3:
+x";
+	"node 3:
+x"[style="filled",fillcolor="lightblue"]
+	"node 1:
+^"->"node 4:
+2.000000";
+	"node 4:
+2.000000"[style="filled",fillcolor="yellow"]
+	"node 0:
+*"->"node 5:
++";
+	"node 5:
++"[style="filled",fillcolor="lightgreen"]
+	"node 5:
++"->"node 6:
+*";
+	"node 6:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 6:
+*"->"node 7:
+/";
+	"node 7:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 7:
+/"->"node 8:
+*";
+	"node 8:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 8:
+*"->"node 9:
+cos";
+	"node 9:
+cos"[style="filled",fillcolor="lightgreen"]
+	"node 9:
+cos"->"node 10:
+x";
+	"node 10:
+x"[style="filled",fillcolor="lightblue"]
+	"node 8:
+*"->"node 11:
+1.000000";
+	"node 11:
+1.000000"[style="filled",fillcolor="yellow"]
+	"node 7:
+/"->"node 12:
+sin";
+	"node 12:
+sin"[style="filled",fillcolor="lightgreen"]
+	"node 12:
+sin"->"node 13:
+x";
+	"node 13:
+x"[style="filled",fillcolor="lightblue"]
+	"node 6:
+*"->"node 14:
+2.000000";
+	"node 14:
+2.000000"[style="filled",fillcolor="yellow"]
+	"node 5:
++"->"node 15:
+*";
+	"node 15:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 15:
+*"->"node 16:
+0.000000";
+	"node 16:
+0.000000"[style="filled",fillcolor="yellow"]
+	"node 15:
+*"->"node 17:
+ln";
+	"node 17:
+ln"[style="filled",fillcolor="lightgreen"]
+	"node 17:
+ln"->"node 18:
+sin";
+	"node 18:
+sin"[style="filled",fillcolor="lightgreen"]
+	"node 18:
+sin"->"node 19:
+x";
+	"node 19:
+x"[style="filled",fillcolor="lightblue"]
+}

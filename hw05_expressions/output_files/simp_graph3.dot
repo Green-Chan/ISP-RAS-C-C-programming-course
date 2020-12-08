@@ -1,0 +1,31 @@
+digraph "output_files/simp_graph3" {
+"node 0:
++";
+	"node 0:
++"[style="filled",fillcolor="lightgreen"]
+	"node 0:
++"->"node 1:
+2.000000";
+	"node 1:
+2.000000"[style="filled",fillcolor="yellow"]
+	"node 0:
++"->"node 2:
+sin";
+	"node 2:
+sin"[style="filled",fillcolor="lightgreen"]
+	"node 2:
+sin"->"node 3:
+^";
+	"node 3:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 3:
+^"->"node 4:
+x";
+	"node 4:
+x"[style="filled",fillcolor="lightblue"]
+	"node 3:
+^"->"node 5:
+0.500000";
+	"node 5:
+0.500000"[style="filled",fillcolor="yellow"]
+}

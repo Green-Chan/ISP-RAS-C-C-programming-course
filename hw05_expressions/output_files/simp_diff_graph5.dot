@@ -1,0 +1,61 @@
+digraph "output_files/simp_diff_graph5" {
+"node 0:
+*";
+	"node 0:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 0:
+*"->"node 1:
+^";
+	"node 1:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 1:
+^"->"node 2:
+sin";
+	"node 2:
+sin"[style="filled",fillcolor="lightgreen"]
+	"node 2:
+sin"->"node 3:
+x";
+	"node 3:
+x"[style="filled",fillcolor="lightblue"]
+	"node 1:
+^"->"node 4:
+2.000000";
+	"node 4:
+2.000000"[style="filled",fillcolor="yellow"]
+	"node 0:
+*"->"node 5:
+*";
+	"node 5:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 5:
+*"->"node 6:
+/";
+	"node 6:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 6:
+/"->"node 7:
+cos";
+	"node 7:
+cos"[style="filled",fillcolor="lightgreen"]
+	"node 7:
+cos"->"node 8:
+x";
+	"node 8:
+x"[style="filled",fillcolor="lightblue"]
+	"node 6:
+/"->"node 9:
+sin";
+	"node 9:
+sin"[style="filled",fillcolor="lightgreen"]
+	"node 9:
+sin"->"node 10:
+x";
+	"node 10:
+x"[style="filled",fillcolor="lightblue"]
+	"node 5:
+*"->"node 11:
+2.000000";
+	"node 11:
+2.000000"[style="filled",fillcolor="yellow"]
+}

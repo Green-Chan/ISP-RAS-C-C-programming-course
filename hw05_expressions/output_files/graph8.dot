@@ -1,0 +1,26 @@
+digraph "output_files/graph8" {
+"node 0:
++";
+	"node 0:
++"[style="filled",fillcolor="lightgreen"]
+	"node 0:
++"->"node 1:
+ln";
+	"node 1:
+ln"[style="filled",fillcolor="lightgreen"]
+	"node 1:
+ln"->"node 2:
+x";
+	"node 2:
+x"[style="filled",fillcolor="lightblue"]
+	"node 0:
++"->"node 3:
+ln";
+	"node 3:
+ln"[style="filled",fillcolor="lightgreen"]
+	"node 3:
+ln"->"node 4:
+2.000000";
+	"node 4:
+2.000000"[style="filled",fillcolor="yellow"]
+}

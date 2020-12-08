@@ -48,6 +48,15 @@ int read_expression(const char *str, expression **expr_tree, const char **err_po
 //! @param [in] expr_tree  Pointer to the tree
 void destruct_expression(expression *expr_tree);
 
+//! Cope expression tree in new memory.
+//!
+//! @param [out] expr_tree  Pointer to the tree
+//!
+//! @return Pointer to the copy tree on success, 1 if memory for the new tree cannot be allocated
+//!
+//! @attention Always compare return value with 1
+expression *copy_expression(expression *expr_tree);
+
 //! Prints tree to the output and checks its correctness.
 //!
 //! @param [in] expr_tree  Pointer to the tree
@@ -78,7 +87,25 @@ int print_expr_tree_graph(expression *expr_tree, const char *name);
 //! @note @c name could contain a relative path, but not absolute. Function works incorrect with absolute path
 int print_expr_formula(expression *expr_tree, const char *name);
 
+//! Simplify expression. Very simple simplifier: calculates subtrees which do not contain variables, reduces operations with neutral elements.
+//!
+//! @param [in] expr_tree  Pointer to the input expression tree
+//! @param [in] eps        Epsilon which is used to compare numbers with neutral elements
+//!
+//! @return Pointer to the new root of expression tree
+//!
+//! @attention Changes input tree, can destruct some nodes
 expression *simplify_expression(expression *expr_tree, double eps);
+
+//! Create new expression tree, which is partial derivative of input expression.
+//!
+//! @param [in] expr_tree  Pointer to the input tree
+//! @param [in] diff_var   A variable with respect to which expression is to be differentiated
+//!
+//! @return Pointer to the created expression tree on success, 1 if memory for the new tree cannot be allocated
+//!
+//! @attention Always compare return value with 1
+expression *differentiate_expression(expression *expr_tree, char diff_var);
 
 #define EXPRESSION_TREE_GUARD
 #endif

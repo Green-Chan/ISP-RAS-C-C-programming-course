@@ -1,0 +1,16 @@
+digraph "output_files/simp_diff_graph8" {
+"node 0:
+/";
+	"node 0:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 0:
+/"->"node 1:
+1.000000";
+	"node 1:
+1.000000"[style="filled",fillcolor="yellow"]
+	"node 0:
+/"->"node 2:
+x";
+	"node 2:
+x"[style="filled",fillcolor="lightblue"]
+}

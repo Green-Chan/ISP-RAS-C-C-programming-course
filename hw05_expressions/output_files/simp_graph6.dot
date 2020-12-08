@@ -1,0 +1,6 @@
+digraph "output_files/simp_graph6" {
+"node 0:
+z";
+	"node 0:
+z"[style="filled",fillcolor="lightblue"]
+}

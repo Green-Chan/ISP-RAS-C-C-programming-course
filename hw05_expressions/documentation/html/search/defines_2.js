@@ -1,7 +1,7 @@
 var searchData=
 [
-  ['print_5f_68',['PRINT_',['../expression__tree_8c.html#acc4ea4ed485b23947185bae0e00df005',1,'expression_tree.c']]],
-  ['print_5fadd_5fsub_5fchild_5fin_5fbrackets_5f_69',['PRINT_ADD_SUB_CHILD_IN_BRACKETS_',['../expression__tree_8c.html#a5d3b83f0fa32d400e7290d293761a9b5',1,'expression_tree.c']]],
-  ['print_5fchild_5f_70',['PRINT_CHILD_',['../expression__tree_8c.html#a4465e1a200f15eddeb6cf912ab6b3367',1,'expression_tree.c']]],
-  ['print_5ftree_5f_71',['PRINT_TREE_',['../expression__tree_8c.html#aac96398f28f55fd01dad6fc7719aa2cf',1,'expression_tree.c']]]
+  ['func_5f_74',['FUNC_',['../expression__tree_8c.html#a689c0de72a723b4d4ca1a32bec75ec2d',1,'expression_tree.c']]],
+  ['func_5fpower_5fprint_5f_75',['FUNC_POWER_PRINT_',['../expression__tree_8c.html#a65325e8dfb75cdeb5a045c1967a7e3c7',1,'expression_tree.c']]],
+  ['func_5fprint_5f_76',['FUNC_PRINT_',['../expression__tree_8c.html#a0c5804aadec15687b2fab1d980ccb0c9',1,'expression_tree.c']]],
+  ['func_5fsimp_5f_77',['FUNC_SIMP_',['../expression__tree_8c.html#ad7d782e153e397b250e1169405af2883',1,'expression_tree.c']]]
 ];

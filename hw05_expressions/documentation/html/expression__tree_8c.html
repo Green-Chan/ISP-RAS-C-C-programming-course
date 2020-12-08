@@ -81,14 +81,15 @@ $(function() {
 <code>#include &lt;stdio.h&gt;</code><br />
 <code>#include &lt;ctype.h&gt;</code><br />
 <code>#include &lt;string.h&gt;</code><br />
+<code>#include &lt;math.h&gt;</code><br />
 <code>#include &quot;<a class="el" href="expression__tree_8h_source.html">expression_tree.h</a>&quot;</code><br />
 </div><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
 <tr class="memitem:a61ffbb6b1d3c59620f5e117808be95b2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a61ffbb6b1d3c59620f5e117808be95b2">ERROR_</a></td></tr>
 <tr class="separator:a61ffbb6b1d3c59620f5e117808be95b2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af5e1093ae2cfc8a13bba9959e92d0954"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#af5e1093ae2cfc8a13bba9959e92d0954">SINCOS_</a></td></tr>
-<tr class="separator:af5e1093ae2cfc8a13bba9959e92d0954"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a689c0de72a723b4d4ca1a32bec75ec2d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a689c0de72a723b4d4ca1a32bec75ec2d">FUNC_</a>(func_str)</td></tr>
+<tr class="separator:a689c0de72a723b4d4ca1a32bec75ec2d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acc4ea4ed485b23947185bae0e00df005"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#acc4ea4ed485b23947185bae0e00df005">PRINT_</a>(fmt,  node_num,  node_val)</td></tr>
 <tr class="separator:acc4ea4ed485b23947185bae0e00df005"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac96398f28f55fd01dad6fc7719aa2cf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#aac96398f28f55fd01dad6fc7719aa2cf">PRINT_TREE_</a>(part_of_fmt,  style_str,  node_val)</td></tr>
@@ -99,29 +100,43 @@ Macros</h2></td></tr>
 <tr class="separator:a4465e1a200f15eddeb6cf912ab6b3367"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5d3b83f0fa32d400e7290d293761a9b5"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a5d3b83f0fa32d400e7290d293761a9b5">PRINT_ADD_SUB_CHILD_IN_BRACKETS_</a>(idx)</td></tr>
 <tr class="separator:a5d3b83f0fa32d400e7290d293761a9b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aceb393058ebfee827d9882586c86da12"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#aceb393058ebfee827d9882586c86da12">SIN_COS_POWER_PRINT_</a>(sin_cos)</td></tr>
-<tr class="separator:aceb393058ebfee827d9882586c86da12"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a65325e8dfb75cdeb5a045c1967a7e3c7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a65325e8dfb75cdeb5a045c1967a7e3c7">FUNC_POWER_PRINT_</a>(func)</td></tr>
+<tr class="separator:a65325e8dfb75cdeb5a045c1967a7e3c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0c5804aadec15687b2fab1d980ccb0c9"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a0c5804aadec15687b2fab1d980ccb0c9">FUNC_PRINT_</a>(func)</td></tr>
+<tr class="separator:a0c5804aadec15687b2fab1d980ccb0c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a813234eb3929f2a20f4891523737e48e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a813234eb3929f2a20f4891523737e48e">SIMPLIFY_TWO_ARGS_</a></td></tr>
+<tr class="separator:a813234eb3929f2a20f4891523737e48e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acd213031f022a442c6327ae4fc61c633"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#acd213031f022a442c6327ae4fc61c633">RETURN_CHILD_</a>(idx)</td></tr>
+<tr class="separator:acd213031f022a442c6327ae4fc61c633"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad7d782e153e397b250e1169405af2883"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#ad7d782e153e397b250e1169405af2883">FUNC_SIMP_</a>(func)</td></tr>
+<tr class="separator:ad7d782e153e397b250e1169405af2883"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad926f83d3a68eb9516d60bcd2d7e5e28"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#ad926f83d3a68eb9516d60bcd2d7e5e28">MAKE_NUM_NODE_</a>(new_node_ptr,  num)</td></tr>
+<tr class="separator:ad926f83d3a68eb9516d60bcd2d7e5e28"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc4557bec69926c1eb0e7d6d4ded6c4c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#afc4557bec69926c1eb0e7d6d4ded6c4c">MAKE_OP_NODE_</a>(new_node_ptr,  op)</td></tr>
+<tr class="separator:afc4557bec69926c1eb0e7d6d4ded6c4c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85aa1cc7b4154bb8091bb59125faf20a"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a85aa1cc7b4154bb8091bb59125faf20a">MAKE_COPY_NODE_</a>(new_node_ptr,  old_node_ptr)</td></tr>
+<tr class="separator:a85aa1cc7b4154bb8091bb59125faf20a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a1b32048b68ebb85e7124c8ebf6e6a2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a2a1b32048b68ebb85e7124c8ebf6e6a2">MAKE_DIFF_NODE_</a>(new_node_ptr,  old_node_ptr)</td></tr>
+<tr class="separator:a2a1b32048b68ebb85e7124c8ebf6e6a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a229e0709e32ec6ef797ce76ddfc11fef"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a229e0709e32ec6ef797ce76ddfc11fef">expr_skip_spaces</a> (const char **str)</td></tr>
-<tr class="separator:a229e0709e32ec6ef797ce76ddfc11fef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aef48a543fa7227ae0cabf3881fb02e50"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#aef48a543fa7227ae0cabf3881fb02e50">destruct_expression</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree)</td></tr>
 <tr class="separator:aef48a543fa7227ae0cabf3881fb02e50"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a07cb42d84aca0a3af6b4dde90b4f0064"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a07cb42d84aca0a3af6b4dde90b4f0064">read_expr_internal</a> (const char *str, <a class="el" href="structexpression.html">expression</a> **expr_tree, const char **err_pos)</td></tr>
-<tr class="separator:a07cb42d84aca0a3af6b4dde90b4f0064"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a876477f0d7329ea32b0125cfb2b8f67e"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structexpression.html">expression</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a876477f0d7329ea32b0125cfb2b8f67e">copy_expression</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree)</td></tr>
+<tr class="separator:a876477f0d7329ea32b0125cfb2b8f67e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af499d651a28616975d97bdfea351f82b"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#af499d651a28616975d97bdfea351f82b">read_expression</a> (const char *str, <a class="el" href="structexpression.html">expression</a> **expr_tree, const char **err_pos)</td></tr>
 <tr class="separator:af499d651a28616975d97bdfea351f82b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7ae64c3db9c774f6a82ad1255a2f1463"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a7ae64c3db9c774f6a82ad1255a2f1463">print_expr_tree_stdout</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree)</td></tr>
 <tr class="separator:a7ae64c3db9c774f6a82ad1255a2f1463"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a732b03bf2cf3d0316abeadc4dd653ea0"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a732b03bf2cf3d0316abeadc4dd653ea0">print_expr_tree_graph_internal</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree, FILE *fout, size_t *node_number)</td></tr>
-<tr class="separator:a732b03bf2cf3d0316abeadc4dd653ea0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a089fd79faf508b279aaea7505de99ab3"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a089fd79faf508b279aaea7505de99ab3">print_expr_tree_graph</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree, const char *name)</td></tr>
 <tr class="separator:a089fd79faf508b279aaea7505de99ab3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a68079c38e2d6068af8041fb425e5f3d9"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a68079c38e2d6068af8041fb425e5f3d9">print_expr_formula_internal</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree, FILE *fout)</td></tr>
-<tr class="separator:a68079c38e2d6068af8041fb425e5f3d9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a9976884925afead3e71f1c0ef8f336"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a2a9976884925afead3e71f1c0ef8f336">print_expr_formula</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree, const char *name)</td></tr>
 <tr class="separator:a2a9976884925afead3e71f1c0ef8f336"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a659153147afa96ad9da369124b339a89"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structexpression.html">expression</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a659153147afa96ad9da369124b339a89">simplify_expression</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree, double eps)</td></tr>
+<tr class="separator:a659153147afa96ad9da369124b339a89"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a6fb144b28dbe4c3bef0ee3702de368e0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structexpression.html">expression</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="expression__tree_8c.html#a6fb144b28dbe4c3bef0ee3702de368e0">differentiate_expression</a> (<a class="el" href="structexpression.html">expression</a> *expr_tree, char diff_var)</td></tr>
+<tr class="separator:a6fb144b28dbe4c3bef0ee3702de368e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a04fe005269705c6ba04e02ba41562033"></a>
@@ -162,6 +177,247 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
+<a id="a689c0de72a723b4d4ca1a32bec75ec2d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a689c0de72a723b4d4ca1a32bec75ec2d">&#9670;&nbsp;</a></span>FUNC_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FUNC_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">func_str</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">                    <span class="keywordflow">for</span> (<span class="keywordtype">size_t</span> i = 1; i &lt; <span class="keyword">sizeof</span>(func_str) - 1; i++) { \</div>
+<div class="line">                        if (str[i] != func_str[i]) { \</div>
+<div class="line">                            ERROR_ \</div>
+<div class="line">                        } \</div>
+<div class="line">                    } \</div>
+<div class="line">                    if (tmp_expr_tree-&gt;children[0] != NULL) { \</div>
+<div class="line">                        ERROR_ \</div>
+<div class="line">                    } \</div>
+<div class="line">                    tmp_expr_tree-&gt;type = <a class="code" href="expression__tree_8h.html#a06fc87d81c62e9abb8790b6e5713c55bafb4398855752a393b62d87aa4c5d631d">EXPR_OPERATION</a>; \</div>
+<div class="line">                    tmp_expr_tree-&gt;operation = str[0]; \</div>
+<div class="line">                    str += <span class="keyword">sizeof</span>(func_str) - 1;</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a65325e8dfb75cdeb5a045c1967a7e3c7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a65325e8dfb75cdeb5a045c1967a7e3c7">&#9670;&nbsp;</a></span>FUNC_POWER_PRINT_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FUNC_POWER_PRINT_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">func</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">                    <a class="code" href="expression__tree_8c.html#a04fe005269705c6ba04e02ba41562033">CHECK_RETURN_</a>(fprintf(fout, func <span class="stringliteral">&quot;^{&quot;</span>) &lt; 0) \</div>
+<div class="line">                    PRINT_CHILD_(1) \</div>
+<div class="line">                    CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;}(&quot;</span>) &lt; 0) \</div>
+<div class="line">                    if (expr_tree-&gt;children[0]-&gt;children[1] == NULL) { \</div>
+<div class="line">                        CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;NOARG&quot;</span>) &lt; 0) \</div>
+<div class="line">                    } <span class="keywordflow">else</span> { \</div>
+<div class="line">                        CHECK_RETURN_(print_expr_formula_internal(expr_tree-&gt;children[0]-&gt;children[1], fout) != 0) \</div>
+<div class="line">                    } \</div>
+<div class="line">                    CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;)&quot;</span>) &lt; 0) \</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a0c5804aadec15687b2fab1d980ccb0c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0c5804aadec15687b2fab1d980ccb0c9">&#9670;&nbsp;</a></span>FUNC_PRINT_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FUNC_PRINT_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">func</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">            <a class="code" href="expression__tree_8c.html#a04fe005269705c6ba04e02ba41562033">CHECK_RETURN_</a>(fprintf(fout, func <span class="stringliteral">&quot;(&quot;</span>) &lt; 0) \</div>
+<div class="line">            PRINT_CHILD_(1) \</div>
+<div class="line">            CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;)&quot;</span>) &lt; 0)</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad7d782e153e397b250e1169405af2883"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad7d782e153e397b250e1169405af2883">&#9670;&nbsp;</a></span>FUNC_SIMP_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FUNC_SIMP_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">func</td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">            expr_tree-&gt;children[1] = <a class="code" href="expression__tree_8c.html#a659153147afa96ad9da369124b339a89">simplify_expression</a>(expr_tree-&gt;children[1], eps); \</div>
+<div class="line">            if (expr_tree-&gt;children[1] == NULL) { \</div>
+<div class="line">                return expr_tree; \</div>
+<div class="line">            } \</div>
+<div class="line">            if (expr_tree-&gt;children[1]-&gt;type == <a class="code" href="expression__tree_8h.html#a06fc87d81c62e9abb8790b6e5713c55bab3a42f635827509e48c2294e252deba8">EXPR_NUMBER</a>) { \</div>
+<div class="line">                expr_tree-&gt;children[1]-&gt;number = func (expr_tree-&gt;children[1]-&gt;number); \</div>
+<div class="line">                RETURN_CHILD_(1) \</div>
+<div class="line">            }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a85aa1cc7b4154bb8091bb59125faf20a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85aa1cc7b4154bb8091bb59125faf20a">&#9670;&nbsp;</a></span>MAKE_COPY_NODE_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAKE_COPY_NODE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">new_node_ptr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">old_node_ptr&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        new_node_ptr = <a class="code" href="expression__tree_8c.html#a876477f0d7329ea32b0125cfb2b8f67e">copy_expression</a>(old_node_ptr); \</div>
+<div class="line">        if (new_node_ptr == (<a class="code" href="structexpression.html">expression</a> *) 1) { \</div>
+<div class="line">            new_node_ptr = NULL; \</div>
+<div class="line">            destruct_expression(result_tree); \</div>
+<div class="line">            return (<a class="code" href="structexpression.html">expression</a> *) 1; \</div>
+<div class="line">        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="a2a1b32048b68ebb85e7124c8ebf6e6a2"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a1b32048b68ebb85e7124c8ebf6e6a2">&#9670;&nbsp;</a></span>MAKE_DIFF_NODE_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAKE_DIFF_NODE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">new_node_ptr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">old_node_ptr&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        new_node_ptr = <a class="code" href="expression__tree_8c.html#a6fb144b28dbe4c3bef0ee3702de368e0">differentiate_expression</a>(old_node_ptr, diff_var); \</div>
+<div class="line">        if (new_node_ptr == (<a class="code" href="structexpression.html">expression</a> *) 1) { \</div>
+<div class="line">            new_node_ptr = NULL; \</div>
+<div class="line">            destruct_expression(result_tree); \</div>
+<div class="line">            return (<a class="code" href="structexpression.html">expression</a> *) 1; \</div>
+<div class="line">        }</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="ad926f83d3a68eb9516d60bcd2d7e5e28"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad926f83d3a68eb9516d60bcd2d7e5e28">&#9670;&nbsp;</a></span>MAKE_NUM_NODE_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAKE_NUM_NODE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">new_node_ptr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">num&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        new_node_ptr = calloc(1, <span class="keyword">sizeof</span>(<a class="code" href="structexpression.html">expression</a>)); \</div>
+<div class="line">        if (new_node_ptr == NULL) { \</div>
+<div class="line">            destruct_expression(result_tree); \</div>
+<div class="line">            return (<a class="code" href="structexpression.html">expression</a> *) 1; \</div>
+<div class="line">        } \</div>
+<div class="line">        new_node_ptr-&gt;type = <a class="code" href="expression__tree_8h.html#a06fc87d81c62e9abb8790b6e5713c55bab3a42f635827509e48c2294e252deba8">EXPR_NUMBER</a>; \</div>
+<div class="line">        new_node_ptr-&gt;number = num;</div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="afc4557bec69926c1eb0e7d6d4ded6c4c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc4557bec69926c1eb0e7d6d4ded6c4c">&#9670;&nbsp;</a></span>MAKE_OP_NODE_</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAKE_OP_NODE_</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">new_node_ptr, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">op&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<b>Value:</b><div class="fragment"><div class="line">        new_node_ptr = calloc(1, <span class="keyword">sizeof</span>(<a class="code" href="structexpression.html">expression</a>)); \</div>
+<div class="line">        if (new_node_ptr == NULL) { \</div>
+<div class="line">            destruct_expression(result_tree); \</div>
+<div class="line">            return (<a class="code" href="structexpression.html">expression</a> *) 1; \</div>
+<div class="line">        } \</div>
+<div class="line">        new_node_ptr-&gt;type = <a class="code" href="expression__tree_8h.html#a06fc87d81c62e9abb8790b6e5713c55bafb4398855752a393b62d87aa4c5d631d">EXPR_OPERATION</a>; \</div>
+<div class="line">        new_node_ptr-&gt;operation = op;</div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="acc4ea4ed485b23947185bae0e00df005"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc4ea4ed485b23947185bae0e00df005">&#9670;&nbsp;</a></span>PRINT_</h2>
 
@@ -194,6 +450,7 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 <b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">if</span> (fprintf(fout, fmt, node_num, node_val) &lt; 0) { \</div>
+<div class="line">            printf(<span class="stringliteral">&quot;ATTENTION\n&quot;</span>); \</div>
 <div class="line">            fclose(fout); \</div>
 <div class="line">            return 1; \</div>
 <div class="line">        }</div>
@@ -221,10 +478,10 @@ Functions</h2></td></tr>
 <div class="line">                   (expr_tree-&gt;children[idx]-&gt;operation == <span class="charliteral">&#39;+&#39;</span> || \</div>
 <div class="line">                    expr_tree-&gt;children[idx]-&gt;operation == <span class="charliteral">&#39;-&#39;</span>)){ \</div>
 <div class="line">            CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;(&quot;</span>) &lt; 0) \</div>
-<div class="line">            CHECK_RETURN_(<a class="code" href="expression__tree_8c.html#a68079c38e2d6068af8041fb425e5f3d9">print_expr_formula_internal</a>(expr_tree-&gt;children[idx], fout) != 0) \</div>
+<div class="line">            CHECK_RETURN_(print_expr_formula_internal(expr_tree-&gt;children[idx], fout) != 0) \</div>
 <div class="line">            CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;)&quot;</span>) &lt; 0) \</div>
 <div class="line">        } <span class="keywordflow">else</span> { \</div>
-<div class="line">            CHECK_RETURN_(<a class="code" href="expression__tree_8c.html#a68079c38e2d6068af8041fb425e5f3d9">print_expr_formula_internal</a>(expr_tree-&gt;children[idx], fout) != 0) \</div>
+<div class="line">            CHECK_RETURN_(print_expr_formula_internal(expr_tree-&gt;children[idx], fout) != 0) \</div>
 <div class="line">        }</div>
 </div><!-- fragment -->
 </div>
@@ -247,7 +504,7 @@ Functions</h2></td></tr>
 <b>Value:</b><div class="fragment"><div class="line">        <span class="keywordflow">if</span> (expr_tree-&gt;children[idx] == NULL) { \</div>
 <div class="line">            CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;NOARG&quot;</span>) &lt; 0) \</div>
 <div class="line">        } <span class="keywordflow">else</span> { \</div>
-<div class="line">            CHECK_RETURN_(<a class="code" href="expression__tree_8c.html#a68079c38e2d6068af8041fb425e5f3d9">print_expr_formula_internal</a>(expr_tree-&gt;children[idx], fout) != 0) \</div>
+<div class="line">            CHECK_RETURN_(print_expr_formula_internal(expr_tree-&gt;children[idx], fout) != 0) \</div>
 <div class="line">        }</div>
 </div><!-- fragment -->
 </div>
@@ -294,54 +551,75 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="aceb393058ebfee827d9882586c86da12"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aceb393058ebfee827d9882586c86da12">&#9670;&nbsp;</a></span>SIN_COS_POWER_PRINT_</h2>
+<a id="acd213031f022a442c6327ae4fc61c633"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acd213031f022a442c6327ae4fc61c633">&#9670;&nbsp;</a></span>RETURN_CHILD_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SIN_COS_POWER_PRINT_</td>
+          <td class="memname">#define RETURN_CHILD_</td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname">sin_cos</td><td>)</td>
+          <td class="paramname">idx</td><td>)</td>
           <td></td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                    <a class="code" href="expression__tree_8c.html#a04fe005269705c6ba04e02ba41562033">CHECK_RETURN_</a>(fprintf(fout, sin_cos <span class="stringliteral">&quot;^{&quot;</span>) &lt; 0) \</div>
-<div class="line">                    PRINT_CHILD_(1) \</div>
-<div class="line">                    CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;}(&quot;</span>) &lt; 0) \</div>
-<div class="line">                    if (expr_tree-&gt;children[0]-&gt;children[1] == NULL) { \</div>
-<div class="line">                        CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;NOARG&quot;</span>) &lt; 0) \</div>
-<div class="line">                    } <span class="keywordflow">else</span> { \</div>
-<div class="line">                        CHECK_RETURN_(<a class="code" href="expression__tree_8c.html#a68079c38e2d6068af8041fb425e5f3d9">print_expr_formula_internal</a>(expr_tree-&gt;children[0]-&gt;children[1], fout) != 0) \</div>
-<div class="line">                    } \</div>
-<div class="line">                    CHECK_RETURN_(fprintf(fout, <span class="stringliteral">&quot;)&quot;</span>) &lt; 0) \</div>
+<b>Value:</b><div class="fragment"><div class="line">            <a class="code" href="structexpression.html">expression</a> *return_tree = expr_tree-&gt;<a class="code" href="structexpression.html#a46a4d2538a7f860324da67290f137ac9">children</a>[idx]; \</div>
+<div class="line">            expr_tree-&gt;<a class="code" href="structexpression.html#a46a4d2538a7f860324da67290f137ac9">children</a>[idx] = NULL; \</div>
+<div class="line">            destruct_expression(expr_tree); \</div>
+<div class="line">            return return_tree;</div>
 </div><!-- fragment -->
 </div>
 </div>
-<a id="af5e1093ae2cfc8a13bba9959e92d0954"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af5e1093ae2cfc8a13bba9959e92d0954">&#9670;&nbsp;</a></span>SINCOS_</h2>
+<a id="a813234eb3929f2a20f4891523737e48e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a813234eb3929f2a20f4891523737e48e">&#9670;&nbsp;</a></span>SIMPLIFY_TWO_ARGS_</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">#define SINCOS_</td>
+          <td class="memname">#define SIMPLIFY_TWO_ARGS_</td>
         </tr>
       </table>
 </div><div class="memdoc">
-<b>Value:</b><div class="fragment"><div class="line">                        <span class="keywordflow">if</span> (tmp_expr_tree-&gt;children[0] != NULL) { \</div>
-<div class="line">                        ERROR_ \</div>
-<div class="line">                    } \</div>
-<div class="line">                    tmp_expr_tree-&gt;type = <a class="code" href="expression__tree_8h.html#a06fc87d81c62e9abb8790b6e5713c55bafb4398855752a393b62d87aa4c5d631d">EXPR_OPERATION</a>; \</div>
-<div class="line">                    tmp_expr_tree-&gt;operation = str[0]; \</div>
-<div class="line">                    str += 3;</div>
+<b>Value:</b><div class="fragment"><div class="line">            expr_tree-&gt;children[0] = <a class="code" href="expression__tree_8c.html#a659153147afa96ad9da369124b339a89">simplify_expression</a>(expr_tree-&gt;children[0], eps); \</div>
+<div class="line">            expr_tree-&gt;children[1] = <a class="code" href="expression__tree_8c.html#a659153147afa96ad9da369124b339a89">simplify_expression</a>(expr_tree-&gt;children[1], eps); \</div>
+<div class="line">            if (expr_tree-&gt;children[0] == NULL || expr_tree-&gt;children[1] == NULL) { \</div>
+<div class="line">                return expr_tree; \</div>
+<div class="line">            }</div>
 </div><!-- fragment -->
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
+<a id="a876477f0d7329ea32b0125cfb2b8f67e"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a876477f0d7329ea32b0125cfb2b8f67e">&#9670;&nbsp;</a></span>copy_expression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structexpression.html">expression</a>* copy_expression </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structexpression.html">expression</a> *&#160;</td>
+          <td class="paramname"><em>expr_tree</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Cope expression tree in new memory.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[out]</td><td class="paramname">expr_tree</td><td>Pointer to the tree</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the copy tree on success, 1 if memory for the new tree cannot be allocated</dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Always compare return value with 1 </dd></dl>
+
+</div>
+</div>
 <a id="aef48a543fa7227ae0cabf3881fb02e50"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aef48a543fa7227ae0cabf3881fb02e50">&#9670;&nbsp;</a></span>destruct_expression()</h2>
 
@@ -367,21 +645,41 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a229e0709e32ec6ef797ce76ddfc11fef"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a229e0709e32ec6ef797ce76ddfc11fef">&#9670;&nbsp;</a></span>expr_skip_spaces()</h2>
+<a id="a6fb144b28dbe4c3bef0ee3702de368e0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6fb144b28dbe4c3bef0ee3702de368e0">&#9670;&nbsp;</a></span>differentiate_expression()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void expr_skip_spaces </td>
+          <td class="memname"><a class="el" href="structexpression.html">expression</a>* differentiate_expression </td>
           <td>(</td>
-          <td class="paramtype">const char **&#160;</td>
-          <td class="paramname"><em>str</em></td><td>)</td>
+          <td class="paramtype"><a class="el" href="structexpression.html">expression</a> *&#160;</td>
+          <td class="paramname"><em>expr_tree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">char&#160;</td>
+          <td class="paramname"><em>diff_var</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<p>Create new expression tree, which is partial derivative of input expression.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">expr_tree</td><td>Pointer to the input tree </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">diff_var</td><td>A variable with respect to which expression is to be differentiated</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the created expression tree on success, 1 if memory for the new tree cannot be allocated</dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Always compare return value with 1 </dd></dl>
 
 </div>
 </div>
@@ -425,34 +723,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a68079c38e2d6068af8041fb425e5f3d9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a68079c38e2d6068af8041fb425e5f3d9">&#9670;&nbsp;</a></span>print_expr_formula_internal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int print_expr_formula_internal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structexpression.html">expression</a> *&#160;</td>
-          <td class="paramname"><em>expr_tree</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>fout</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a089fd79faf508b279aaea7505de99ab3"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a089fd79faf508b279aaea7505de99ab3">&#9670;&nbsp;</a></span>print_expr_tree_graph()</h2>
 
@@ -493,40 +763,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="a732b03bf2cf3d0316abeadc4dd653ea0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a732b03bf2cf3d0316abeadc4dd653ea0">&#9670;&nbsp;</a></span>print_expr_tree_graph_internal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int print_expr_tree_graph_internal </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="structexpression.html">expression</a> *&#160;</td>
-          <td class="paramname"><em>expr_tree</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">FILE *&#160;</td>
-          <td class="paramname"><em>fout</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">size_t *&#160;</td>
-          <td class="paramname"><em>node_number</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <a id="a7ae64c3db9c774f6a82ad1255a2f1463"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7ae64c3db9c774f6a82ad1255a2f1463">&#9670;&nbsp;</a></span>print_expr_tree_stdout()</h2>
 
@@ -550,40 +786,6 @@ Functions</h2></td></tr>
   </dd>
 </dl>
 <dl class="section note"><dt>Note</dt><dd>It prints tree even if it is not correct </dd></dl>
-
-</div>
-</div>
-<a id="a07cb42d84aca0a3af6b4dde90b4f0064"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a07cb42d84aca0a3af6b4dde90b4f0064">&#9670;&nbsp;</a></span>read_expr_internal()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">int read_expr_internal </td>
-          <td>(</td>
-          <td class="paramtype">const char *&#160;</td>
-          <td class="paramname"><em>str</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="structexpression.html">expression</a> **&#160;</td>
-          <td class="paramname"><em>expr_tree</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char **&#160;</td>
-          <td class="paramname"><em>err_pos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
 
 </div>
 </div>
@@ -632,12 +834,55 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a659153147afa96ad9da369124b339a89"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a659153147afa96ad9da369124b339a89">&#9670;&nbsp;</a></span>simplify_expression()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structexpression.html">expression</a>* simplify_expression </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="structexpression.html">expression</a> *&#160;</td>
+          <td class="paramname"><em>expr_tree</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">double&#160;</td>
+          <td class="paramname"><em>eps</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Simplify expression. Very simple simplifier: calculates subtrees which do not contain variables, reduces operations with neutral elements.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramdir">[in]</td><td class="paramname">expr_tree</td><td>Pointer to the input expression tree </td></tr>
+    <tr><td class="paramdir">[in]</td><td class="paramname">eps</td><td>Epsilon which is used to compare numbers with neutral elements</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Pointer to the new root of expression tree</dd></dl>
+<dl class="section attention"><dt>Attention</dt><dd>Changes input tree, can destruct some nodes </dd></dl>
+
+</div>
+</div>
 </div><!-- contents -->
 <div class="ttc" id="aexpression__tree_8h_html_adf764cbdea00d65edcd07bb9953ad2b7afbdcb94c867616f514023d8e9198af15"><div class="ttname"><a href="expression__tree_8h.html#adf764cbdea00d65edcd07bb9953ad2b7afbdcb94c867616f514023d8e9198af15">EXPR_INVALID_STR</a></div><div class="ttdeci">@ EXPR_INVALID_STR</div><div class="ttdoc">There is no valid expression in the beginning of the input string.</div><div class="ttdef"><b>Definition:</b> expression_tree.h:28</div></div>
+<div class="ttc" id="astructexpression_html_a46a4d2538a7f860324da67290f137ac9"><div class="ttname"><a href="structexpression.html#a46a4d2538a7f860324da67290f137ac9">expression::children</a></div><div class="ttdeci">struct expression * children[2]</div><div class="ttdef"><b>Definition:</b> expression_tree.h:10</div></div>
+<div class="ttc" id="astructexpression_html"><div class="ttname"><a href="structexpression.html">expression</a></div><div class="ttdef"><b>Definition:</b> expression_tree.h:3</div></div>
+<div class="ttc" id="aexpression__tree_8c_html_a876477f0d7329ea32b0125cfb2b8f67e"><div class="ttname"><a href="expression__tree_8c.html#a876477f0d7329ea32b0125cfb2b8f67e">copy_expression</a></div><div class="ttdeci">expression * copy_expression(expression *expr_tree)</div><div class="ttdef"><b>Definition:</b> expression_tree.c:31</div></div>
+<div class="ttc" id="aexpression__tree_8c_html_a6fb144b28dbe4c3bef0ee3702de368e0"><div class="ttname"><a href="expression__tree_8c.html#a6fb144b28dbe4c3bef0ee3702de368e0">differentiate_expression</a></div><div class="ttdeci">expression * differentiate_expression(expression *expr_tree, char diff_var)</div><div class="ttdef"><b>Definition:</b> expression_tree.c:760</div></div>
+<div class="ttc" id="aexpression__tree_8c_html_a659153147afa96ad9da369124b339a89"><div class="ttname"><a href="expression__tree_8c.html#a659153147afa96ad9da369124b339a89">simplify_expression</a></div><div class="ttdeci">expression * simplify_expression(expression *expr_tree, double eps)</div><div class="ttdef"><b>Definition:</b> expression_tree.c:613</div></div>
 <div class="ttc" id="aexpression__tree_8c_html_acc4ea4ed485b23947185bae0e00df005"><div class="ttname"><a href="expression__tree_8c.html#acc4ea4ed485b23947185bae0e00df005">PRINT_</a></div><div class="ttdeci">#define PRINT_(fmt, node_num, node_val)</div></div>
 <div class="ttc" id="aexpression__tree_8h_html_a06fc87d81c62e9abb8790b6e5713c55bafb4398855752a393b62d87aa4c5d631d"><div class="ttname"><a href="expression__tree_8h.html#a06fc87d81c62e9abb8790b6e5713c55bafb4398855752a393b62d87aa4c5d631d">EXPR_OPERATION</a></div><div class="ttdeci">@ EXPR_OPERATION</div><div class="ttdef"><b>Definition:</b> expression_tree.h:15</div></div>
-<div class="ttc" id="aexpression__tree_8c_html_a68079c38e2d6068af8041fb425e5f3d9"><div class="ttname"><a href="expression__tree_8c.html#a68079c38e2d6068af8041fb425e5f3d9">print_expr_formula_internal</a></div><div class="ttdeci">int print_expr_formula_internal(expression *expr_tree, FILE *fout)</div><div class="ttdef"><b>Definition:</b> expression_tree.c:359</div></div>
 <div class="ttc" id="aexpression__tree_8c_html_a04fe005269705c6ba04e02ba41562033"><div class="ttname"><a href="expression__tree_8c.html#a04fe005269705c6ba04e02ba41562033">CHECK_RETURN_</a></div><div class="ttdeci">#define CHECK_RETURN_(check)</div></div>
+<div class="ttc" id="aexpression__tree_8h_html_a06fc87d81c62e9abb8790b6e5713c55bab3a42f635827509e48c2294e252deba8"><div class="ttname"><a href="expression__tree_8h.html#a06fc87d81c62e9abb8790b6e5713c55bab3a42f635827509e48c2294e252deba8">EXPR_NUMBER</a></div><div class="ttdeci">@ EXPR_NUMBER</div><div class="ttdef"><b>Definition:</b> expression_tree.h:17</div></div>
 <!-- start footer part -->
 <hr class="footer"/><address class="footer"><small>
 Generated by&#160;<a href="http://www.doxygen.org/index.html"><img class="footer" src="doxygen.svg" width="104" height="31" alt="doxygen"/></a> 1.8.20
