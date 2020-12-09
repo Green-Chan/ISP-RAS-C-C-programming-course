@@ -52,6 +52,177 @@ expression *copy_expression(expression *expr_tree) {
     return new_tree;
 }
 
+#ifdef CREATE_TMP_EXPR_TREE_
+    #error "That's a local define, it should not be defined"
+#endif
+#define CREATE_TMP_EXPR_TREE_ \
+    expression *tmp_expr_tree = calloc(1, sizeof(expression)); \
+    if (tmp_expr_tree == NULL) { \
+        return EXPR_OUT_OF_MEM; \
+    }
+
+static int read_number(const char *str, expression **expr_tree, const char **err_pos) {
+    errno = 0;
+    char *err_ptr;
+    double readed_number = strtod(str, &err_ptr);
+    if (err_ptr == str || errno == ERANGE) {
+        *err_pos = err_ptr;
+        return EXPR_INVALID_STR;
+    } else {
+        str = err_ptr;
+        expr_skip_spaces(&str);
+        *err_pos = str;
+
+        CREATE_TMP_EXPR_TREE_
+        tmp_expr_tree->type = EXPR_NUMBER;
+        tmp_expr_tree->number = readed_number;
+        *expr_tree = tmp_expr_tree;
+
+        return EXPR_OK;
+    }
+}
+
+#ifdef CHECK_SYMBOL_
+    #error "That's a local define, it should not be defined"
+#endif
+#define CHECK_SYMBOL(symbol) \
+    if (str[0] == symbol) { \
+        str++; \
+    } else { \
+        destruct_expression(tmp_expr_tree); \
+        *err_pos = str; \
+        return EXPR_INVALID_STR; \
+    }
+
+static int read_func(const char *str, char **operation, const char **err_pos) {
+
+    #ifdef FUNC_END_
+        #error "That's a local define, it should not be defined"
+    #endif
+    #define FUNC_END_(op) \
+        expr_skip_spaces(&str); \
+        *operation = op; \
+        *err_pos = op; \
+        return EXPR_OK;
+
+    switch (str[0]) {
+    case 's':
+        str++;
+        CHECK_SYMBOL('i')
+        CHECK_SYMBOL('n')
+        FUNC_END_('s')
+    case 'c':
+        str++;
+        CHECK_SYMBOL('o')
+        CHECK_SYMBOL('s')
+        FUNC_END_('c')
+    case 'l':
+        str++;
+        CHECK_SYMBOL('n')
+        FUNC_END_('l')
+    default:
+        *err_pos = str;
+        return EXPR_INVALID_STR;
+    }
+
+    #undef FUNC_END_
+}
+
+static int read_sumsub(const char *str, expression **expr_tree, const char **err_pos);
+
+
+static int read_brackets(const char *str, expression **expr_tree, const char **err_pos) {
+    expression *tmp_expr_tree;
+    if (str[0] == '(') {
+        int res = read_sumsub(str + 1, &tmp_expr_tree, err_pos);
+        if (res != EXPR_OK) {
+            return res;
+        }
+        str = *err_pos;
+        if (str[0] == ')') {
+            expr_skip_spaces(&str);
+            *expr_tree = tmp_expr_tree;
+            *err_pos = str;
+            return EXPR_OK;
+        }
+    }
+    *err_pos = str;
+    return EXPR_INVALID_STR;
+}
+
+static int read_atom(const char *str, expression **expr_tree, const char **err_pos) {
+    // May be that is just something in brackets?
+    int res = read_brackets(str, expr_tree, err_pos);
+    // Only if res == EXPR_INVALID_STR and *err_pos == str that is not something in brackets.
+    // In other cases that is something in brackets, but something bad
+    // and it cannot be any other atom
+    if (!(res == EXPR_INVALID_STR && *err_pos == str)) {
+        return res;
+    }
+    // It can be some other atom
+
+    CREATE_TMP_EXPR_TREE_
+    // May be that is function?
+    if (read_func(str, &tmp_expr_tree->operation, err_pos) == EXPR_OK) {
+        // That could be only function, never another atom
+        tmp_expr_tree->type = EXPR_OPERATION;
+        int res = read_brackets(*err_pos, &tmp_expr_tree->children[1], err_pos);
+        if (res != EXPR_OK) {
+            destruct_expression(tmp_expr_tree);
+            // err_pos is already set by read_brackets
+            return res;
+        }
+        // Read function, read argument in brackets, everything is ok
+        *expression_tree = tmp_expr_tree;
+        // err_pos is already set
+        return EXPR_OK;
+    }
+
+    // May be that is a variable?
+    if (isalpha(str[0])) {
+        // Number cannot start from alpha, so we can be sure, that it can be only a variable
+        tmp_expr_tree->type = EXPR_VARIABLE;
+        tmp_expr_tree->variable = str[0];
+        str++;
+        expr_skip_spaces(&str);
+        *err_pos = str;
+        *expr_tree = tmp_expr_tree;
+        return EXPR_OK;
+    }
+    // We'll not need tmp_expr_tree if that is a number
+    destruct_expression(tmp_expr_tree);
+
+    // May be that is a number? That is the last hope, so we can just return the result
+    return read_number(str, expr_tree, err_pos);
+}
+
+static int read_power(const char *str, expression **expr_tree, const char **err_pos) {
+    expression *return_expr_tree;
+    int res = read_atom(str, &return_expr_tree, err_pos);
+    if (res != EXPR_OK) {
+        return res;
+    }
+    str = *err_pos;
+    while (str[0] == '^') {
+        CREATE_TMP_EXPR_TREE_
+        tmp_expr_tree->type = EXPR_OPERATION;
+        tmp_expr_tree->operation = str[0];
+        tmp_expr_tree->children[0] = return_expr_tree;
+        return_expr_tree = tmp_expr_tree;
+
+        str++;
+        expr_skip_spaces(str);
+
+        res = read_atom(str, &return_expr_tree->children[1], err_pos);
+        if (res != EXPR_OK) {
+            destruct_expression(return_expr_tree);
+            return res;
+        }
+    }
+    *expr_tree = return_expr_tree;
+    return EXPR_OK;
+}
+
 static int read_expr_internal(const char *str, expression **expr_tree, const char **err_pos) {
     assert(str != NULL);
     assert(expr_tree != NULL);

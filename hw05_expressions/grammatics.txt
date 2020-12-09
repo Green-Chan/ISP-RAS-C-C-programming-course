@@ -1,0 +1,11 @@
+EXPRESSION  ';' | SUMSUB ';'
+SUMSUB      MULDIV{['+', '-']MULDIV}*
+MULDIV      POWER{['*', '/']POWER}*
+POWER       ATOM{'^'ATOM}*
+ATOM        FUNC BRACKETS | BRACKETS | VARIABLE | NUMBER
+BRACKETS    '('SUMSUB')'
+NUMBER      a double number
+FUNC        "sin" | "cos" | "ln"
+VARIABLE    ['a'-'z', 'A'-'Z']  (very simple, so it is inside of read_atom)
+
+space symbols can be everywhere
