@@ -5,20 +5,19 @@
 Here is a set of functions to work with expressions. Correct expression could be a double-precision floating-point number, a variable (one letter from the English alphabet)
 or an operation on arguments, which are correct expressions.
 Here are the list of supported operations:
-| Operation | Meaning     | Usage           |
-|-----------|-------------|-----------------|
-| +         | plus        | ((5) + (3))     |
-| -         | minus       | ((7)- (a))      |
-| -         | unary minus | (-(Z))          |
-| *         | multiply    | ((7) *(9.234))  |
-| /         | divide      | ((2.3)/(x))     |
-| ^         | power       | ((2)  ^ (10) )  |
-| sin       | sine        | (sin(5.0))      |
-| cos       | cosine      | (  cos (1))     |
-| ln        | natural logarithm | (ln(4))   |
+| Operation | Meaning     | Usage (1) | Usage (2) | Bad example |
+|-----------|-------------|-----------|-----------|-------------|
+| +         | plus        | 5 + 3 | 1 + 1 + x | 1 + |
+| -         | minus       | 7 - a + 6| 5 - (3 + 1) | 7 - +3 |
+| -         | unary minus | -8 | 8 + 3 + (-5) | 8 + -6 |
+| *         | multiply    | 7 * 9.234 | -8 * (5 + 7) | 8**9 |
+| /         | divide      | 2.3/x | 2 + a/7 - 2 * 3 | / 1 |
+| ^         | power       | 2^(5+5) | 2 ^ (-5) + 5 | 4^-3 |
+| sin       | sine        | sin(5.0) | 2 * sin(5.0 + 3) | sin 1 |
+| cos       | cosine      | -cos(1) | cos(sin(x) + 5) | cos(x |
+| ln        | natural logarithm | ln(4)^2 | ln(sin(-5))| ln^2(4) |
 
-In usage you can see correct examples of the input for read_expression. The whole expression and each sub-expression (argument of the operation)
-should be in round brackets.
+In usage you can see correct examples of the input for read_expression.
 
 The expression is stored in the binary tree. Pay attention, that unary minus is not stored as operation with one argument, but as binary minus
 with zero first argument, so printed formula (output of print_expr_formula function) sometimes looks not as it could be expected.
@@ -67,7 +66,8 @@ You can also copy expression, simplify it and differentiate it with respect to s
 ```
 > **Note:** mingw32-make test execute run_tests.exe redirecting input
 
-Be careful, this will create and open a lot of PDF files.
+Be careful, this will create and open a lot of PDF files if you uncomment some lines in run_tests.c .
+Believe me, you don't want this.
 
 You can also use run_tests.exe with your own expressions:
 Run program
@@ -76,12 +76,13 @@ Run program
 ```
 Then write your expression in format in which it can be read by read_expression. Then press Enter.
 
-Expression, its copy, simplified expression, derivative of simplified expression, simplified derivative of simplified expression will be printed in three formats:
-tree in stdout, tree in PDF, formula in PDF. And it will open PDF files. Files are stored in directory hw05_expressions\output_files .
+Expression, its copy, simplified expression, derivative of simplified expression, simplified derivative of simplified expression will be printed as tree in stdout.
+You can uncomment some lines in it, to get two more formats: tree in PDF and formula in PDF. If you do so, program will open this PDF files.
+Files are stored in directory hw05_expressions\output_files .
 
 Then you can write another expression and get the same for it. To end the program press Ctrl+C.
 
-Pay attention that each run of program rewrite output files of previous run, so if you need some of that files, copy them to other directory.
+Pay attention that each run of program with uncommented lines rewrite output files of previous run, so if you need some of that files, copy them to other directory.
 
 ## Debugging
 

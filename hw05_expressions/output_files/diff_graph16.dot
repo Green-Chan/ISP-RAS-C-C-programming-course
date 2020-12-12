@@ -1,0 +1,106 @@
+digraph "output_files/diff_graph16" {
+"node 0:
++";
+	"node 0:
++"[style="filled",fillcolor="lightgreen"]
+	"node 0:
++"->"node 1:
+0.000000";
+	"node 1:
+0.000000"[style="filled",fillcolor="yellow"]
+	"node 0:
++"->"node 2:
+*";
+	"node 2:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 2:
+*"->"node 3:
+cos";
+	"node 3:
+cos"[style="filled",fillcolor="lightgreen"]
+	"node 3:
+cos"->"node 4:
+^";
+	"node 4:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 4:
+^"->"node 5:
+x";
+	"node 5:
+x"[style="filled",fillcolor="lightblue"]
+	"node 4:
+^"->"node 6:
+0.500000";
+	"node 6:
+0.500000"[style="filled",fillcolor="yellow"]
+	"node 2:
+*"->"node 7:
+*";
+	"node 7:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 7:
+*"->"node 8:
+^";
+	"node 8:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 8:
+^"->"node 9:
+x";
+	"node 9:
+x"[style="filled",fillcolor="lightblue"]
+	"node 8:
+^"->"node 10:
+0.500000";
+	"node 10:
+0.500000"[style="filled",fillcolor="yellow"]
+	"node 7:
+*"->"node 11:
++";
+	"node 11:
++"[style="filled",fillcolor="lightgreen"]
+	"node 11:
++"->"node 12:
+*";
+	"node 12:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 12:
+*"->"node 13:
+/";
+	"node 13:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 13:
+/"->"node 14:
+1.000000";
+	"node 14:
+1.000000"[style="filled",fillcolor="yellow"]
+	"node 13:
+/"->"node 15:
+x";
+	"node 15:
+x"[style="filled",fillcolor="lightblue"]
+	"node 12:
+*"->"node 16:
+0.500000";
+	"node 16:
+0.500000"[style="filled",fillcolor="yellow"]
+	"node 11:
++"->"node 17:
+*";
+	"node 17:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 17:
+*"->"node 18:
+0.000000";
+	"node 18:
+0.000000"[style="filled",fillcolor="yellow"]
+	"node 17:
+*"->"node 19:
+ln";
+	"node 19:
+ln"[style="filled",fillcolor="lightgreen"]
+	"node 19:
+ln"->"node 20:
+x";
+	"node 20:
+x"[style="filled",fillcolor="lightblue"]
+}

@@ -5,6 +5,7 @@
 
 int main() {
     char buf[100];
+
     int c = 0;
     while(c != EOF) {
         size_t i = 0;
@@ -25,7 +26,7 @@ int main() {
         printf("err_idx: %d\n\n", (int) (err_pos - buf));
 
         // =========== print expression ============
-        printf("expresion:\n");
+        printf("expression:\n");
         print_expr_tree_stdout(expr_tree);
         printf("\n\n");
 
@@ -34,12 +35,14 @@ int main() {
         size_t len = sprintf(buf, "output_files/graph%d", (int)num);
         assert(len < 50);
         buf[len] = '\0';
-        print_expr_tree_graph(expr_tree, buf);
+        // Next line will open a PDF file, if uncommented
+        //print_expr_tree_graph(expr_tree, buf);
 
         len = sprintf(buf, "output_files/formula%d", (int)num);
         assert(len < 50);
         buf[len] = '\0';
-        print_expr_formula(expr_tree, buf);
+        // Next line will open a PDF file, if uncommented
+        //print_expr_formula(expr_tree, buf);
 
         // =========== print copied expression ============
         expression *copy_tree = copy_expression(expr_tree);
@@ -65,12 +68,14 @@ int main() {
             len = sprintf(buf, "output_files/simp_graph%d", (int)num);
             assert(len < 50);
             buf[len] = '\0';
-            print_expr_tree_graph(expr_tree, buf);
+            // Next line will open a PDF file, if uncommented
+            //print_expr_tree_graph(expr_tree, buf);
 
             len = sprintf(buf, "output_files/simp_formula%d", (int)num);
             assert(len < 50);
             buf[len] = '\0';
-            print_expr_formula(expr_tree, buf);
+            // Next line will open a PDF file, if uncommented
+            //print_expr_formula(expr_tree, buf);
         }
 
         // =========== differentiate (simplified) expression and print ============
@@ -85,12 +90,14 @@ int main() {
             len = sprintf(buf, "output_files/diff_graph%d", (int)num);
             assert(len < 50);
             buf[len] = '\0';
-            print_expr_tree_graph(diff_tree, buf);
+            // Next line will open a PDF file, if uncommented
+            //print_expr_tree_graph(diff_tree, buf);
 
             len = sprintf(buf, "output_files/diff_formula%d", (int)num);
             assert(len < 50);
             buf[len] = '\0';
-            print_expr_formula(diff_tree, buf);
+            // Next line will open a PDF file, if uncommented
+            //print_expr_formula(diff_tree, buf);
 
         // =========== simplify (differentiated) expression and print ============
             diff_tree = simplify_expression(diff_tree, 1e-5);
@@ -102,12 +109,14 @@ int main() {
             len = sprintf(buf, "output_files/simp_diff_graph%d", (int)num);
             assert(len < 50);
             buf[len] = '\0';
-            print_expr_tree_graph(diff_tree, buf);
+            // Next line will open a PDF file, if uncommented
+            //print_expr_tree_graph(diff_tree, buf);
 
             len = sprintf(buf, "output_files/simp_diff_formula%d", (int)num);
             assert(len < 50);
             buf[len] = '\0';
-            print_expr_formula(diff_tree, buf);
+            // Next line will open a PDF file, if uncommented
+            //print_expr_formula(diff_tree, buf);
         }
 
         destruct_expression(expr_tree);

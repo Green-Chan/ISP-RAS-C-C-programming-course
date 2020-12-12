@@ -1,0 +1,166 @@
+digraph "output_files/diff_graph9" {
+"node 0:
++";
+	"node 0:
++"[style="filled",fillcolor="lightgreen"]
+	"node 0:
++"->"node 1:
+*";
+	"node 1:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 1:
+*"->"node 2:
+^";
+	"node 2:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 2:
+^"->"node 3:
+a";
+	"node 3:
+a"[style="filled",fillcolor="lightblue"]
+	"node 2:
+^"->"node 4:
+^";
+	"node 4:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 4:
+^"->"node 5:
+b";
+	"node 5:
+b"[style="filled",fillcolor="lightblue"]
+	"node 4:
+^"->"node 6:
+c";
+	"node 6:
+c"[style="filled",fillcolor="lightblue"]
+	"node 1:
+*"->"node 7:
++";
+	"node 7:
++"[style="filled",fillcolor="lightgreen"]
+	"node 7:
++"->"node 8:
+*";
+	"node 8:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 8:
+*"->"node 9:
+/";
+	"node 9:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 9:
+/"->"node 10:
+0.000000";
+	"node 10:
+0.000000"[style="filled",fillcolor="yellow"]
+	"node 9:
+/"->"node 11:
+a";
+	"node 11:
+a"[style="filled",fillcolor="lightblue"]
+	"node 8:
+*"->"node 12:
+^";
+	"node 12:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 12:
+^"->"node 13:
+b";
+	"node 13:
+b"[style="filled",fillcolor="lightblue"]
+	"node 12:
+^"->"node 14:
+c";
+	"node 14:
+c"[style="filled",fillcolor="lightblue"]
+	"node 7:
++"->"node 15:
+*";
+	"node 15:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 15:
+*"->"node 16:
+*";
+	"node 16:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 16:
+*"->"node 17:
+^";
+	"node 17:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 17:
+^"->"node 18:
+b";
+	"node 18:
+b"[style="filled",fillcolor="lightblue"]
+	"node 17:
+^"->"node 19:
+c";
+	"node 19:
+c"[style="filled",fillcolor="lightblue"]
+	"node 16:
+*"->"node 20:
++";
+	"node 20:
++"[style="filled",fillcolor="lightgreen"]
+	"node 20:
++"->"node 21:
+*";
+	"node 21:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 21:
+*"->"node 22:
+/";
+	"node 22:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 22:
+/"->"node 23:
+0.000000";
+	"node 23:
+0.000000"[style="filled",fillcolor="yellow"]
+	"node 22:
+/"->"node 24:
+b";
+	"node 24:
+b"[style="filled",fillcolor="lightblue"]
+	"node 21:
+*"->"node 25:
+c";
+	"node 25:
+c"[style="filled",fillcolor="lightblue"]
+	"node 20:
++"->"node 26:
+*";
+	"node 26:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 26:
+*"->"node 27:
+0.000000";
+	"node 27:
+0.000000"[style="filled",fillcolor="yellow"]
+	"node 26:
+*"->"node 28:
+ln";
+	"node 28:
+ln"[style="filled",fillcolor="lightgreen"]
+	"node 28:
+ln"->"node 29:
+b";
+	"node 29:
+b"[style="filled",fillcolor="lightblue"]
+	"node 15:
+*"->"node 30:
+ln";
+	"node 30:
+ln"[style="filled",fillcolor="lightgreen"]
+	"node 30:
+ln"->"node 31:
+a";
+	"node 31:
+a"[style="filled",fillcolor="lightblue"]
+	"node 0:
++"->"node 32:
+0.000000";
+	"node 32:
+0.000000"[style="filled",fillcolor="yellow"]
+}

@@ -1,0 +1,6 @@
+digraph "output_files/simp_graph15" {
+"node 0:
+10.500000";
+	"node 0:
+10.500000"[style="filled",fillcolor="yellow"]
+}

@@ -77,27 +77,27 @@ $(function() {
 Description</h1>
 <p>Here is a set of functions to work with expressions. Correct expression could be a double-precision floating-point number, a variable (one letter from the English alphabet) or an operation on arguments, which are correct expressions. Here are the list of supported operations: </p><table class="markdownTable">
 <tr class="markdownTableHead">
-<th class="markdownTableHeadNone">Operation  </th><th class="markdownTableHeadNone">Meaning  </th><th class="markdownTableHeadNone">Usage   </th></tr>
+<th class="markdownTableHeadNone">Operation  </th><th class="markdownTableHeadNone">Meaning  </th><th class="markdownTableHeadNone">Usage (1)  </th><th class="markdownTableHeadNone">Usage (2)  </th><th class="markdownTableHeadNone">Bad example   </th></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">+  </td><td class="markdownTableBodyNone">plus  </td><td class="markdownTableBodyNone">((5) + (3))   </td></tr>
+<td class="markdownTableBodyNone">+  </td><td class="markdownTableBodyNone">plus  </td><td class="markdownTableBodyNone">5 + 3  </td><td class="markdownTableBodyNone">1 + 1 + x  </td><td class="markdownTableBodyNone">1 +   </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone">minus  </td><td class="markdownTableBodyNone">((7)- (a))   </td></tr>
+<td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone">minus  </td><td class="markdownTableBodyNone">7 - a + 6  </td><td class="markdownTableBodyNone">5 - (3 + 1)  </td><td class="markdownTableBodyNone">7 - +3   </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone">unary minus  </td><td class="markdownTableBodyNone">(-(Z))   </td></tr>
+<td class="markdownTableBodyNone">-  </td><td class="markdownTableBodyNone">unary minus  </td><td class="markdownTableBodyNone">-8  </td><td class="markdownTableBodyNone">8 + 3 + (-5)  </td><td class="markdownTableBodyNone">8 + -6   </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">*  </td><td class="markdownTableBodyNone">multiply  </td><td class="markdownTableBodyNone">((7) *(9.234))   </td></tr>
+<td class="markdownTableBodyNone">*  </td><td class="markdownTableBodyNone">multiply  </td><td class="markdownTableBodyNone">7 * 9.234  </td><td class="markdownTableBodyNone">-8 * (5 + 7)  </td><td class="markdownTableBodyNone">8**9   </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone" rowspan="2">/  </td><td class="markdownTableBodyNone">divide  </td><td class="markdownTableBodyNone">((2.3)/(x))   </td></tr>
+<td class="markdownTableBodyNone" rowspan="2">/  </td><td class="markdownTableBodyNone">divide  </td><td class="markdownTableBodyNone">2.3/x  </td><td class="markdownTableBodyNone">2 + a/7 - 2 * 3  </td><td class="markdownTableBodyNone">/ 1   </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">power  </td><td class="markdownTableBodyNone">((2) ^ (10) )   </td></tr>
+<td class="markdownTableBodyNone">power  </td><td class="markdownTableBodyNone">2^(5+5)  </td><td class="markdownTableBodyNone">2 ^ (-5) + 5  </td><td class="markdownTableBodyNone">4^-3   </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">sin  </td><td class="markdownTableBodyNone">sine  </td><td class="markdownTableBodyNone">(sin(5.0))   </td></tr>
+<td class="markdownTableBodyNone">sin  </td><td class="markdownTableBodyNone">sine  </td><td class="markdownTableBodyNone">sin(5.0)  </td><td class="markdownTableBodyNone">2 * sin(5.0 + 3)  </td><td class="markdownTableBodyNone">sin 1   </td></tr>
 <tr class="markdownTableRowEven">
-<td class="markdownTableBodyNone">cos  </td><td class="markdownTableBodyNone">cosine  </td><td class="markdownTableBodyNone">( cos (1))   </td></tr>
+<td class="markdownTableBodyNone">cos  </td><td class="markdownTableBodyNone">cosine  </td><td class="markdownTableBodyNone">-cos(1)  </td><td class="markdownTableBodyNone">cos(sin(x) + 5)  </td><td class="markdownTableBodyNone">cos(x   </td></tr>
 <tr class="markdownTableRowOdd">
-<td class="markdownTableBodyNone">ln  </td><td class="markdownTableBodyNone">natural logarithm  </td><td class="markdownTableBodyNone">(ln(4))   </td></tr>
+<td class="markdownTableBodyNone">ln  </td><td class="markdownTableBodyNone">natural logarithm  </td><td class="markdownTableBodyNone">ln(4)^2  </td><td class="markdownTableBodyNone">ln(sin(-5))  </td><td class="markdownTableBodyNone">ln^2(4)   </td></tr>
 </table>
-<p>In usage you can see correct examples of the input for read_expression. The whole expression and each sub-expression (argument of the operation) should be in round brackets.</p>
+<p>In usage you can see correct examples of the input for read_expression.</p>
 <p>The expression is stored in the binary tree. Pay attention, that unary minus is not stored as operation with one argument, but as binary minus with zero first argument, so printed formula (output of print_expr_formula function) sometimes looks not as it could be expected.</p>
 <p>There are two functions to print expression tree as a graph: print_expr_tree_stdout and print_expr_tree_graph .</p>
 <p>You can also copy expression, simplify it and differentiate it with respect to some variable.</p>
@@ -142,12 +142,12 @@ Running tests</h2>
 <blockquote class="doxtable">
 <p><b>Note:</b> mingw32-make test execute run_tests.exe redirecting input </p>
 </blockquote>
-<p>Be careful, this will create and open a lot of PDF files.</p>
+<p>Be careful, this will create and open a lot of PDF files if you uncomment some lines in <a class="el" href="run__tests_8c.html">run_tests.c</a> . Believe me, you don't want this.</p>
 <p>You can also use run_tests.exe with your own expressions: Run program </p><div class="fragment"><div class="line">&gt; run_tests.exe</div>
 </div><!-- fragment --><p>Then write your expression in format in which it can be read by read_expression. Then press Enter.</p>
-<p>Expression, its copy, simplified expression, derivative of simplified expression, simplified derivative of simplified expression will be printed in three formats: tree in stdout, tree in PDF, formula in PDF. And it will open PDF files. Files are stored in directory hw05_expressions\output_files .</p>
+<p>Expression, its copy, simplified expression, derivative of simplified expression, simplified derivative of simplified expression will be printed as tree in stdout. You can uncomment some lines in it, to get two more formats: tree in PDF and formula in PDF. If you do so, program will open this PDF files. Files are stored in directory hw05_expressions\output_files .</p>
 <p>Then you can write another expression and get the same for it. To end the program press Ctrl+C.</p>
-<p>Pay attention that each run of program rewrite output files of previous run, so if you need some of that files, copy them to other directory.</p>
+<p>Pay attention that each run of program with uncommented lines rewrite output files of previous run, so if you need some of that files, copy them to other directory.</p>
 <h1><a class="anchor" id="autotoc_md7"></a>
 Debugging</h1>
 <p>To debug the program using GDB:</p><ul>

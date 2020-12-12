@@ -1,0 +1,66 @@
+digraph "output_files/graph15" {
+"node 0:
+/";
+	"node 0:
+/"[style="filled",fillcolor="lightgreen"]
+	"node 0:
+/"->"node 1:
+*";
+	"node 1:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 1:
+*"->"node 2:
+-";
+	"node 2:
+-"[style="filled",fillcolor="lightgreen"]
+	"node 2:
+-"->"node 3:
++";
+	"node 3:
++"[style="filled",fillcolor="lightgreen"]
+	"node 3:
++"->"node 4:
+1.000000";
+	"node 4:
+1.000000"[style="filled",fillcolor="yellow"]
+	"node 3:
++"->"node 5:
+2.000000";
+	"node 5:
+2.000000"[style="filled",fillcolor="yellow"]
+	"node 2:
+-"->"node 6:
++";
+	"node 6:
++"[style="filled",fillcolor="lightgreen"]
+	"node 6:
++"->"node 7:
+7.000000";
+	"node 7:
+7.000000"[style="filled",fillcolor="yellow"]
+	"node 6:
++"->"node 8:
+2.300000";
+	"node 8:
+2.300000"[style="filled",fillcolor="yellow"]
+	"node 1:
+*"->"node 9:
+-";
+	"node 9:
+-"[style="filled",fillcolor="lightgreen"]
+	"node 9:
+-"->"node 10:
+0.000000";
+	"node 10:
+0.000000"[style="filled",fillcolor="yellow"]
+	"node 9:
+-"->"node 11:
+5.000000";
+	"node 11:
+5.000000"[style="filled",fillcolor="yellow"]
+	"node 0:
+/"->"node 12:
+3.000000";
+	"node 12:
+3.000000"[style="filled",fillcolor="yellow"]
+}

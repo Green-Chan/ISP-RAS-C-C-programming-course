@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['type_42',['type',['../structexpression.html#a607020213c3c9a3083ef00b07438fa69',1,'expression']]]
+  ['simplify_5fexpression_43',['simplify_expression',['../expression__tree_8c.html#a659153147afa96ad9da369124b339a89',1,'simplify_expression(expression *expr_tree, double eps):&#160;expression_tree.c'],['../expression__tree_8h.html#a659153147afa96ad9da369124b339a89',1,'simplify_expression(expression *expr_tree, double eps):&#160;expression_tree.c']]],
+  ['simplify_5ftwo_5fargs_5f_44',['SIMPLIFY_TWO_ARGS_',['../expression__tree_8c.html#a813234eb3929f2a20f4891523737e48e',1,'expression_tree.c']]]
 ];

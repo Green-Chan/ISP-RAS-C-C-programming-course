@@ -1,0 +1,46 @@
+digraph "output_files/graph9" {
+"node 0:
++";
+	"node 0:
++"[style="filled",fillcolor="lightgreen"]
+	"node 0:
++"->"node 1:
+^";
+	"node 1:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 1:
+^"->"node 2:
+a";
+	"node 2:
+a"[style="filled",fillcolor="lightblue"]
+	"node 1:
+^"->"node 3:
+^";
+	"node 3:
+^"[style="filled",fillcolor="lightgreen"]
+	"node 3:
+^"->"node 4:
+b";
+	"node 4:
+b"[style="filled",fillcolor="lightblue"]
+	"node 3:
+^"->"node 5:
+c";
+	"node 5:
+c"[style="filled",fillcolor="lightblue"]
+	"node 0:
++"->"node 6:
+*";
+	"node 6:
+*"[style="filled",fillcolor="lightgreen"]
+	"node 6:
+*"->"node 7:
+3.000000";
+	"node 7:
+3.000000"[style="filled",fillcolor="yellow"]
+	"node 6:
+*"->"node 8:
+9.000000";
+	"node 8:
+9.000000"[style="filled",fillcolor="yellow"]
+}

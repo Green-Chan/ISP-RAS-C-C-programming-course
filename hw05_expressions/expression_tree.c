@@ -59,9 +59,14 @@ expression *copy_expression(expression *expr_tree) {
     expression *tmp_expr_tree = calloc(1, sizeof(expression)); \
     if (tmp_expr_tree == NULL) { \
         return EXPR_OUT_OF_MEM; \
-    }
+    } \
+    do {} while (0)
 
 static int read_number(const char *str, expression **expr_tree, const char **err_pos) {
+    if (str[0] == '-' || str[0] == '+') {
+        *err_pos = str;
+        return EXPR_INVALID_STR;
+    }
     errno = 0;
     char *err_ptr;
     double readed_number = strtod(str, &err_ptr);
@@ -73,7 +78,7 @@ static int read_number(const char *str, expression **expr_tree, const char **err
         expr_skip_spaces(&str);
         *err_pos = str;
 
-        CREATE_TMP_EXPR_TREE_
+        CREATE_TMP_EXPR_TREE_;
         tmp_expr_tree->type = EXPR_NUMBER;
         tmp_expr_tree->number = readed_number;
         *expr_tree = tmp_expr_tree;
@@ -85,41 +90,44 @@ static int read_number(const char *str, expression **expr_tree, const char **err
 #ifdef CHECK_SYMBOL_
     #error "That's a local define, it should not be defined"
 #endif
-#define CHECK_SYMBOL(symbol) \
-    if (str[0] == symbol) { \
-        str++; \
-    } else { \
-        destruct_expression(tmp_expr_tree); \
-        *err_pos = str; \
-        return EXPR_INVALID_STR; \
-    }
+#define CHECK_SYMBOL_(symbol) \
+    do { \
+        if (str[0] == symbol) { \
+            str++; \
+        } else { \
+            *err_pos = str; \
+            return EXPR_INVALID_STR; \
+        } \
+    } while (0)
 
-static int read_func(const char *str, char **operation, const char **err_pos) {
+static int read_func(const char *str, char *operation, const char **err_pos) {
 
     #ifdef FUNC_END_
         #error "That's a local define, it should not be defined"
     #endif
     #define FUNC_END_(op) \
-        expr_skip_spaces(&str); \
-        *operation = op; \
-        *err_pos = op; \
-        return EXPR_OK;
+        do { \
+            expr_skip_spaces(&str); \
+            *operation = op; \
+            *err_pos = str; \
+            return EXPR_OK; \
+        } while (0)
 
     switch (str[0]) {
     case 's':
         str++;
-        CHECK_SYMBOL('i')
-        CHECK_SYMBOL('n')
-        FUNC_END_('s')
+        CHECK_SYMBOL_('i');
+        CHECK_SYMBOL_('n');
+        FUNC_END_('s');
     case 'c':
         str++;
-        CHECK_SYMBOL('o')
-        CHECK_SYMBOL('s')
-        FUNC_END_('c')
+        CHECK_SYMBOL_('o');
+        CHECK_SYMBOL_('s');
+        FUNC_END_('c');
     case 'l':
         str++;
-        CHECK_SYMBOL('n')
-        FUNC_END_('l')
+        CHECK_SYMBOL_('n');
+        FUNC_END_('l');
     default:
         *err_pos = str;
         return EXPR_INVALID_STR;
@@ -128,18 +136,23 @@ static int read_func(const char *str, char **operation, const char **err_pos) {
     #undef FUNC_END_
 }
 
+#undef CHECK_SYMBOL_
+
 static int read_sumsub(const char *str, expression **expr_tree, const char **err_pos);
 
 
 static int read_brackets(const char *str, expression **expr_tree, const char **err_pos) {
     expression *tmp_expr_tree;
     if (str[0] == '(') {
-        int res = read_sumsub(str + 1, &tmp_expr_tree, err_pos);
+        str++;
+        expr_skip_spaces(&str);
+        int res = read_sumsub(str, &tmp_expr_tree, err_pos);
         if (res != EXPR_OK) {
             return res;
         }
         str = *err_pos;
         if (str[0] == ')') {
+            str++;
             expr_skip_spaces(&str);
             *expr_tree = tmp_expr_tree;
             *err_pos = str;
@@ -161,7 +174,7 @@ static int read_atom(const char *str, expression **expr_tree, const char **err_p
     }
     // It can be some other atom
 
-    CREATE_TMP_EXPR_TREE_
+    CREATE_TMP_EXPR_TREE_;
     // May be that is function?
     if (read_func(str, &tmp_expr_tree->operation, err_pos) == EXPR_OK) {
         // That could be only function, never another atom
@@ -173,7 +186,7 @@ static int read_atom(const char *str, expression **expr_tree, const char **err_p
             return res;
         }
         // Read function, read argument in brackets, everything is ok
-        *expression_tree = tmp_expr_tree;
+        *expr_tree = tmp_expr_tree;
         // err_pos is already set
         return EXPR_OK;
     }
@@ -203,199 +216,89 @@ static int read_power(const char *str, expression **expr_tree, const char **err_
         return res;
     }
     str = *err_pos;
+    expr_skip_spaces(&str);
+    expression **last_atom = &return_expr_tree;
     while (str[0] == '^') {
-        CREATE_TMP_EXPR_TREE_
+        CREATE_TMP_EXPR_TREE_;
         tmp_expr_tree->type = EXPR_OPERATION;
-        tmp_expr_tree->operation = str[0];
-        tmp_expr_tree->children[0] = return_expr_tree;
-        return_expr_tree = tmp_expr_tree;
+        tmp_expr_tree->operation = '^';
+        tmp_expr_tree->children[0] = *last_atom;
+        *last_atom = tmp_expr_tree;
+        last_atom = &tmp_expr_tree->children[1];
 
         str++;
-        expr_skip_spaces(str);
+        expr_skip_spaces(&str);
 
-        res = read_atom(str, &return_expr_tree->children[1], err_pos);
+        res = read_atom(str, last_atom, err_pos);
         if (res != EXPR_OK) {
             destruct_expression(return_expr_tree);
             return res;
         }
+        str = *err_pos;
+        expr_skip_spaces(&str);
     }
     *expr_tree = return_expr_tree;
     return EXPR_OK;
 }
 
-static int read_expr_internal(const char *str, expression **expr_tree, const char **err_pos) {
-    assert(str != NULL);
-    assert(expr_tree != NULL);
-    assert(err_pos != NULL);
+#ifdef READ_SSMD_END_
+    #error "That's a local define, it should not be defined"
+#endif
+#define READ_SSMD_END_(op1, op2, read_prev) \
+    while (str[0] == op1 || str[0] == op2) { \
+        CREATE_TMP_EXPR_TREE_; \
+        tmp_expr_tree->type = EXPR_OPERATION; \
+        tmp_expr_tree->operation = str[0]; \
+        tmp_expr_tree->children[0] = return_expr_tree; \
+        return_expr_tree = tmp_expr_tree; \
+        str++; \
+        expr_skip_spaces(&str); \
+        int res = read_prev(str, &return_expr_tree->children[1], err_pos); \
+        if (res != EXPR_OK) { \
+            destruct_expression(return_expr_tree); \
+            return res; \
+        } \
+        str = *err_pos; \
+        expr_skip_spaces(&str); \
+    } \
+    *expr_tree = return_expr_tree; \
+    return EXPR_OK
 
-    expr_skip_spaces(&str);
-    if (str[0] != '(') {
-        // No expression. And that is OK
-        *expr_tree = NULL;
-        *err_pos = str;
-        return EXPR_OK;
+static int read_muldiv(const char *str, expression **expr_tree, const char **err_pos) {
+    expression *return_expr_tree = NULL;
+    int res = read_power(str, &return_expr_tree, err_pos);
+    if (res != EXPR_OK) {
+        return res;
     }
-    // Skip '('
-    str++;
-
-    // Do not change expr_tree until you are sure, that this expression is ok.
-    // As this function in recursive call follow this convention,
-    // children of tmp_expr_tree are OK or NULL (because of calloc).
-    // Thus we can call destruct_expression(tmp_expr_tree) without problems.
-    expression *tmp_expr_tree = calloc(1, sizeof(expression));
-    if (tmp_expr_tree == NULL) {
-        return EXPR_OUT_OF_MEM;
-    }
-
-    // Read first argument
-    int result = read_expr_internal(str, &tmp_expr_tree->children[0], err_pos);
-    if (result != EXPR_OK) {
-        // err_pos is already set correct by the last called read_expr_internal
-        destruct_expression(tmp_expr_tree);
-        return result;
-    }
-
     str = *err_pos;
     expr_skip_spaces(&str);
-
-    // Here are some local defines, that will be used in switch.
-    // They should be undefined after it
-    #ifdef ERROR_
-        #error "That's a local define, it should not be defined"
-    #endif
-    #define ERROR_ *err_pos = str; \
-                   destruct_expression(tmp_expr_tree); \
-                   return EXPR_INVALID_STR;
-
-    #ifdef FUNC_
-        #error "That's a local define, it should not be defined"
-    #endif
-    // Sine, cosine and natural logarithm should not have first argument
-    #define FUNC_(func_str) \
-                    for (size_t i = 1; i < sizeof(func_str) - 1; i++) { \
-                        if (str[i] != func_str[i]) { \
-                            ERROR_ \
-                        } \
-                    } \
-                    if (tmp_expr_tree->children[0] != NULL) { \
-                        ERROR_ \
-                    } \
-                    tmp_expr_tree->type = EXPR_OPERATION; \
-                    tmp_expr_tree->operation = str[0]; \
-                    str += sizeof(func_str) - 1; // Skip function string
-
-    // If there was no argument, that's OK. It may be unary minus, sine, cosine, a number or a variable
-    // read operation (spaces are already skipped)
-    assert(!isspace(str[0]));
-    switch(str[0]) {
-    case '-':
-        if (tmp_expr_tree->children[0] == NULL) {
-            // Lets store unary minus as binary minus with zero first argument.
-            // So put zero child and just go on, pretending that this zero was read
-            tmp_expr_tree->children[0] = calloc(1, sizeof(expression));
-            tmp_expr_tree->children[0]->type = EXPR_NUMBER;
-        } // Fall through
-    case '+':
-    case '*':
-    case '/':
-    case '^':
-        // For this operations first arguments should be
-        if (tmp_expr_tree->children[0] == NULL) {
-            ERROR_
-        }
-        tmp_expr_tree->type = EXPR_OPERATION;
-        tmp_expr_tree->operation = str[0];
-        // skip operation symbol
-        str++;
-        break;
-    case 's':
-        // That should be sine
-        FUNC_("sin")
-        break;
-    case 'c':
-        // That should be cosine
-        FUNC_("cos")
-        break;
-    case 'l':
-        // That should be natural logarithm
-        FUNC_("ln")
-        break;
-    default:
-        // That is not operation, so it should be a number or a variable
-        // and it shouldn't have first argument
-        if (tmp_expr_tree->children[0] != NULL) {
-            ERROR_
-        } else {
-            // Maybe it is a number?
-            errno = 0;
-            char *err_ptr;
-            tmp_expr_tree->number = strtod(str, &err_ptr);
-            if (err_ptr == str) {
-                // That is not a number at all
-                // Maybe it is a variable?
-                if (isalpha(str[0])) {
-                    tmp_expr_tree->type = EXPR_VARIABLE;
-                    tmp_expr_tree->variable = str[0];
-                    // Next not space symbol should be ')'
-                    str++;
-                    expr_skip_spaces(&str);
-                    if (str[0] != ')') {
-                        ERROR_
-                    }
-                    // Skip ')' and return
-                    *err_pos = str + 1;
-                    *expr_tree = tmp_expr_tree;
-                    return EXPR_OK;
-                } else {
-                    ERROR_
-                }
-            } else if (errno == ERANGE) {
-                // the number is too big and error is at err_ptr
-                *err_pos = err_ptr;
-                destruct_expression(tmp_expr_tree);
-                return EXPR_INVALID_STR;
-            } else {
-                tmp_expr_tree->type = EXPR_NUMBER;
-                // Number is already written in tmp_expr_tree->number
-                // Next not space symbol should be ')'
-                str = err_ptr;
-                expr_skip_spaces(&str);
-                if (str[0] != ')') {
-                    ERROR_
-                }
-                // Skip ')' and return
-                *err_pos = str + 1;
-                *expr_tree = tmp_expr_tree;
-                return EXPR_OK;
-            }
-        }
-        // End of default case
-        assert(!"should not be here");
-    } // End of switch
-
-    #undef ERROR_
-    #undef SINCOS_
-
-    // Read second argument
-    result = read_expr_internal(str, &tmp_expr_tree->children[1], err_pos);
-    if (result != EXPR_OK) {
-        // err_pos is already set correct by the last called read_expr_internal
-        destruct_expression(tmp_expr_tree);
-        return result;
-    }
-
-    str = *err_pos;
-    expr_skip_spaces(&str);
-    if (str[0] != ')') {
-        *err_pos = str;
-        destruct_expression(tmp_expr_tree);
-        return EXPR_INVALID_STR;
-    }
-    // Skip ')' and return
-    *err_pos = str + 1;
-    *expr_tree = tmp_expr_tree;
-    return EXPR_OK;
+    READ_SSMD_END_('*', '/', read_power);
 }
+
+static int read_sumsub(const char *str, expression **expr_tree, const char **err_pos) {
+    expression *return_expr_tree = NULL;
+    if (str[0] == '-') {
+        return_expr_tree = calloc(1, sizeof(expression));
+        if (return_expr_tree == NULL) {
+            return EXPR_OUT_OF_MEM;
+        }
+        return_expr_tree->type = EXPR_NUMBER;
+        return_expr_tree->number = 0;
+        // Lets store unary minus as binary minus with zero first argument.
+        // So put zero child and just go on, pretending that this zero was read
+    } else {
+        int res = read_muldiv(str, &return_expr_tree, err_pos);
+        if (res != EXPR_OK) {
+            return res;
+        }
+        str = *err_pos;
+        expr_skip_spaces(&str);
+    }
+    READ_SSMD_END_('+', '-', read_muldiv);
+}
+
+#undef READ_SSMD_END_
+#undef CREATE_TMP_EXPR_TREE_
 
 int read_expression(const char *str, expression **expr_tree, const char **err_pos) {
     if (str == NULL || expr_tree == NULL) {
@@ -403,9 +306,9 @@ int read_expression(const char *str, expression **expr_tree, const char **err_po
     }
     if (err_pos == NULL) {
         const char *tmp_err_pos;
-        return read_expr_internal(str, expr_tree, &tmp_err_pos);
+        return read_sumsub(str, expr_tree, &tmp_err_pos);
     } else {
-        return read_expr_internal(str, expr_tree, err_pos);
+        return read_sumsub(str, expr_tree, err_pos);
     }
 }
 
@@ -462,11 +365,13 @@ static int print_expr_tree_graph_internal(expression *expr_tree, FILE *fout, siz
         #error "That's a local define, it should not be defined"
     #endif
     #define PRINT_(fmt, node_num, node_val) \
-        if (fprintf(fout, fmt, node_num, node_val) < 0) { \
-            printf("ATTENTION\n"); \
-            fclose(fout); \
-            return 1; \
-        }
+        do { \
+            if (fprintf(fout, fmt, node_num, node_val) < 0) { \
+                printf("ATTENTION\n"); \
+                fclose(fout); \
+                return 1; \
+            } \
+        } while (0)
 
     // node_number will change, but we will need it's current value
     size_t saved_node_number = *node_number;
@@ -481,38 +386,40 @@ static int print_expr_tree_graph_internal(expression *expr_tree, FILE *fout, siz
         #error "That's a local define, it should not be defined"
     #endif
     #define PRINT_TREE_(part_of_fmt, style_str, node_val) \
-        PRINT_(part_of_fmt ";\r\n", saved_node_number, node_val) \
-        PRINT_("\t" part_of_fmt style_str "\r\n", saved_node_number, node_val) \
-        for (size_t i = 0; i < sizeof(expr_tree->children) / sizeof(expr_tree->children[0]); i++) { \
-            if (expr_tree->children[i] != NULL) { \
-                PRINT_("\t" part_of_fmt "->", saved_node_number, node_val) \
-                print_expr_tree_graph_internal(expr_tree->children[i], fout, node_number); \
+        do { \
+            PRINT_(part_of_fmt ";\r\n", saved_node_number, node_val); \
+            PRINT_("\t" part_of_fmt style_str "\r\n", saved_node_number, node_val); \
+            for (size_t i = 0; i < sizeof(expr_tree->children) / sizeof(expr_tree->children[0]); i++) { \
+                if (expr_tree->children[i] != NULL) { \
+                    PRINT_("\t" part_of_fmt "->", saved_node_number, node_val); \
+                    print_expr_tree_graph_internal(expr_tree->children[i], fout, node_number); \
+                } \
             } \
-        }
+        } while (0)
 
     switch(expr_tree->type) {
     case EXPR_NUMBER:
-        PRINT_TREE_("\"node %I64d:\n%lf\"", "[style=\"filled\",fillcolor=\"yellow\"]", expr_tree->number)
+        PRINT_TREE_("\"node %I64d:\n%lf\"", "[style=\"filled\",fillcolor=\"yellow\"]", expr_tree->number);
         break;
     case EXPR_VARIABLE:
-        PRINT_TREE_("\"node %I64d:\n%c\"", "[style=\"filled\",fillcolor=\"lightblue\"]", expr_tree->variable)
+        PRINT_TREE_("\"node %I64d:\n%c\"", "[style=\"filled\",fillcolor=\"lightblue\"]", expr_tree->variable);
         break;
     case EXPR_OPERATION:
         if (expr_tree->operation == 's') {
-            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "sin")
+            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "sin");
         } else if (expr_tree->operation == 'c') {
-            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "cos")
+            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "cos");
         } else if (expr_tree->operation == 'l') {
-            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "ln")
+            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "ln");
         } else if (expr_tree->operation == '+' || expr_tree->operation == '-' || expr_tree->operation == '*' ||
                    expr_tree->operation == '/' || expr_tree->operation == '^') {
-            PRINT_TREE_("\"node %I64d:\n%c\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", expr_tree->operation)
+            PRINT_TREE_("\"node %I64d:\n%c\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", expr_tree->operation);
         } else {
-            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "??")
+            PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"lightgreen\"]", "??");
         }
         break;
     default:
-        PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"red\"]", "??")
+        PRINT_TREE_("\"node %I64d:\n%s\"", "[style=\"filled\",fillcolor=\"red\"]", "??");
     }
 
     return 0;
@@ -575,138 +482,143 @@ static int print_expr_formula_internal(expression *expr_tree, FILE *fout) {
         #error "That's a local define, it should not be defined"
     #endif
     #define CHECK_RETURN_(check) \
-        if (check) { \
-            return 1; \
-        }
+        do { \
+            if (check) { \
+                return 1; \
+            } \
+        } while (0)
 
     #ifdef PRINT_CHILD_
         #error "That's a local define, it should not be defined"
     #endif
     #define PRINT_CHILD_(idx) \
-        if (expr_tree->children[idx] == NULL) { \
-            CHECK_RETURN_(fprintf(fout, "NOARG") < 0) \
-        } else { \
-            CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[idx], fout) != 0) \
-        }
+        do { \
+            if (expr_tree->children[idx] == NULL) { \
+                CHECK_RETURN_(fprintf(fout, "NOARG") < 0); \
+            } else { \
+                CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[idx], fout) != 0); \
+            } \
+        } while (0)
 
     #ifdef PRINT_ADD_SUB_CHILD_IN_BRACKETS_
         #error "That's a local define, it should not be defined"
     #endif
     #define PRINT_ADD_SUB_CHILD_IN_BRACKETS_(idx) \
-        if (expr_tree->children[idx] == NULL) { \
-            CHECK_RETURN_(fprintf(fout, "NOARG") < 0) \
-        } else if (expr_tree->children[idx]->type == EXPR_OPERATION && \
-                   (expr_tree->children[idx]->operation == '+' || \
-                    expr_tree->children[idx]->operation == '-')){ \
-            CHECK_RETURN_(fprintf(fout, "(") < 0) \
-            CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[idx], fout) != 0) \
-            CHECK_RETURN_(fprintf(fout, ")") < 0) \
-        } else { \
-            CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[idx], fout) != 0) \
-        }
-
+        do { \
+            if (expr_tree->children[idx] == NULL) { \
+                CHECK_RETURN_(fprintf(fout, "NOARG") < 0); \
+            } else if (expr_tree->children[idx]->type == EXPR_OPERATION && \
+                       (expr_tree->children[idx]->operation == '+' || \
+                        expr_tree->children[idx]->operation == '-')){ \
+                CHECK_RETURN_(fprintf(fout, "(") < 0); \
+                CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[idx], fout) != 0); \
+                CHECK_RETURN_(fprintf(fout, ")") < 0); \
+            } else { \
+                CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[idx], fout) != 0); \
+            } \
+        } while (0)
 
     switch(expr_tree->type) {
     case EXPR_NUMBER:
         if (expr_tree->number < 0) {
-            CHECK_RETURN_(fprintf(fout, "(%lf)", expr_tree->number) < 0)
+            CHECK_RETURN_(fprintf(fout, "(%lf)", expr_tree->number) < 0);
         } else {
-            CHECK_RETURN_(fprintf(fout, "%lf", expr_tree->number) < 0)
+            CHECK_RETURN_(fprintf(fout, "%lf", expr_tree->number) < 0);
         }
         return 0;
     case EXPR_VARIABLE:
-        CHECK_RETURN_(fprintf(fout, "%c", expr_tree->variable) < 0)
+        CHECK_RETURN_(fprintf(fout, "%c", expr_tree->variable) < 0);
         return 0;
     case EXPR_OPERATION:
         switch(expr_tree->operation) {
         case '+':
-            PRINT_CHILD_(0)
-            CHECK_RETURN_(fprintf(fout, " + ") < 0)
-            PRINT_CHILD_(1)
+            PRINT_CHILD_(0);
+            CHECK_RETURN_(fprintf(fout, " + ") < 0);
+            PRINT_CHILD_(1);
             return 0;
         case '-':
-            PRINT_CHILD_(0)
-            CHECK_RETURN_(fprintf(fout, " - ") < 0)
-            PRINT_ADD_SUB_CHILD_IN_BRACKETS_(1)
+            PRINT_CHILD_(0);
+            CHECK_RETURN_(fprintf(fout, " - ") < 0);
+            PRINT_ADD_SUB_CHILD_IN_BRACKETS_(1);
             return 0;
         case '*':
-            PRINT_ADD_SUB_CHILD_IN_BRACKETS_(0)
-            CHECK_RETURN_(fprintf(fout, " \\cdot ") < 0)
-            PRINT_ADD_SUB_CHILD_IN_BRACKETS_(1)
+            PRINT_ADD_SUB_CHILD_IN_BRACKETS_(0);
+            CHECK_RETURN_(fprintf(fout, " \\cdot ") < 0);
+            PRINT_ADD_SUB_CHILD_IN_BRACKETS_(1);
             return 0;
         case '/':
-            CHECK_RETURN_(fprintf(fout, "\\frac{") < 0)
-            PRINT_CHILD_(0)
-            CHECK_RETURN_(fprintf(fout, "}{") < 0)
-            PRINT_CHILD_(1)
-            CHECK_RETURN_(fprintf(fout, "}") < 0)
+            CHECK_RETURN_(fprintf(fout, "\\frac{") < 0);
+            PRINT_CHILD_(0);
+            CHECK_RETURN_(fprintf(fout, "}{") < 0);
+            PRINT_CHILD_(1);
+            CHECK_RETURN_(fprintf(fout, "}") < 0);
             return 0;
         case '^':
             if (expr_tree->children[0] == NULL) {
-                CHECK_RETURN_(fprintf(fout, "NOARG") < 0)
+                CHECK_RETURN_(fprintf(fout, "NOARG") < 0);
             } else if (expr_tree->children[0]->type == EXPR_OPERATION) {
                 #ifdef FUNC_POWER_PRINT_
                     #error "That's a local define, it should not be defined"
                 #endif
                 #define FUNC_POWER_PRINT_(func) \
-                    CHECK_RETURN_(fprintf(fout, func "^{") < 0) \
-                    PRINT_CHILD_(1) \
-                    CHECK_RETURN_(fprintf(fout, "}(") < 0) \
+                    CHECK_RETURN_(fprintf(fout, func "^{") < 0); \
+                    PRINT_CHILD_(1); \
+                    CHECK_RETURN_(fprintf(fout, "}(") < 0); \
                     if (expr_tree->children[0]->children[1] == NULL) { \
-                        CHECK_RETURN_(fprintf(fout, "NOARG") < 0) \
+                        CHECK_RETURN_(fprintf(fout, "NOARG") < 0); \
                     } else { \
-                        CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[0]->children[1], fout) != 0) \
+                        CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[0]->children[1], fout) != 0); \
                     } \
                     CHECK_RETURN_(fprintf(fout, ")") < 0) \
 
                 if (expr_tree->children[0]->operation == 's') {
-                    FUNC_POWER_PRINT_("sin")
+                    FUNC_POWER_PRINT_("sin");
                     return 0;
                 } else if (expr_tree->children[0]->operation == 'c') {
-                    FUNC_POWER_PRINT_("cos")
+                    FUNC_POWER_PRINT_("cos");
                     return 0;
                 } else if (expr_tree->children[0]->operation == 'l') {
-                    FUNC_POWER_PRINT_("ln")
+                    FUNC_POWER_PRINT_("ln");
                     return 0;
                 } else {
-                    CHECK_RETURN_(fprintf(fout, "(") < 0)
-                    CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[0], fout) != 0)
-                    CHECK_RETURN_(fprintf(fout, ")") < 0)
+                    CHECK_RETURN_(fprintf(fout, "(") < 0);
+                    CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[0], fout) != 0);
+                    CHECK_RETURN_(fprintf(fout, ")") < 0);
                 }
                 #undef FUNC_POWER_PRINT_
             } else {
-                CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[0], fout) != 0)
+                CHECK_RETURN_(print_expr_formula_internal(expr_tree->children[0], fout) != 0);
             }
             // If we are here, only first argument is printed
-            CHECK_RETURN_(fprintf(fout, "^{") < 0)
-            PRINT_CHILD_(1)
-            CHECK_RETURN_(fprintf(fout, "}") < 0)
+            CHECK_RETURN_(fprintf(fout, "^{") < 0);
+            PRINT_CHILD_(1);
+            CHECK_RETURN_(fprintf(fout, "}") < 0);
             return 0;
 
         #ifdef FUNC_PRINT_
             #error "That's a local define, it should not be defined"
         #endif
         #define FUNC_PRINT_(func) \
-            CHECK_RETURN_(fprintf(fout, func "(") < 0) \
-            PRINT_CHILD_(1) \
+            CHECK_RETURN_(fprintf(fout, func "(") < 0); \
+            PRINT_CHILD_(1); \
             CHECK_RETURN_(fprintf(fout, ")") < 0)
         case 's':
-            FUNC_PRINT_("sin")
+            FUNC_PRINT_("sin");
             return 0;
         case 'c':
-            FUNC_PRINT_("cos")
+            FUNC_PRINT_("cos");
             return 0;
         case 'l':
-            FUNC_PRINT_("ln")
+            FUNC_PRINT_("ln");
             return 0;
         #undef FUNC_PRINT_
         default:
-            CHECK_RETURN_(fprintf(fout, "UNKNOWN") < 0)
+            CHECK_RETURN_(fprintf(fout, "UNKNOWN") < 0);
             return 0;
         }
         assert(!"should not be here");
     default:
-        CHECK_RETURN_(fprintf(fout, "UNKNOWN") < 0)
+        CHECK_RETURN_(fprintf(fout, "UNKNOWN") < 0);
         return 0;
     }
     assert(!"should not be here");
@@ -795,11 +707,13 @@ expression *simplify_expression(expression *expr_tree, double eps) {
             #error "That's a local define, it should not be defined"
         #endif
         #define SIMPLIFY_TWO_ARGS_ \
-            expr_tree->children[0] = simplify_expression(expr_tree->children[0], eps); \
-            expr_tree->children[1] = simplify_expression(expr_tree->children[1], eps); \
-            if (expr_tree->children[0] == NULL || expr_tree->children[1] == NULL) { \
-                return expr_tree; \
-            }
+            do { \
+                expr_tree->children[0] = simplify_expression(expr_tree->children[0], eps); \
+                expr_tree->children[1] = simplify_expression(expr_tree->children[1], eps); \
+                if (expr_tree->children[0] == NULL || expr_tree->children[1] == NULL) { \
+                    return expr_tree; \
+                } \
+            } while (0)
         #ifdef RETURN_CHILD_
             #error "That's a local define, it should not be defined"
         #endif
@@ -807,90 +721,90 @@ expression *simplify_expression(expression *expr_tree, double eps) {
             expression *return_tree = expr_tree->children[idx]; \
             expr_tree->children[idx] = NULL; \
             destruct_expression(expr_tree); \
-            return return_tree;
+            return return_tree
         switch (expr_tree->operation) {
         case '+':
-            SIMPLIFY_TWO_ARGS_
+            SIMPLIFY_TWO_ARGS_;
             if (expr_tree->children[0]->type == EXPR_NUMBER) {
                 if (expr_tree->children[1]->type == EXPR_NUMBER) {
                     expr_tree->children[1]->number += expr_tree->children[0]->number;
-                    RETURN_CHILD_(1)
+                    RETURN_CHILD_(1);
                 }
                 if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
-                    RETURN_CHILD_(1)
+                    RETURN_CHILD_(1);
                 }
             } else if (expr_tree->children[1]->type == EXPR_NUMBER && comp_eps(expr_tree->children[1]->number, 0, eps)) {
-                RETURN_CHILD_(0)
+                RETURN_CHILD_(0);
             }
             return expr_tree;
         case '-':
-            SIMPLIFY_TWO_ARGS_
+            SIMPLIFY_TWO_ARGS_;
             if (expr_tree->children[1]->type == EXPR_NUMBER) {
                 if (expr_tree->children[0]->type == EXPR_NUMBER) {
                     expr_tree->children[0]->number -= expr_tree->children[1]->number;
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
                 if (comp_eps(expr_tree->children[1]->number, 0, eps)) {
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
             }
             return expr_tree;
         case '*':
-            SIMPLIFY_TWO_ARGS_
+            SIMPLIFY_TWO_ARGS_;
             if (expr_tree->children[0]->type == EXPR_NUMBER) {
                 if (expr_tree->children[1]->type == EXPR_NUMBER) {
                     expr_tree->children[1]->number *= expr_tree->children[0]->number;
-                    RETURN_CHILD_(1)
+                    RETURN_CHILD_(1);
                 }
                 if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
                 if (comp_eps(expr_tree->children[0]->number, 1, eps)) {
-                    RETURN_CHILD_(1)
+                    RETURN_CHILD_(1);
                 }
             } else if (expr_tree->children[1]->type == EXPR_NUMBER) {
                 if (comp_eps(expr_tree->children[1]->number, 0, eps)) {
-                    RETURN_CHILD_(1)
+                    RETURN_CHILD_(1);
                 }
                 if (comp_eps(expr_tree->children[1]->number, 1, eps)) {
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
             }
             return expr_tree;
         case '/':
-            SIMPLIFY_TWO_ARGS_
+            SIMPLIFY_TWO_ARGS_;
             if (expr_tree->children[1]->type == EXPR_NUMBER) {
                 if (expr_tree->children[0]->type == EXPR_NUMBER) {
                     expr_tree->children[0]->number /= expr_tree->children[1]->number;
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
                 if (comp_eps(expr_tree->children[1]->number, 1, eps)) {
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
             } else if (expr_tree->children[0]->type == EXPR_NUMBER && comp_eps(expr_tree->children[0]->number, 0, eps)) {
-                RETURN_CHILD_(0)
+                RETURN_CHILD_(0);
             }
             return expr_tree;
         case '^':
-            SIMPLIFY_TWO_ARGS_
+            SIMPLIFY_TWO_ARGS_;
             if (expr_tree->children[0]->type == EXPR_NUMBER) {
                 if (expr_tree->children[1]->type == EXPR_NUMBER) {
                     expr_tree->children[0]->number = pow(expr_tree->children[0]->number, expr_tree->children[1]->number);
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
                 if (comp_eps(expr_tree->children[0]->number, 0, eps)) {
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
                 if (comp_eps(expr_tree->children[0]->number, 1, eps)) {
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
             } else if (expr_tree->children[1]->type == EXPR_NUMBER) {
                 if (comp_eps(expr_tree->children[1]->number, 0, eps)) {
                     expr_tree->children[1]->number = 1;
-                    RETURN_CHILD_(1)
+                    RETURN_CHILD_(1);
                 }
                 if (comp_eps(expr_tree->children[1]->number, 1, eps)) {
-                    RETURN_CHILD_(0)
+                    RETURN_CHILD_(0);
                 }
             }
             return expr_tree;
@@ -898,22 +812,24 @@ expression *simplify_expression(expression *expr_tree, double eps) {
             #error "That's a local define, it should not be defined"
         #endif
         #define FUNC_SIMP_(func) \
-            expr_tree->children[1] = simplify_expression(expr_tree->children[1], eps); \
-            if (expr_tree->children[1] == NULL) { \
-                return expr_tree; \
-            } \
-            if (expr_tree->children[1]->type == EXPR_NUMBER) { \
-                expr_tree->children[1]->number = func (expr_tree->children[1]->number); \
-                RETURN_CHILD_(1) \
-            }
+            do { \
+                expr_tree->children[1] = simplify_expression(expr_tree->children[1], eps); \
+                if (expr_tree->children[1] == NULL) { \
+                    return expr_tree; \
+                } \
+                if (expr_tree->children[1]->type == EXPR_NUMBER) { \
+                    expr_tree->children[1]->number = func (expr_tree->children[1]->number); \
+                    RETURN_CHILD_(1); \
+                } \
+            } while (0)
         case 's':
-            FUNC_SIMP_(sin)
+            FUNC_SIMP_(sin);
             return expr_tree;
         case 'c':
-            FUNC_SIMP_(cos)
+            FUNC_SIMP_(cos);
             return expr_tree;
         case 'l':
-            FUNC_SIMP_(log)
+            FUNC_SIMP_(log);
             return expr_tree;
         #undef FUNC_SIMP_
         default:
@@ -945,7 +861,7 @@ expression *differentiate_expression(expression *expr_tree, char diff_var) {
             return (expression *) 1; \
         } \
         new_node_ptr->type = EXPR_NUMBER; \
-        new_node_ptr->number = num;
+        new_node_ptr->number = num
 
     #ifdef MAKE_OP_NODE_
         #error "That's a local define, it should not be defined"
@@ -957,38 +873,42 @@ expression *differentiate_expression(expression *expr_tree, char diff_var) {
             return (expression *) 1; \
         } \
         new_node_ptr->type = EXPR_OPERATION; \
-        new_node_ptr->operation = op;
+        new_node_ptr->operation = op
 
     #ifdef MAKE_COPY_NODE_
         #error "That's a local define, it should not be defined"
     #endif
     #define MAKE_COPY_NODE_(new_node_ptr, old_node_ptr) \
-        new_node_ptr = copy_expression(old_node_ptr); \
-        if (new_node_ptr == (expression *) 1) { \
-            new_node_ptr = NULL; \
-            destruct_expression(result_tree); \
-            return (expression *) 1; \
-        }
+        do { \
+            new_node_ptr = copy_expression(old_node_ptr); \
+            if (new_node_ptr == (expression *) 1) { \
+                new_node_ptr = NULL; \
+                destruct_expression(result_tree); \
+                return (expression *) 1; \
+            } \
+        } while (0)
 
     #ifdef MAKE_DIFF_NODE_
         #error "That's a local define, it should not be defined"
     #endif
     #define MAKE_DIFF_NODE_(new_node_ptr, old_node_ptr) \
-        new_node_ptr = differentiate_expression(old_node_ptr, diff_var); \
-        if (new_node_ptr == (expression *) 1) { \
-            new_node_ptr = NULL; \
-            destruct_expression(result_tree); \
-            return (expression *) 1; \
-        }
+        do { \
+            new_node_ptr = differentiate_expression(old_node_ptr, diff_var); \
+            if (new_node_ptr == (expression *) 1) { \
+                new_node_ptr = NULL; \
+                destruct_expression(result_tree); \
+                return (expression *) 1; \
+            } \
+        } while (0)
     switch(expr_tree->type) {
     case EXPR_NUMBER:
-        MAKE_NUM_NODE_(result_tree, 0)
+        MAKE_NUM_NODE_(result_tree, 0);
         return result_tree;
     case EXPR_VARIABLE:
         if (expr_tree->variable == diff_var) {
-            MAKE_NUM_NODE_(result_tree, 1)
+            MAKE_NUM_NODE_(result_tree, 1);
         } else {
-            MAKE_NUM_NODE_(result_tree, 0)
+            MAKE_NUM_NODE_(result_tree, 0);
         }
         return result_tree;
     case EXPR_OPERATION:
@@ -996,89 +916,89 @@ expression *differentiate_expression(expression *expr_tree, char diff_var) {
             switch (expr_tree->operation) {
             case '+':
             case '-':
-                MAKE_OP_NODE_(result_tree, expr_tree->operation)
-                MAKE_DIFF_NODE_(result_tree->children[0], expr_tree->children[0])
-                MAKE_DIFF_NODE_(result_tree->children[1], expr_tree->children[1])
+                MAKE_OP_NODE_(result_tree, expr_tree->operation);
+                MAKE_DIFF_NODE_(result_tree->children[0], expr_tree->children[0]);
+                MAKE_DIFF_NODE_(result_tree->children[1], expr_tree->children[1]);
                 return result_tree;
             case '*':
                 // d(L * R) = (dL * R) + (L * dR)
-                MAKE_OP_NODE_  (result_tree, '+')
+                MAKE_OP_NODE_  (result_tree, '+');
 
-                MAKE_OP_NODE_  (result_tree->children[0], '*')
-                MAKE_DIFF_NODE_(result_tree->children[0]->children[0], expr_tree->children[0]) // dL
-                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1]) // R
+                MAKE_OP_NODE_  (result_tree->children[0], '*');
+                MAKE_DIFF_NODE_(result_tree->children[0]->children[0], expr_tree->children[0]); // dL
+                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1]); // R
 
-                MAKE_OP_NODE_  (result_tree->children[1], '*')
-                MAKE_COPY_NODE_(result_tree->children[1]->children[0], expr_tree->children[0]) // L
-                MAKE_DIFF_NODE_(result_tree->children[1]->children[1], expr_tree->children[1]) // dR
+                MAKE_OP_NODE_  (result_tree->children[1], '*');
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0], expr_tree->children[0]); // L
+                MAKE_DIFF_NODE_(result_tree->children[1]->children[1], expr_tree->children[1]); // dR
 
                 return result_tree;
             case '/':
                 // d(L / R) = ( (dL * R) - (L * dR) ) / (R * R)
-                MAKE_OP_NODE_  (result_tree, '/')
+                MAKE_OP_NODE_  (result_tree, '/');
 
-                MAKE_OP_NODE_  (result_tree->children[0], '-')
-                MAKE_OP_NODE_  (result_tree->children[0]->children[0], '*')
-                MAKE_DIFF_NODE_(result_tree->children[0]->children[0]->children[0], expr_tree->children[0]) // dL
-                MAKE_COPY_NODE_(result_tree->children[0]->children[0]->children[1], expr_tree->children[1]) // R
-                MAKE_OP_NODE_  (result_tree->children[0]->children[1], '*')
-                MAKE_COPY_NODE_(result_tree->children[0]->children[1]->children[0], expr_tree->children[0]) // L
-                MAKE_DIFF_NODE_(result_tree->children[0]->children[1]->children[1], expr_tree->children[1]) // dR
+                MAKE_OP_NODE_  (result_tree->children[0], '-');
+                MAKE_OP_NODE_  (result_tree->children[0]->children[0], '*');
+                MAKE_DIFF_NODE_(result_tree->children[0]->children[0]->children[0], expr_tree->children[0]); // dL
+                MAKE_COPY_NODE_(result_tree->children[0]->children[0]->children[1], expr_tree->children[1]); // R
+                MAKE_OP_NODE_  (result_tree->children[0]->children[1], '*');
+                MAKE_COPY_NODE_(result_tree->children[0]->children[1]->children[0], expr_tree->children[0]); // L
+                MAKE_DIFF_NODE_(result_tree->children[0]->children[1]->children[1], expr_tree->children[1]); // dR
 
-                MAKE_OP_NODE_  (result_tree->children[1], '*')
-                MAKE_COPY_NODE_(result_tree->children[1]->children[0], expr_tree->children[1]) // R
-                MAKE_COPY_NODE_(result_tree->children[1]->children[1], expr_tree->children[1]) // R
+                MAKE_OP_NODE_  (result_tree->children[1], '*');
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0], expr_tree->children[1]); // R
+                MAKE_COPY_NODE_(result_tree->children[1]->children[1], expr_tree->children[1]); // R
 
                 return result_tree;
             case '^':
                 // d(L^R) = L^R * ( (dL) / L * R + (dR) * ln(L) )
-                MAKE_OP_NODE_  (result_tree, '*')
+                MAKE_OP_NODE_  (result_tree, '*');
 
-                MAKE_OP_NODE_  (result_tree->children[0], '^')
-                MAKE_COPY_NODE_(result_tree->children[0]->children[0], expr_tree->children[0])
-                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1])
+                MAKE_OP_NODE_  (result_tree->children[0], '^');
+                MAKE_COPY_NODE_(result_tree->children[0]->children[0], expr_tree->children[0]);
+                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1]);
 
-                MAKE_OP_NODE_  (result_tree->children[1], '+')
+                MAKE_OP_NODE_  (result_tree->children[1], '+');
 
-                MAKE_OP_NODE_  (result_tree->children[1]->children[0], '*')
-                MAKE_OP_NODE_  (result_tree->children[1]->children[0]->children[0], '/')
-                MAKE_DIFF_NODE_(result_tree->children[1]->children[0]->children[0]->children[0], expr_tree->children[0])
-                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[0]->children[1], expr_tree->children[0])
-                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[1], expr_tree->children[1])
+                MAKE_OP_NODE_  (result_tree->children[1]->children[0], '*');
+                MAKE_OP_NODE_  (result_tree->children[1]->children[0]->children[0], '/');
+                MAKE_DIFF_NODE_(result_tree->children[1]->children[0]->children[0]->children[0], expr_tree->children[0]);
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[0]->children[1], expr_tree->children[0]);
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[1], expr_tree->children[1]);
 
-                MAKE_OP_NODE_  (result_tree->children[1]->children[1], '*')
-                MAKE_DIFF_NODE_(result_tree->children[1]->children[1]->children[0], expr_tree->children[1])
-                MAKE_OP_NODE_  (result_tree->children[1]->children[1]->children[1], 'l')
-                MAKE_COPY_NODE_(result_tree->children[1]->children[1]->children[1]->children[1], expr_tree->children[0])
+                MAKE_OP_NODE_  (result_tree->children[1]->children[1], '*');
+                MAKE_DIFF_NODE_(result_tree->children[1]->children[1]->children[0], expr_tree->children[1]);
+                MAKE_OP_NODE_  (result_tree->children[1]->children[1]->children[1], 'l');
+                MAKE_COPY_NODE_(result_tree->children[1]->children[1]->children[1]->children[1], expr_tree->children[0]);
 
                 return result_tree;
             case 's':
                 // d sin(R) = cos(R) * dR
-                MAKE_OP_NODE_  (result_tree, '*')
+                MAKE_OP_NODE_  (result_tree, '*');
 
-                MAKE_OP_NODE_  (result_tree->children[0], 'c')
-                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1])
+                MAKE_OP_NODE_  (result_tree->children[0], 'c');
+                MAKE_COPY_NODE_(result_tree->children[0]->children[1], expr_tree->children[1]);
 
-                MAKE_DIFF_NODE_(result_tree->children[1], expr_tree->children[1])
+                MAKE_DIFF_NODE_(result_tree->children[1], expr_tree->children[1]);
 
                 return result_tree;
             case 'c':
                 // d cos(R) = -sin(R) * dR
-                MAKE_OP_NODE_  (result_tree, '-')
-                MAKE_NUM_NODE_ (result_tree->children[0], 0)
-                MAKE_OP_NODE_  (result_tree->children[1], '*')
+                MAKE_OP_NODE_  (result_tree, '-');
+                MAKE_NUM_NODE_ (result_tree->children[0], 0);
+                MAKE_OP_NODE_  (result_tree->children[1], '*');
 
-                MAKE_OP_NODE_  (result_tree->children[1]->children[0], 's')
-                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[1], expr_tree->children[1])
+                MAKE_OP_NODE_  (result_tree->children[1]->children[0], 's');
+                MAKE_COPY_NODE_(result_tree->children[1]->children[0]->children[1], expr_tree->children[1]);
 
-                MAKE_DIFF_NODE_(result_tree->children[1]->children[1], expr_tree->children[1])
+                MAKE_DIFF_NODE_(result_tree->children[1]->children[1], expr_tree->children[1]);
 
                 return result_tree;
             case 'l':
                 // d ln(R) = (dR) / R
-                MAKE_OP_NODE_  (result_tree, '/')
-                MAKE_DIFF_NODE_(result_tree->children[0], expr_tree->children[1])
-                MAKE_COPY_NODE_(result_tree->children[1], expr_tree->children[1])
+                MAKE_OP_NODE_  (result_tree, '/');
+                MAKE_DIFF_NODE_(result_tree->children[0], expr_tree->children[1]);
+                MAKE_COPY_NODE_(result_tree->children[1], expr_tree->children[1]);
 
                 return result_tree;
             default:
