@@ -13,10 +13,10 @@ start:
           mov bx, 9 * 4
 
           cli
-          mov ax, es:[bx]
-          mov word ptr old_09, ax
-          mov ax, es:[bx+2]
-          mov word ptr old_09+2, ax
+          mov ax, word ptr es:[bx]
+          mov old_09, ax
+          mov ax, word ptr es:[bx+2]
+          mov old_09+2, ax
           
           mov es:[bx], offset new_09
           mov ax, cs
@@ -25,10 +25,16 @@ start:
 
           mov ax, 0
           mov dl, '!'
-          mov ah, 06h 
+          mov ah, 06h
+
+          mov ax, 3100h
+          mov dx, offset end_of_program
+          shr dx, 4
+          inc dx
+;          int 21h
+ 
 .forever_cycle:
           inc al
-;          int 21h 
           jmp .forever_cycle
 
 new_09:   
@@ -96,7 +102,8 @@ new_09:
           pop si
           pop di
 
-          iret
+          db 0eah   ; jmp far command code
+old_09 dw 0, 0      ; address where to jump
           endp
 
 ;------------------------------------------------------------
@@ -373,6 +380,5 @@ frame_pattern2 dw 35, 17, 20, 3
               db '\', 020h, 020h, 020h, '/'
               db 020h, '\', '-', '/', 020h
 
-old_09 dw 0, 0
-
+end_of_program:
 end start
