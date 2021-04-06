@@ -13,19 +13,15 @@ start:
           mov bx, 9 * 4
 
           cli
-          mov ax, word ptr es:[bx]
-          mov old_09, ax
-          mov ax, word ptr es:[bx+2]
-          mov old_09+2, ax
+          mov ax, es:[bx]
+          mov word ptr old_09, ax
+          mov ax, es:[bx+2]
+          mov word ptr old_09+2, ax
           
           mov es:[bx], offset new_09
           mov ax, cs
           mov es:[bx+2], ax
           sti
-
-          mov ax, 0
-          mov dl, '!'
-          mov ah, 06h
 
           mov ax, 3100h
           mov dx, offset end_of_program
@@ -37,7 +33,8 @@ start:
           inc al
           jmp .forever_cycle
 
-new_09:   
+new_09    proc
+
           push di
           push si
           push dx
@@ -103,13 +100,14 @@ new_09:
           pop di
 
           db 0eah   ; jmp far command code
-old_09 dw 0, 0      ; address where to jump
-          endp
+old_09 dd 0         ; address where to jump
+new_09    endp
+
 
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 
-print_number:
+print_number   proc
 ; Print a number in binary (base 2), octal (base 8) or
 ; hexadecimal (base 16) notation to screen.
 ; Arguments of the function:
@@ -211,10 +209,12 @@ print_number:
           pop si
           ret
 
+print_number   endp
+
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 
-print_frame:
+print_frame    proc
 ; Arguments of the function:
 ; dh -- color
 ; bx -- pointer to the frame pattern
@@ -315,10 +315,12 @@ print_frame:
           pop di
           ret
 
+print_frame    endp
+
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 
-print_frame_line:
+print_frame_line    proc
 ; Arguments of the function:
 ; es -- screen sector
 ; di -- begin position
@@ -361,6 +363,8 @@ print_frame_line:
 
           ret
            
+print_frame_line    endp
+
 
 msg db 'Hello mew ^_^$'
 
