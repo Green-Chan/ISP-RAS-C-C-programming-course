@@ -35,12 +35,16 @@ start:
 
 new_09    proc
 
+          push es
           push di
           push si
           push dx
           push cx
           push bx
           push ax
+
+          mov ax, 0b800h
+          mov es, ax
 
           mov dh, 72h
           mov bx, offset frame_pattern
@@ -98,6 +102,7 @@ new_09    proc
           pop dx
           pop si
           pop di
+          pop es
 
           db 0eah   ; jmp far command code
 old_09 dd 0         ; address where to jump
@@ -216,6 +221,7 @@ print_number   endp
 
 print_frame    proc
 ; Arguments of the function:
+; es -- screen sector
 ; dh -- color
 ; bx -- pointer to the frame pattern
 ;     Frame pattern structure:
@@ -238,14 +244,13 @@ print_frame    proc
 
 ; ax, bx, cx, dx -- caller-saved registers
 ; di, si -- callee-saved registers
+; es stay the same
 
           ; save callee-saved registers
           push di
           push si
 
           ; prepare argument for print_frame_line call
-          mov ax, 0b800h
-          mov es, ax
           mov dh, 72h
 
           ; calculate position to start: di := (Y*screen_width+X)*2
