@@ -35,6 +35,7 @@ start:
 
 new_09    proc
 
+          push ds
           push es
           push di
           push si
@@ -42,6 +43,9 @@ new_09    proc
           push cx
           push bx
           push ax
+
+          mov ax, cs
+          mov ds, ax
 
           mov ax, 0b800h
           mov es, ax
@@ -103,6 +107,7 @@ new_09    proc
           pop si
           pop di
           pop es
+          pop ds
 
           db 0eah   ; jmp far command code
 old_09 dd 0         ; address where to jump
