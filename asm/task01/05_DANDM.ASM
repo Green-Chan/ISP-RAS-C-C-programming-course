@@ -3,7 +3,7 @@
 org 100h
 
 X            equ 5
-Y            equ 17
+Y            equ 16
 F_scan_code  equ 33
 M_scan_code  equ 50
 
@@ -118,8 +118,6 @@ new_09    endp
 
           mov dl, 'b'
           mov es:[di], dx
-          inc di
-          inc di
 
 
           mov di, ((Y+3)*80+X)*2 + 2*2
@@ -128,8 +126,6 @@ new_09    endp
 
           mov dl, 'o'
           mov es:[di], dx
-          inc di
-          inc di
 
 
           mov di, ((Y+4)*80+X)*2 + 2*2
@@ -138,8 +134,9 @@ new_09    endp
 
           mov dl, 'h'
           mov es:[di], dx
-          inc di
-          inc di
+
+          mov di, ((Y+5)*80+X)*2 + 2*2
+          call print_dec
 
 .new09_exit:
           pop ax
@@ -201,6 +198,58 @@ send_EOIs:
           mov al, 20h
           out 20h, al
 
+          ret
+
+;------------------------------------------------------------
+;------------------------------------------------------------
+print_dec:
+; Print a number in decimal notation to screen
+; es -- screen sector
+; di -- begin position (where to print)
+; dh -- color
+; ax -- number to print
+;
+; After this function work
+; -- di becomes the end position
+; -- es and dh stay the same
+; Other registers:
+; -- dl changes
+; ax, bx, cx -- caller-saved registers
+
+          cmp ax, 0
+          jne .print_dec_notzero_number
+          mov dl, '0'
+          mov es:[di], dx
+          inc di
+          inc di
+          ret
+
+.print_dec_notzero_number:
+          mov cx, 10
+          mov bh, dh
+          mov dx, 0deadh
+          push dx
+
+.bin_to_dec_loop:
+          mov dx, 0
+          div cx
+          push dx
+          cmp ax, 0
+          jne .bin_to_dec_loop
+
+.print_dec_loop:
+          pop dx
+          cmp dx, 0deadh
+          je .end_print_dec
+          add dl, '0'
+          mov dh, bh
+          mov es:[di], dx
+          inc di
+          inc di
+          jmp .print_dec_loop
+
+.end_print_dec:
+          mov dh, bh
           ret
 
 ;------------------------------------------------------------
@@ -579,7 +628,7 @@ digits db '0123456789ABCDEF'
 ;------------------------------------------------------------
 ;------------------------------------------------------------
 
-frame_pattern dw 5, 17, 20, 3
+frame_pattern dw 5, 16, 20, 4
               db 020h, 0d5h, 0cdh, 0b8h, 020h
               db 0d5h, 0beh, 020h, 0d4h, 0b8h
               db 0b3h, 020h, 020h, 020h, 0b3h
